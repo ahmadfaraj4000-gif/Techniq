@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product | Techniq Skin & Beauty</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    .product-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .product-page {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .product-image {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image img {
+      max-width: 100%;
+      max-height: 360px;
+      object-fit: contain;
+    }
+
+    .product-info h1 {
+      font-family: "Playfair Display", serif;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .best-for {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .description {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .variant-group {
+      margin-bottom: 25px;
+    }
+
+    .variant-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    select {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .add-to-cart {
+      margin-top: 20px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      border: none;
+      background: #EBBBA8;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 30px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="product-page">
+
+    <!-- IMAGE -->
+    <div class="product-image">
+      <img id="productImage" alt="Product image">
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info">
+      <a href="products.html" class="back-link">← Back to products</a>
+
+      <h1 id="productName"></h1>
+      <div class="price" id="productPrice"></div>
+
+      <div class="best-for" id="productBestFor"></div>
+
+      <p class="description" id="productDescription"></p>
+
+      <div class="variant-group">
+        <label for="variantSelect">Size</label>
+        <select id="variantSelect"></select>
+      </div>
+
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+  </main>
+
+  <script src="product.js"></script>
+</body>
+</html>

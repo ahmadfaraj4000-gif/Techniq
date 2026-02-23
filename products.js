@@ -167,7 +167,7 @@ const PRODUCTS = [
     name: "Retinol 2% Scrub",
     description:
       "A smoothing scrub formulated to help refine the feel of texture and support a polished look.",
-    image: "images/retionol-2%-scrub.png",
+    image: "images/retinol-2-scrub.png",
     skinType: ["Mature"],
     concerns: ["Aging Skin", "Texture"],
     productType: ["Exfoliant"],

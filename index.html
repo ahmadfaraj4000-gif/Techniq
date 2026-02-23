@@ -12,6 +12,78 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- ADDED: Map styles (kept separate, doesn't touch your existing styles) -->
+  <style>
+    .map-section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #ffffffb3;
+      backdrop-filter: blur(3px);
+      border-radius: 32px;
+      border: 1px solid #ede3db;
+      text-align: center;
+    }
+    .map-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #4f3f36;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+    .map-container {
+      width: 100%;
+      max-width: 550px;
+      margin: 0 auto 1.5rem;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: 1px solid #dfd3c9;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 250px;
+      display: block;
+    }
+    .address-box {
+      display: inline-block;
+      background: #9f7e6b;
+      padding: 1rem 2.5rem;
+      border-radius: 40px;
+      border: 1px solid #9f7e6b;
+      font-size: 1.2rem;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 4px 8px #e3d8d0;
+      margin-bottom: 1rem;
+    }
+    .address-label {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #8f7564;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      color: #4b3f3a;
+      font-size: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-info a {
+      color: #4b3f3a;
+      text-decoration: none;
+      border-bottom: 1px dotted #ccb9ac;
+    }
+    .contact-info a:hover {
+      color: #9f7e6b;
+      border-bottom: 1px solid #9f7e6b;
+    }
+  </style>
 </head>
 
 <body class="home">
@@ -61,6 +133,36 @@ We take a personalized approach to skincare, tailoring each treatment to your un
        
       </p>
     </section>
+    
+    <!-- ADDED: Centered, professional map section with your EXACT Google Maps link -->
+    <div class="map-section">
+      <h2 class="map-heading">Visit our studio</h2>
+      
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2979.991928600705!2d-72.5100479232798!3d41.81808137924286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x44340409f87b153f%3A0x8562da2a037d0696!2sTechniq%20Skin%20%26%20Beauty%20LLC!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Techniq Skin & Beauty LLC on map">
+        </iframe>
+      </div>
+      
+      <div class="address-label">📍 OUR LOCATION</div>
+      <div class="address-box">
+        49 Tolland Turnpike Suite 202, Vernon, CT 06066
+      </div>
+      
+      <!-- ADDED: Contact info with email and phone -->
+      <div class="contact-info">
+        <span>📧 <a href="mailto:techniqskinandbeautyllc@gmail.com">techniqskinandbeautyllc@gmail.com</a></span>
+        <span>📞 <a href="tel:8602304411">860-230-4411</a></span>
+      </div>
+      
+      <p style="margin-top: 1.5rem; color: #6b584b; font-size: 0.95rem;">
+        Convenient parking • Easy access from I-84
+      </p>
+    </div>
   </main>
 
   <footer class="footer">
@@ -69,4 +171,3 @@ We take a personalized approach to skincare, tailoring each treatment to your un
 
 </body>
 </html>
-

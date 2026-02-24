@@ -742,6 +742,175 @@ body:not(.home) .product-info {
   max-width: 100%;
   object-fit: contain;
 }
+/* ===============================
+   RAMADAN HANGING STARS - HOMEPAGE ONLY
+   =============================== */
 
+body.home .ramadan-hanging-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180px; /* Height for hanging area */
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
 
+/* Individual hanging star container */
+body.home .hanging-star {
+    position: absolute;
+    top: -20px; /* Start above the page */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: top center;
+    animation: swingStar var(--swing-duration, 4s) ease-in-out infinite;
+    animation-delay: var(--swing-delay, 0s);
+}
 
+/* The rope/string */
+body.home .star-rope {
+    width: 1px;
+    height: var(--rope-length, 60px);
+    background: linear-gradient(to bottom, 
+        rgba(235, 187, 168, 0.3), 
+        rgba(188, 192, 214, 0.2)
+    );
+    margin-bottom: 4px;
+}
+
+/* The star */
+body.home .star {
+    width: var(--star-size, 16px);
+    height: var(--star-size, 16px);
+    background: transparent;
+    position: relative;
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 8px rgba(235, 187, 168, 0.6));
+    animation: starGlow 3s ease-in-out infinite;
+}
+
+/* Create star shape using CSS */
+body.home .star::before {
+    content: "★";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--star-size, 16px);
+    color: #EBBBA8; /* Your peach color */
+    line-height: 1;
+    text-shadow: 
+        0 0 10px #EBBBA8,
+        0 0 20px rgba(188, 192, 214, 0.5);
+}
+
+/* Alternative star styles - different colors */
+body.home .star-soft::before {
+    color: #BCC0D6; /* Your lavender-gray */
+    text-shadow: 0 0 10px #BCC0D6;
+}
+
+body.home .star-warm::before {
+    color: #D2C2BF; /* Your taupe */
+    text-shadow: 0 0 10px #D2C2BF;
+}
+
+body.home .star-gold::before {
+    color: #E5CFA6; /* Your buttery color */
+    text-shadow: 0 0 10px #E5CFA6;
+}
+
+/* Swing animation */
+@keyframes swingStar {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(8deg);
+    }
+    75% {
+        transform: rotate(-8deg);
+    }
+}
+
+/* Gentle bounce for some stars */
+body.home .hanging-star.bounce {
+    animation: swingBounceStar 5s ease-in-out infinite;
+}
+
+@keyframes swingBounceStar {
+    0%, 100% {
+        transform: rotate(0deg) translateY(0);
+    }
+    25% {
+        transform: rotate(8deg) translateY(-5px);
+    }
+    50% {
+        transform: rotate(0deg) translateY(0);
+    }
+    75% {
+        transform: rotate(-8deg) translateY(-3px);
+    }
+}
+
+/* Star glow effect */
+@keyframes starGlow {
+    0%, 100% {
+        opacity: 0.7;
+        filter: drop-shadow(0 0 5px rgba(235, 187, 168, 0.4));
+    }
+    50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 15px rgba(235, 187, 168, 0.8));
+    }
+}
+
+/* Decorative crescent moon for homepage */
+body.home .ramadan-crescent {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 32px;
+    z-index: 6;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: floatCrescent 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(235, 187, 168, 0.5));
+}
+
+@keyframes floatCrescent {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-5px) rotate(5deg);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body.home .ramadan-hanging-stars {
+        height: 140px;
+    }
+    
+    body.home .star-rope {
+        height: 40px;
+    }
+    
+    body.home .star::before {
+        font-size: 14px;
+    }
+    
+    body.home .ramadan-crescent {
+        font-size: 24px;
+        left: 20px;
+    }
+}
+
+/* Ensure header content stays below stars */
+body.home .header {
+    position: relative;
+    z-index: 10;
+}

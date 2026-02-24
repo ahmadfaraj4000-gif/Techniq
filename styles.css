@@ -914,3 +914,114 @@ body.home .header {
     position: relative;
     z-index: 10;
 }
+/* ===============================
+   MOBILE RESPONSIVE FIXES
+   =============================== */
+
+@media (max-width: 768px) {
+    /* Fix header navigation */
+    .nav {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px 0;
+    }
+    
+    .nav-right {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .nav-right .btn-primary,
+    .nav-right .btn-secondary {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+    
+    /* Fix hero section */
+    .hero-content {
+        padding: 0 20px;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+    
+    /* Fix map section */
+    .map-section {
+        margin: 2rem 15px;
+        padding: 1.5rem;
+    }
+    
+    .map-heading {
+        font-size: 1.6rem;
+    }
+    
+    .address-box {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Fix contact info */
+    .contact-info {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    /* Fix footer */
+    .footer {
+        padding: 1.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .nav-right {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .nav-right .btn-primary,
+    .nav-right .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .address-box {
+        font-size: 0.9rem;
+        padding: 0.7rem 1rem;
+    }
+    
+    .map-container iframe {
+        height: 200px;
+    }
+}
+@media (max-width: 600px) {
+    .nav {
+        flex-direction: column;
+    }
+    
+    .nav-right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+    
+    .nav-right a {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}

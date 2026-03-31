@@ -212,6 +212,29 @@ const state = {
   },
 };
 
+/** ====== ALT TEXT (descriptive + locally relevant to Manchester/Vernon, CT) ====== */
+const ALT_TEXT = {
+  "barrier-balancing-moisturizer":   "Barrier Balancing Moisturizer Manchester CT",
+  "blemish-spot-treatment":          "Blemish Spot Treatment Vernon CT",
+  "charcoal-clay-cleanser":          "Charcoal Clay Cleanser Manchester CT",
+  "clarifying-toner-pads":           "Clarifying Toner Pads Vernon CT",
+  "cucumber-hydrating-tonerr":       "Cucumber Hydrating Toner Manchester CT",
+  "glycolic-and-retinol-pads":       "Glycolic and Retinol Pads Vernon CT",
+  "green-tea-citrus-cleanser":       "Green Tea Citrus Cleanser Manchester CT",
+  "honey-brightening-cleanser":      "Honey Brightening Cleanser Vernon CT",
+  "hydrating-moisturizer":           "Hydrating Moisturizer Manchester CT",
+  "mandelic-brightening-serum":      "Mandelic Brightening Serum Vernon CT",
+  "mint-refining-toner":             "Mint Refining Toner Manchester CT",
+  "pomegranate-antioxidant-cleanser":"Pomegranate Antioxidant Cleanser Vernon CT",
+  "retinol-2-scrub":                 "Retinol 2% Scrub Manchester CT",
+  "revitalizing-cucumber-treatment": "Revitalizing Cucumber Treatment Vernon CT",
+  "vita-c-green-tea-serum":          "Vita C Green Tea Serum Manchester CT",
+};
+
+function getAltText(id) {
+  return ALT_TEXT[id] || null;
+}
+
 /** ====== DOM ====== */
 const gridEl = document.getElementById("productsGrid");
 const countEl = document.getElementById("resultCount");
@@ -320,7 +343,7 @@ function render() {
     if (p.image) {
       const img = document.createElement("img");
       img.src = p.image;
-      img.alt = p.name;
+      img.alt = getAltText(p.id) || p.name;
       img.loading = "lazy";
       imgArea.appendChild(img);
     } else {

@@ -435,6 +435,14 @@
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     .hero-actions .btn-primary,
     .hero-actions .btn-secondary { padding: 0.8rem 1.8rem; font-size: 0.9rem; }
+    .hero-offer {
+      margin-top: 18px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: #9f7e6b;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
 
     .hero-right { display: flex; align-items: center; justify-content: center; }
     .hero-logo-wrap {
@@ -453,65 +461,34 @@
     }
     .hero-photo-ph svg { opacity: 0.35; }
 
-  /* ── STORY STRIP ── */
-.story-strip {
-  border-top: 1px solid rgba(0,0,0,0.07);
-  border-bottom: 1px solid rgba(0,0,0,0.07);
-  padding: 72px 32px;
-  background: rgba(255,255,255,0.55);
-  text-align: center;
-}
-
-.story-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.story-eyebrow {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: #9f7e6b;
-  margin-bottom: 14px;
-  display: block;
-}
-
-.story-label-col {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: #2f2f2f;
-  line-height: 1.2;
-  margin-bottom: 28px;
-}
-
-.story-divider {
-  width: 48px;
-  height: 1.5px;
-  background: #EBBBA8;
-  border: none;
-  margin: 0 auto 32px;
-}
-
-.story-text {
-  font-size: 15.5px;
-  line-height: 1.85;
-  color: #555;
-  font-weight: 300;
-  text-align: center;
-}
-
-.story-text p {
-  margin: 0 0 16px;
-}
-
-.story-text p:last-child {
-  margin-bottom: 0;
-}
+    /* ── STORY STRIP ── */
+    .story-strip {
+      border-top: 1px solid rgba(0,0,0,0.07);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      padding: 56px 32px;
+      background: rgba(255,255,255,0.55);
+    }
+    .story-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .story-label-col {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: #9f7e6b;
+      line-height: 1.2;
+    }
+    .story-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: #555;
+      font-weight: 300;
+    }
 
     /* ── SERVICES ── */
     .services-section {
@@ -685,7 +662,7 @@
       .footer-bottom { flex-direction: column; }
       .nav-right .btn-secondary:not(:last-child) { display: none; }
     }
-    /* ── FLOATING BOOK BUTTON ── */
+        /* ── FLOATING BOOK BUTTON ── */
     .floating-book-btn {
       position: fixed;
       bottom: 20px;
@@ -695,31 +672,23 @@
       padding: 14px 22px;
       font-size: 14px;
       font-weight: 600;
+
       border-radius: 30px;
       text-decoration: none;
 
       background: #EBBBA8;
       color: #2f2f2f;
+
       box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px) scale(0.98);
-      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.25s ease;
-    }
-
-    .floating-book-btn.show {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
+      transition: all 0.25s ease;
     }
 
     .floating-book-btn:hover {
-      transform: translateY(-2px) scale(1);
+      transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
 
-    /* MOBILE VERSION */
+    /* MOBILE VERSION (bigger + full width) */
     @media (max-width: 768px) {
       .floating-book-btn {
         left: 20px;
@@ -799,20 +768,7 @@
       color: #666;
       margin-bottom: 26px;
     }
-    /* Pulse animation */
-    @keyframes pulse {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.04); }
-      100% { transform: scale(1); }
-    }
 
-    .floating-book-btn.pulse {
-      animation: pulse 2s ease-in-out infinite;
-    }
-    .highlight {
-      font-weight: 600;
-      color: #D9A48F; /* use your gold/beige accent */
-    }
 </style>
 </head>
 
@@ -857,17 +813,16 @@
   <div class="hero-left">
     <span class="hero-eyebrow">Licensed Esthetician · Vernon &amp; Manchester, CT</span>
     <h2 class="hero-tagline">
-      Clear, glowing skin.<br><em>starts here.</em>
+      Clear glowing skin starts with consistency and I make that achievable.
     </h2>
     <p class="hero-sub">
-    My name is Shaniqua Faraj, and I help clients achieve clear, healthy skin through customized treatments designed for real life. Whether you’re maintaining your glow or targeting specific concerns, every service is tailored to keep your skin consistent, balanced, and thriving.
+      My name is Shaniqua Faraj, and I help clients achieve clear, healthy skin through customized treatments designed for real life. Whether you’re maintaining your glow or correcting concerns, every service is tailored to support consistent, thriving skin.
     </p>
     <div class="hero-actions">
       <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="btn-primary">Book Now</a>
       <a href="#services" class="btn-secondary">View Services</a>
-      
     </div>
-    
+    <p class="hero-offer">Now offering service packages + weekly Flash Friday deals</p>
   </div>
     <div class="hero-right">
     <div class="hero-logo-wrap">
@@ -876,22 +831,18 @@
         alt="Shaniqua Faraj Licensed Esthetician Vernon CT"
         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;hero-photo-ph&quot;><svg width=&quot;64&quot; height=&quot;64&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#EBBBA8&quot; stroke-width=&quot;1.2&quot;><circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;4&quot;/><path d=&quot;M4 20c0-4 3.6-7 8-7s8 3 8 7&quot;/></svg><span>Photo of Shaniqua Faraj<br>coming soon</span></div>'">
     </div>
-  
   </div>
 </section>
 
 <!-- ══ OUR STORY ══ -->
 <div class="story-strip">
   <div class="story-inner">
-    <span class="story-eyebrow">Who We Are</span>
-    <div class="story-label-col">Our Story</div>
-    <hr class="story-divider">
-    <div class="story-text">
-      <p>Techniq Skin &amp; Beauty was created with one goal in mind: 
-  <span class="highlight">real results that last</span>.</p>
-      <p>Serving clients in Vernon, CT, Manchester, Rockville, and surrounding areas, we offer customized facials, acne treatments, and advanced skincare services tailored to your unique skin using a results-driven approach.</p>
-      <p>Every appointment begins with a thoughtful consultation to understand your skin and build a plan for long-term progress, not just a quick fix. We also focus on client education, so you know exactly how to care for your skin and maintain your results at home.</p>
-    </div>
+    <div class="story-label-col">Our<br>Story</div>
+    <p class="story-text">
+      Techniq Skin &amp; Beauty was created with one goal in mind: real results that last.<br><br>
+      Located in Vernon, CT, and proudly serving clients from Vernon, Manchester, Rockville, and surrounding areas, every service is rooted in a results-driven approach tailored to your unique skin.<br><br>
+      No rushed treatments. No guesswork. Every appointment begins with a thoughtful consultation so we can understand your skin, your concerns, and your goals — and build a treatment plan that supports long-term progress, not just a quick fix.
+    </p>
   </div>
 </div>
 
@@ -904,6 +855,7 @@
     </div>
     <div class="services-grid">
       <div class="service-card">
+        <div class="service-icon">🌿</div>
         <h3>Facial Services</h3>
         <p class="service-tagline">Customized for your skin, every time.</p>
         <p>Every facial is tailored to your skin’s current needs, whether you’re maintaining your glow or targeting concerns like acne, texture, or hyperpigmentation. No two treatments are the same, because your skin isn’t.</p>
@@ -917,10 +869,10 @@
         <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="service-book-link">Book a Facial</a>
       </div>
       <div class="service-card">
+        <div class="service-icon">✨</div>
         <h3>Wax Services</h3>
-        <p class="service-tagline">Smooth skin starts here.</p>
+        <p class="service-tagline">Smooth, confident skin starts here.</p>
         <p>Professional waxing services designed to be as comfortable and effective as possible, leaving your skin smooth, clean, and irritation-free.</p>
-        <ul class="service-items">
         <ul class="service-items">
           <li><strong>Underarm Wax</strong></li>
           <li><strong>Lip &amp; Chin Wax</strong></li>
@@ -939,6 +891,7 @@
   <div class="section-header">
     <span class="section-eyebrow">Client Results</span>
     <h2 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;color:#2f2f2f;">Real Skin. Real Results. Real Confidence.</h2>
+    <p style="margin-top:12px;color:#777;line-height:1.8;font-weight:300;max-width:720px;margin-left:auto;margin-right:auto;">Consistency makes the difference. These results come from clients who stayed committed to their skin.</p>
   </div>
   <div class="gallery-grid">
     <div class="gallery-item">
@@ -967,10 +920,15 @@
 <section class="testimonials-section">
   <div class="section-header">
     <span class="section-eyebrow">Kind Words</span>
-    <h2 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;color:#2f2f2f;">Real Experiences</h2>
+    <h2 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;color:#2f2f2f;">Real experiences.</h2>
+    <p style="margin-top:12px;color:#777;line-height:1.8;font-weight:300;max-width:720px;margin-left:auto;margin-right:auto;">Healthy skin doesn’t happen in just one appointment. It starts with consistency.</p>
   </div>
   <div class="slider-wrap">
     <div class="slide active">
+      <blockquote>"Excellent wax experience for my first time and I have left satisfied every time after. Shaniqua is professional, efficient, knowledgeable and extremely sanitary."</blockquote>
+      <cite>— K.R.</cite>
+    </div>
+    <div class="slide">
       <blockquote>"It was my first experience getting a facial and Shaniqua was extremely attentive as well as knowledgeable. I left feeling more relaxed and I'm already looking forward to going back."</blockquote>
       <cite>— Monique B.</cite>
     </div>
@@ -993,11 +951,11 @@
 <section class="final-cta">
   <div class="final-cta-inner">
     <h2>Ready To Book?</h2>
-   <p>
-    Healthy skin doesn’t happen in one appointment, it starts with consistency. If you’ve been thinking about starting your skincare journey or getting back on track, this is your sign. Now accepting new clients. </p>
+    <p>
+      Healthy skin doesn’t happen in one appointment — it starts with consistency. If you’ve been thinking about starting your skincare journey or getting back on track, this is your sign. New clients are always welcome, and availability fills quickly.
     </p>
     <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="btn-primary">
-      Book Your Appointment
+      Book Your Appointment Now
     </a>
   </div>
 </section>
@@ -1015,7 +973,7 @@
     <div class="footer-col">
       <h4>Hours</h4>
       <p>Hours vary weekly.</p>
-      <p>Check the booking calendar for current availability.</p>
+      <p>Please check the booking calendar for the most up-to-date availability.</p>
       <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" style="margin-top:8px;color:#9f7e6b;">View Availability →</a>
     </div>
     <div class="footer-col">
@@ -1073,58 +1031,8 @@
     nextBtn.addEventListener('click', () => goTo(current + 1));
   }
 </script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const btn = document.querySelector(".floating-book-btn");
-  if (!btn) return;
-
-  let lastScrollY = window.scrollY;
-  let pulseStartTimer;
-  let pulseInterval;
-
-  function startPulseCycle() {
-    pulseStartTimer = setTimeout(() => {
-      triggerPulse();
-      pulseInterval = setInterval(triggerPulse, 10000);
-    }, 3000);
-  }
-
-  function triggerPulse() {
-    btn.classList.add("pulse");
-
-    // now matches 2 second animation
-    setTimeout(() => {
-      btn.classList.remove("pulse");
-    }, 2000);
-  }
-
-  function stopPulseCycle() {
-    clearTimeout(pulseStartTimer);
-    clearInterval(pulseInterval);
-    btn.classList.remove("pulse");
-  }
-
-  window.addEventListener("scroll", function () {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > lastScrollY && currentScrollY > 5) {
-      if (!btn.classList.contains("show")) {
-        btn.classList.add("show");
-        startPulseCycle();
-      }
-    } else {
-      btn.classList.remove("show");
-      stopPulseCycle();
-    }
-
-    lastScrollY = currentScrollY;
-  });
-});
-</script>
-
 <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="floating-book-btn">
-  Book Now - Limited Availability!
+  Limited Availability
 </a>
 </body>
 </html>

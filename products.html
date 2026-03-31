@@ -1,18 +1,28 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Techniq Skin & Beauty | Products</title>
-
-  <!-- Keep your existing global styles if you want -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Professional Skincare Products | Acne, Dry &amp; Sensitive Skin | Vernon CT</title>
+<meta content="Shop professional skincare products for acne, dry, sensitive, and aging skin. Curated by a licensed esthetician in Vernon, CT. Find the right routine for your skin type." name="description"/>
+<meta content="skincare products CT, acne products Vernon CT, dry skin products, sensitive skin routine, esthetician recommended skincare, facial products CT" name="keywords"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://www.techniqskinandbeauty.com/products.html" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="Professional Skincare Products | Techniq Skin &amp; Beauty" property="og:title"/>
+<meta content="Shop esthetician-curated skincare products for acne, dryness, sensitivity, and aging skin in Vernon, CT." property="og:description"/>
+<meta content="https://www.techniqskinandbeauty.com/products.html" property="og:url"/>
+<meta content="Techniq Skin &amp; Beauty" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Professional Skincare Products | Techniq Skin &amp; Beauty" name="twitter:title"/>
+<meta content="Shop professional skincare products curated by a licensed esthetician in Vernon, CT." name="twitter:description"/>
+<!-- Keep your existing global styles if you want -->
+<link href="styles.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<style>
     :root{
       --lavender-gray:#BCC0D6;
       --peach:#EBBBA8;
@@ -46,50 +56,289 @@
       min-height:100vh;
     }
 
-    /* Top bar */
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:28px 28px 10px;
-      gap:14px;
-    }
-    .brand{
-      font-family:"Playfair Display", serif;
-      font-weight:500;
-      letter-spacing:.2px;
-      font-size:26px;
-      margin:0;
-    }
-    .top-actions{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-    .pill{
-      border:0;
-      border-radius:999px;
-      padding:12px 18px;
-      background:rgba(235,187,168,.9);
-      color:var(--ink);
-      font-weight:500;
-      cursor:pointer;
-      box-shadow:0 12px 26px rgba(0,0,0,0.08);
-      transition:transform .15s ease, filter .15s ease;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-    .pill:hover{transform:translateY(-1px); filter:saturate(1.05)}
-    .pill.secondary{background:rgba(197,214,206,.9)}
+    /* ── NAV ── */
+.header {
+  padding: 1rem 2.5rem;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
 
-    .wrap{
-      padding:16px 28px 42px;
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 64px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.brand img {
+  height: 42px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+}
+
+.brand:hover {
+  background: rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+.brand,
+.brand:hover,
+.brand:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand {
+  cursor: pointer;
+}
+
+.brand:active {
+  transform: scale(0.98);
+}
+
+.nav-brand-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  color: #2f2f2f;
+  white-space: nowrap;
+}
+
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #2f2f2f;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1.5px;
+  background: #9f7e6b;
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ── HAMBURGER ── */
+.hamburger {
+  flex-shrink: 0;
+  display: none;
+  margin-left: auto;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 200;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #2f2f2f;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 150;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 32px;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #2f2f2f;
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  width: 100%;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.mobile-menu a:hover {
+  color: #9f7e6b;
+}
+
+.mobile-menu .mobile-book {
+  margin-top: 10px;
+  background: #EBBBA8;
+  border-radius: 30px;
+  padding: 14px 36px;
+  font-size: 1rem;
+  border-bottom: none;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .header {
+    padding: 0.75rem 1rem;
+  }
+
+  .nav {
+    min-height: 52px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .brand {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 52px);
+    padding: 5px 10px;
+  }
+
+  .brand img {
+    height: 34px;
+    flex-shrink: 0;
+  }
+
+  .nav-brand-text {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .nav-center {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.62rem 1.4rem;
+  border-radius: 30px;
+  font-size: 0.86rem;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #EBBBA8;
+  color: #2f2f2f;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.btn-primary:hover {
+  background: #DFAE9A;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.btn-secondary {
+  background: #C8E1CF;
+  color: #2f2f2f;
+}
+
+.btn-secondary:hover {
+  background: #BDC6D7;
+  transform: translateY(-1px);
+}
+
+.wrap{
+      padding:24px 28px 42px;
       display:grid;
       grid-template-columns: 1fr;
       gap:18px;
       position:relative;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    @media (max-width: 640px){
+      .wrap{padding:18px 16px 34px}
     }
 
     /* Products header row */
@@ -103,7 +352,14 @@
       font-size:14px;
     }
     .count{opacity:.9}
-    .clear-btn{
+    .meta-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .clear-btn,
+    .filter-inline-btn{
       border:1px solid var(--line);
       background:rgba(255,255,255,.65);
       border-radius:999px;
@@ -112,7 +368,8 @@
       font-weight:500;
       transition:transform .15s ease, background .15s ease;
     }
-    .clear-btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.85)}
+    .clear-btn:hover,
+    .filter-inline-btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.85)}
 
     /* Grid */
     .grid{
@@ -126,9 +383,11 @@
       .grid{grid-template-columns:repeat(2, minmax(0,1fr))}
     }
     @media (max-width: 640px){
-      .topbar{padding:22px 16px 10px}
-      .wrap{padding:10px 16px 34px}
       .grid{grid-template-columns:1fr}
+      .meta-row{
+        align-items:flex-start;
+        flex-direction:column;
+      }
     }
 
     .card{
@@ -300,56 +559,303 @@
       opacity:1;
       pointer-events:auto;
     }
-  </style>
+  
+
+    .shop-intro {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+    .shop-intro h2 {
+      font-family:"Playfair Display", serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin: 0 0 14px;
+      color: var(--ink);
+    }
+    .shop-intro p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-2);
+      margin: 0 0 10px;
+    }
+    .shop-note {
+      font-size: 13px;
+      color: #9f7e6b;
+      margin-bottom: 0;
+    }
+    .routine-strip {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 6px 0 2px;
+    }
+    .routine-pill {
+      display:inline-flex;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.7);
+      font-size:13px;
+      color:rgba(38,38,38,.78);
+    }
+    .consult-note {
+      font-size: 13px;
+      color: #777;
+      margin: 18px auto 0;
+      text-align: center;
+      max-width: 700px;
+    }
+    .card-cta {
+      margin-top: 12px;
+      align-self: flex-start;
+    }
+    /* ── CONSULTATION CTA ── */
+    .consultation-cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .consultation-cta p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+   /* ── FOOTER ── */
+    footer {
+      background: #fff; border-top: 1px solid rgba(0,0,0,0.07); padding: 52px 32px 36px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif; font-size: 1.05rem;
+      font-weight: 500; color: #2f2f2f; margin-bottom: 14px;
+    }
+    .footer-col p, .footer-col a {
+      font-size: 13.5px; color: #777; line-height: 1.85; text-decoration: none; display: block;
+    }
+    .footer-col a:hover { color: #9f7e6b; }
+    .footer-bottom {
+      max-width: 1100px; margin: 36px auto 0; padding-top: 22px;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      font-size: 12px; color: #bbb;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .promos-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .page-header { padding: 44px 20px 32px; }
+      .promos-section { padding: 0 20px 60px; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; }
+    }
+
+</style>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Techniq Skin & Beauty Products",
+    "description": "Professional skincare products curated by a licensed esthetician in Vernon, CT.",
+    "url": "https://www.techniqskinandbeauty.com/products.html",
+    "areaServed": ["Vernon, CT", "Manchester, CT", "Rockville, CT"],
+    "makesOffer": {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "Professional Skincare Products"
+      }
+    }
+  }
+  </script>
 </head>
-
 <body>
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="Packages.html">Packages</a>
+  <a href="products.html">Products</a>
+  <a href="newsletter.html">Newsletter</a>
+  <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="mobile-book">Book Now</a>
+</div>
 
-  <header class="topbar">
-    <h1 class="brand">Techniq Skin &amp; Beauty</h1>
+<!-- ══ NAV ══ -->
+<header class="header">
+  <div class="nav">
+   <a href="index.html" class="brand">
+  <img src="images/techniq-of.png" alt="Techniq Skin & Beauty">
+  <span class="nav-brand-text">Techniq Skin &amp; Beauty</span>
+    </a>
 
-    <div class="top-actions">
-      <a class="pill" href="index.html">Home</a>
-      <button class="pill secondary" id="filterToggle" type="button">Filter</button>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <div class="meta-row">
-      <div class="count" id="resultCount">Showing products</div>
-      <button class="clear-btn" id="clearFilters" type="button">Clear</button>
-    </div>
-
-    <section class="grid" id="productsGrid"></section>
-  </main>
-
-  <div class="overlay" id="overlay"></div>
-
-  <!-- Right drawer -->
-  <aside class="drawer" id="filterDrawer" aria-hidden="true">
-    <div class="drawer-head">
-      <p class="drawer-title">Filter Products</p>
-      <button class="icon-btn" id="closeDrawer" type="button" aria-label="Close">✕</button>
+    <div class="nav-center">
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="Packages.html" class="nav-link">Packages</a>
+      <a href="newsletter.html" class="nav-link">Newsletter</a>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="btn-primary">Book Now</a>
     </div>
 
-    <div class="filter-section">
-      <h4>Skin Type</h4>
-      <div class="checks" id="skinTypeFilters"></div>
-    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<button id="filterToggle" type="button" hidden aria-hidden="true" tabindex="-1"></button>
 
-    <div class="filter-section">
-      <h4>Concerns</h4>
-      <div class="checks" id="concernFilters"></div>
-    </div>
 
-    <div class="filter-section">
-      <h4>Product Type</h4>
-      <div class="checks" id="productTypeFilters"></div>
-    </div>
-  </aside>
+<main class="wrap">
+<section aria-label="Products introduction" class="shop-intro">
+<h2>Find the Right Products for Your Skin</h2>
+<p>Professional skincare selected for acne, dryness, sensitivity, and long-term skin health.</p>
+<p class="shop-note">Popular products sell out quickly</p>
+</section>
+<div class="meta-row">
+<div class="count" id="resultCount">Showing products</div>
+<div class="meta-actions">
+<button class="filter-inline-btn" id="filterToggleInline" type="button">Filter</button>
+<button class="clear-btn" id="clearFilters" type="button">Clear Filter</button>
+</div>
+</div>
+<section class="grid" id="productsGrid"></section>
+<div class="consultation-cta">
+<p>Not sure what your skin needs? Book a consultation and get a routine tailored to you.</p>
+<a class="btn-primary" href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services">
+  Book an Appointment
+</a>
+</main>
+<div class="overlay" id="overlay"></div>
+<!-- Right drawer -->
+<aside aria-hidden="true" class="drawer" id="filterDrawer">
+<div class="drawer-head">
+<p class="drawer-title">Filter Products</p>
+<button aria-label="Close" class="icon-btn" id="closeDrawer" type="button">✕</button>
+</div>
+<div class="filter-section">
+<h4>Skin Type</h4>
+<div class="checks" id="skinTypeFilters"></div>
+</div>
+<div class="filter-section">
+<h4>Concerns</h4>
+<div class="checks" id="concernFilters"></div>
+</div>
+<div class="filter-section">
+<h4>Product Type</h4>
+<div class="checks" id="productTypeFilters"></div>
+</div>
+</aside>
+<script src="products.js"></script>
+<script>
+    (function() {
+      const legacyFilterBtn = document.getElementById('filterToggle');
+      const inlineFilterBtn = document.getElementById('filterToggleInline');
+      const drawer = document.getElementById('filterDrawer');
+      const overlay = document.getElementById('overlay');
+      const closeDrawer = document.getElementById('closeDrawer');
 
-  <script src="products.js"></script>
+      if (inlineFilterBtn) {
+        inlineFilterBtn.addEventListener('click', () => {
+          if (legacyFilterBtn) {
+            legacyFilterBtn.click();
+          } else if (drawer) {
+            drawer.classList.add('open');
+            if (overlay) overlay.classList.add('show');
+          }
+        });
+      }
+
+      if (closeDrawer && drawer) {
+        closeDrawer.addEventListener('click', () => {
+          drawer.classList.remove('open');
+          if (overlay) overlay.classList.remove('show');
+        });
+      }
+
+      if (overlay && drawer) {
+        overlay.addEventListener('click', () => {
+          drawer.classList.remove('open');
+          overlay.classList.remove('show');
+        });
+      }
+
+      const grid = document.getElementById('productsGrid');
+      if (!grid) return;
+
+      function enhanceCards() {
+        const cards = grid.querySelectorAll('.card');
+        cards.forEach((card) => {
+          if (card.querySelector('.card-cta')) return;
+          const body = card.querySelector('.card-body') || card;
+
+          const bestFor = body.querySelector('.bestfor');
+          if (bestFor) {
+            const txt = bestFor.textContent.trim();
+            if (!/^Best for:/i.test(txt)) {
+              bestFor.textContent = 'Best for: ' + txt;
+            }
+          }
+        });
+      }
+
+      const observer = new MutationObserver(enhanceCards);
+      observer.observe(grid, { childList: true, subtree: true });
+      enhanceCards();
+    })();
+  </script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Techniq Skin &amp; Beauty</h4>
+      <p>49 Tolland Turnpike Suite 202</p>
+      <p>Vernon, CT 06066</p>
+      <a href="tel:8602304411" style="margin-top:8px;">860-230-4411</a>
+      <a href="/cdn-cgi/l/email-protection#245041474c4a4d55574f4d4a454a4046414551505d644349454d480a474b49"><span class="__cf_email__" data-cfemail="592d3c3a313730282a32303738373d3b3c382c2d20193e34383035773a3634">[email&#160;protected]</span></a>
+    </div>
+    <div class="footer-col">
+      <h4>Hours</h4>
+      <p>Hours vary weekly.</p>
+      <p>Check the booking calendar for current availability.</p>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" style="margin-top:8px;color:#9f7e6b;">View Availability →</a>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="Packages.html">Packages &amp; Bundles</a>
+      <a href="products.html">Shop Products</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services">Book an Appointment</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Techniq Skin &amp; Beauty LLC · Vernon, CT</span>
+    <span>Serving Vernon, Manchester, Rockville &amp; Tolland County</span>
+  </div>
+</footer>
+
 </body>
 </html>
-
-

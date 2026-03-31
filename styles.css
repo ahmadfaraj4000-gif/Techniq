@@ -1,4 +1,3 @@
-
 /* ===============================
    HOMEPAGE LAYOUT OVERRIDES
    =============================== */
@@ -69,32 +68,61 @@ body {
   font-size: 1.4rem;
 }
 
-/* Buttons */
+/* ===============================
+   BUTTONS — SINGLE DEFINITION
+   =============================== */
+
 .btn-primary,
 .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  padding: 0.75rem 1.8rem;
+  padding: 0.62rem 1.4rem;
   border-radius: 30px;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+  font-size: 0.86rem;
+  font-family: 'Inter', sans-serif;
+  line-height: 1;
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .btn-primary {
-  background-color: var(--peach);
-  color: var(--text-dark);
+  background-color: #EBBBA8;
+  color: #2f2f2f;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
 .btn-primary:hover {
-  background-color: var(--taupe);
+  background-color: #DFAE9A;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .btn-secondary {
-  background-color: var(--sage);
-  color: var(--text-dark);
+  background-color: #C8E1CF;
+  color: #2f2f2f;
 }
 
 .btn-secondary:hover {
-  background-color: var(--soft-periwinkle);
+  background-color: #BDC6D7;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
 }
 
 /* Hero */
@@ -147,6 +175,7 @@ body {
   text-align: center;
   font-size: 0.8rem;
 }
+
 .shop-container {
   display: flex;
   gap: 2rem;
@@ -214,11 +243,6 @@ body {
   border-radius: 8px;
   margin-bottom: 1rem;
 }
-body {
-  font-family: 'Inter', sans-serif;
-  background: #ffffff;
-  color: #2f2f2f;
-}
 
 .products-grid {
   display: grid;
@@ -246,63 +270,6 @@ body {
 
 .product-detail img {
   max-width: 320px;
-}
-
-.btn-primary {
-  background: #EBBBA8;
-  padding: 0.75rem 1.5rem;
-  border-radius: 30px;
-  text-decoration: none;
-  color: #2f2f2f;
-  display: inline-block;
-  margin-top: 1rem;
-  border: none;
-  cursor: pointer;
-}
-body {
-  font-family: 'Inter', sans-serif;
-  background: #ffffff;
-  color: #2f2f2f;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  padding: 3rem;
-}
-
-.product-card {
-  text-align: center;
-}
-
-.product-card img {
-  width: 100%;
-  max-width: 220px;
-  margin-bottom: 1rem;
-}
-
-.product-detail {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  padding: 4rem;
-}
-
-.product-detail img {
-  max-width: 320px;
-}
-
-.btn-primary {
-  background: #EBBBA8;
-  padding: 0.75rem 1.5rem;
-  border-radius: 30px;
-  text-decoration: none;
-  color: #2f2f2f;
-  display: inline-block;
-  margin-top: 1rem;
-  border: none;
-  cursor: pointer;
 }
 
 /* FILTER TOGGLE BUTTON */
@@ -337,7 +304,6 @@ body {
   right: 0;
 }
 
-/* FILTER HEADER */
 .filter-header {
   display: flex;
   justify-content: space-between;
@@ -352,7 +318,6 @@ body {
   cursor: pointer;
 }
 
-/* FILTER GROUPS */
 .filter-group {
   margin-bottom: 22px;
 }
@@ -372,7 +337,6 @@ body {
   cursor: pointer;
 }
 
-/* PRODUCTS GRID */
 .products-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -406,23 +370,10 @@ body.home .hero-content h2 {
 
 body.home .hero-content p {
   margin-bottom: 40px;
-}
-
-body.home .hero-content .btn-primary {
-  display: inline-block;
-}
-
-body.home .hero-content p {
   font-size: 17px;
   line-height: 1.8;
   color: #555;
- }
-
-  [ Logo ]
-Our Philosophy
-Text
-Button
-
+}
 
 /* ===============================
    HOMEPAGE GRADIENT BACKGROUND
@@ -430,16 +381,8 @@ Button
 
 body.home {
   background:
-    radial-gradient(
-      1200px 600px at 10% 0%,
-      rgba(188, 192, 214, 0.45),
-      transparent 60%
-    ),
-    radial-gradient(
-      900px 600px at 90% 10%,
-      rgba(235, 187, 168, 0.35),
-      transparent 55%
-    ),
+    radial-gradient(1200px 600px at 10% 0%, rgba(188,192,214,0.45), transparent 60%),
+    radial-gradient(900px 600px at 90% 10%, rgba(235,187,168,0.35), transparent 55%),
     #ffffff;
 }
 
@@ -450,77 +393,6 @@ body.home {
 body.home .hero-logo {
   display: flex;
   justify-content: center;
-  margin-bottom: 28px;
-}
-
-body.home .hero-logo img {
-  width: 220px;          /* adjust if needed */
-  max-width: 70%;
-  height: auto;
-  opacity: 0.95;
-}
-body.home .hero-logo img {
-  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.08));
-}
-
-/* ===============================
-   HOMEPAGE – GROUNDED EDITORIAL HERO
-   =============================== */
-
-body.home main {
-  padding-top: 40px; /* pulls hero closer to header */
-}
-
-/* HERO CONTAINER */
-body.home .hero {
-  padding: 0;
-  position: relative;
-}
-
-/* HERO CONTENT BLOCK */
-body.home .hero-content {
-  max-width: 720px;
-  margin: 60px auto 0; /* WAS too low – now grounded */
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-/* LOGO POSITIONING */
-body.home .hero-logo {
-  margin-top: -20px;   /* gently overlaps header space */
-  margin-bottom: 18px;
-}
-
-/* LOGO SIZE + PRESENCE */
-body.home .hero-logo img {
-  width: 240px;        /* slightly stronger presence */
-  max-width: 75%;
-  height: auto;
-  opacity: 0.98;
-  filter: drop-shadow(0 16px 36px rgba(0,0,0,0.10));
-}
-
-/* ===============================
-   HOMEPAGE + PRODUCTS — SHARED BACKGROUND
-   =============================== */
-
-body.home,
-body.products {
-  background:
-    radial-gradient(
-      1200px 700px at 10% 0%,
-      rgba(188, 192, 214, 0.45),
-      transparent 60%
-    ),
-    radial-gradient(
-      1000px 700px at 90% 10%,
-      rgba(235, 187, 168, 0.35),
-      transparent 55%
-    ),
-    #ffffff;
-}
-body.home .hero-logo {
   margin-top: -10px;
   margin-bottom: 20px;
 }
@@ -532,24 +404,28 @@ body.home .hero-logo img {
   opacity: 0.98;
   filter: drop-shadow(0 14px 30px rgba(0,0,0,0.08));
 }
+
+/* ===============================
+   HOMEPAGE + PRODUCTS — SHARED BACKGROUND
+   =============================== */
+
+body.home,
+body.products {
+  background:
+    radial-gradient(1200px 700px at 10% 0%, rgba(188,192,214,0.45), transparent 60%),
+    radial-gradient(1000px 700px at 90% 10%, rgba(235,187,168,0.35), transparent 55%),
+    #ffffff;
+}
+
 /* ===============================
    PRODUCT DETAIL – SOFT COLOR LAYER
    =============================== */
 
-/* image container already exists */
 .product-image {
   position: relative;
   background:
-    radial-gradient(
-      420px 520px at 50% 30%,
-      rgba(188,192,214,0.35),
-      transparent 65%
-    ),
-    radial-gradient(
-      420px 520px at 60% 60%,
-      rgba(235,187,168,0.30),
-      transparent 70%
-    ),
+    radial-gradient(420px 520px at 50% 30%, rgba(188,192,214,0.35), transparent 65%),
+    radial-gradient(420px 520px at 60% 60%, rgba(235,187,168,0.30), transparent 70%),
     #ffffff;
   border-radius: 28px;
 }
@@ -564,60 +440,15 @@ body.home .hero-logo img {
   color: #6a5a4a;
 }
 
-/* ===============================
-   PRODUCT PAGE – FORCED GRADIENT
-   =============================== */
-
-/* target LEFT column image wrapper */
-body:not(.home) .product-page > div:first-child {
-  position: relative;
-  background:
-    radial-gradient(
-      420px 520px at 50% 30%,
-      rgba(188,192,214,0.35),
-      transparent 65%
-    ),
-    radial-gradient(
-      420px 520px at 60% 65%,
-      rgba(235,187,168,0.30),
-      transparent 70%
-    ),
-    #ffffff;
-  border-radius: 28px;
-  padding: 40px;
-}
-body:not(.home) .product-info {
-  background: rgba(255,255,255,0.75);
-  border-radius: 28px;
-  padding: 28px 32px;
-}
-
-/* remove visual weight from image side */
-body:not(.home) .product-page > div:first-child {
-  background: transparent;
-  padding: 0;
-}
-/* ===============================
-   PRODUCT DETAIL – INFO CARD
-   =============================== */
-
 body:not(.home) .product-info {
   background:
-    radial-gradient(
-      600px 400px at 80% 20%,
-      rgba(235,187,168,0.18),
-      transparent 60%
-    ),
-    radial-gradient(
-      500px 350px at 20% 80%,
-      rgba(188,192,214,0.18),
-      transparent 65%
-    ),
+    radial-gradient(600px 400px at 80% 20%, rgba(235,187,168,0.18), transparent 60%),
+    radial-gradient(500px 350px at 20% 80%, rgba(188,192,214,0.18), transparent 65%),
     rgba(255,255,255,0.85);
-
   border-radius: 32px;
   padding: 36px 40px;
 }
+
 .product-info h1 {
   margin-top: 0;
 }
@@ -640,12 +471,7 @@ body:not(.home) .product-info {
   width: 100%;
   border-radius: 999px;
   margin-bottom: 18px;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(188,192,214,0.9),
-      rgba(235,187,168,0.9)
-    );
+  background: linear-gradient(90deg, rgba(188,192,214,0.9), rgba(235,187,168,0.9));
 }
 
 .bundle-card .includes {
@@ -653,84 +479,14 @@ body:not(.home) .product-info {
   line-height: 1.6;
   color: #555;
   margin-bottom: 24px;
-}
-
-/* ===============================
-   BUNDLE CARD VISUAL ACCENT
-   =============================== */
-
-.bundle-card {
-  position: relative;
-}
-
-.bundle-accent {
-  height: 6px;
-  width: 100%;
-  border-radius: 999px;
-  margin-bottom: 18px;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(188,192,214,0.9),
-      rgba(235,187,168,0.9)
-    );
-}
-
-.bundle-card .includes {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 24px;
-}
-
-/* ===============================
-   BUTTON HOVER & ACTIVE STATES
-   =============================== */
-
-/* Primary button (Packages, Book, Add to Cart) */
-.btn-primary {
-  transition: 
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Secondary button (Shop Products, Home, etc.) */
-.btn-secondary {
-  transition: 
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.95);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-}
-
-.btn-secondary:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* ===============================
    PRODUCT GRID – IMAGE SCALE UP
    =============================== */
 
-/* image wrapper inside product card */
 .product-card .product-image {
-  height: 220px;           /* was smaller before */
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -738,200 +494,135 @@ body:not(.home) .product-info {
 }
 
 .product-card .product-image img {
-  max-height: 200px;       /* controls size */
+  max-height: 200px;
   max-width: 100%;
   object-fit: contain;
 }
+
 /* ===============================
    RAMADAN HANGING STARS - HOMEPAGE ONLY
    =============================== */
 
 body.home .ramadan-hanging-stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 180px; /* Height for hanging area */
-    pointer-events: none;
-    z-index: 5;
-    overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
 }
 
-/* Individual hanging star container */
 body.home .hanging-star {
-    position: absolute;
-    top: -20px; /* Start above the page */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform-origin: top center;
-    animation: swingStar var(--swing-duration, 4s) ease-in-out infinite;
-    animation-delay: var(--swing-delay, 0s);
+  position: absolute;
+  top: -20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  animation: swingStar var(--swing-duration, 4s) ease-in-out infinite;
+  animation-delay: var(--swing-delay, 0s);
 }
 
-/* The rope/string */
 body.home .star-rope {
-    width: 1px;
-    height: var(--rope-length, 60px);
-    background: linear-gradient(to bottom, 
-        rgba(235, 187, 168, 0.3), 
-        rgba(188, 192, 214, 0.2)
-    );
-    margin-bottom: 4px;
+  width: 1px;
+  height: var(--rope-length, 60px);
+  background: linear-gradient(to bottom, rgba(235,187,168,0.3), rgba(188,192,214,0.2));
+  margin-bottom: 4px;
 }
 
-/* The star */
 body.home .star {
-    width: var(--star-size, 16px);
-    height: var(--star-size, 16px);
-    background: transparent;
-    position: relative;
-    transform: rotate(0deg);
-    filter: drop-shadow(0 0 8px rgba(235, 187, 168, 0.6));
-    animation: starGlow 3s ease-in-out infinite;
+  width: var(--star-size, 16px);
+  height: var(--star-size, 16px);
+  background: transparent;
+  position: relative;
+  filter: drop-shadow(0 0 8px rgba(235,187,168,0.6));
+  animation: starGlow 3s ease-in-out infinite;
 }
 
-/* Create star shape using CSS */
 body.home .star::before {
-    content: "★";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: var(--star-size, 16px);
-    color: #EBBBA8; /* Your peach color */
-    line-height: 1;
-    text-shadow: 
-        0 0 10px #EBBBA8,
-        0 0 20px rgba(188, 192, 214, 0.5);
+  content: "★";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--star-size, 16px);
+  color: #EBBBA8;
+  line-height: 1;
+  text-shadow: 0 0 10px #EBBBA8, 0 0 20px rgba(188,192,214,0.5);
 }
 
-/* Alternative star styles - different colors */
-body.home .star-soft::before {
-    color: #BCC0D6; /* Your lavender-gray */
-    text-shadow: 0 0 10px #BCC0D6;
-}
+body.home .star-soft::before { color: #BCC0D6; text-shadow: 0 0 10px #BCC0D6; }
+body.home .star-warm::before { color: #D2C2BF; text-shadow: 0 0 10px #D2C2BF; }
+body.home .star-gold::before { color: #E5CFA6; text-shadow: 0 0 10px #E5CFA6; }
 
-body.home .star-warm::before {
-    color: #D2C2BF; /* Your taupe */
-    text-shadow: 0 0 10px #D2C2BF;
-}
-
-body.home .star-gold::before {
-    color: #E5CFA6; /* Your buttery color */
-    text-shadow: 0 0 10px #E5CFA6;
-}
-
-/* Swing animation */
 @keyframes swingStar {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(8deg);
-    }
-    75% {
-        transform: rotate(-8deg);
-    }
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  75% { transform: rotate(-8deg); }
 }
 
-/* Gentle bounce for some stars */
 body.home .hanging-star.bounce {
-    animation: swingBounceStar 5s ease-in-out infinite;
+  animation: swingBounceStar 5s ease-in-out infinite;
 }
 
 @keyframes swingBounceStar {
-    0%, 100% {
-        transform: rotate(0deg) translateY(0);
-    }
-    25% {
-        transform: rotate(8deg) translateY(-5px);
-    }
-    50% {
-        transform: rotate(0deg) translateY(0);
-    }
-    75% {
-        transform: rotate(-8deg) translateY(-3px);
-    }
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(8deg) translateY(-5px); }
+  50% { transform: rotate(0deg) translateY(0); }
+  75% { transform: rotate(-8deg) translateY(-3px); }
 }
 
-/* Star glow effect */
 @keyframes starGlow {
-    0%, 100% {
-        opacity: 0.7;
-        filter: drop-shadow(0 0 5px rgba(235, 187, 168, 0.4));
-    }
-    50% {
-        opacity: 1;
-        filter: drop-shadow(0 0 15px rgba(235, 187, 168, 0.8));
-    }
+  0%, 100% { opacity: 0.7; filter: drop-shadow(0 0 5px rgba(235,187,168,0.4)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 15px rgba(235,187,168,0.8)); }
 }
 
-/* Decorative crescent moon for homepage */
 body.home .ramadan-crescent {
-    position: absolute;
-    top: 20px;
-    left: 30px;
-    font-size: 32px;
-    z-index: 6;
-    pointer-events: none;
-    opacity: 0.7;
-    animation: floatCrescent 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(235, 187, 168, 0.5));
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 32px;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.7;
+  animation: floatCrescent 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(235,187,168,0.5));
 }
 
 @keyframes floatCrescent {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-5px) rotate(5deg);
-    }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    body.home .ramadan-hanging-stars {
-        height: 140px;
-    }
-    
-    body.home .star-rope {
-        height: 40px;
-    }
-    
-    body.home .star::before {
-        font-size: 14px;
-    }
-    
-    body.home .ramadan-crescent {
-        font-size: 24px;
-        left: 20px;
-    }
-}
-
-/* Ensure header content stays below stars */
 body.home .header {
-    position: relative;
-    z-index: 10;
+  position: relative;
+  z-index: 10;
 }
+
 /* ===============================
-   MOBILE FIXES FOR NAVIGATION BUTTONS
+   MOBILE FIXES
    =============================== */
 
 @media (max-width: 768px) {
-  /* Fix header navigation on index.html and packages.html */
+  body.home .ramadan-hanging-stars { height: 140px; }
+  body.home .star-rope { height: 40px; }
+  body.home .star::before { font-size: 14px; }
+  body.home .ramadan-crescent { font-size: 24px; left: 20px; }
+
   .nav {
     flex-direction: column;
     gap: 15px;
     padding: 15px 20px;
   }
-  
+
   .logo {
     text-align: center;
     font-size: 1.2rem;
     margin-bottom: 5px;
   }
-  
+
   .nav-right {
     display: flex;
     flex-wrap: wrap;
@@ -939,8 +630,7 @@ body.home .header {
     gap: 10px;
     width: 100%;
   }
-  
-  /* Fix the Packages and Shop Products buttons */
+
   .nav-right .btn-primary,
   .nav-right .btn-secondary {
     padding: 0.7rem 1.2rem;
@@ -952,13 +642,12 @@ body.home .header {
   }
 }
 
-/* For very small phones, stack them vertically */
 @media (max-width: 480px) {
   .nav-right {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .nav-right .btn-primary,
   .nav-right .btn-secondary {
     width: 100%;
@@ -966,4 +655,20 @@ body.home .header {
     padding: 0.8rem 1rem;
     font-size: 1rem;
   }
+}
+
+/* ===============================
+   INSTAGRAM FOOTER ICON
+   =============================== */
+
+.footer-insta {
+  color: #bbb;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-insta:hover {
+  color: #9f7e6b;
+  transform: translateY(-2px);
 }

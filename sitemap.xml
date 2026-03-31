@@ -2,31 +2,136 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://www.techniqskinandbeauty.com/</loc>
-    <lastmod>2026-03-26</lastmod>
+    <loc>https://techniqskinandbeauty.com/</loc>
+    <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://www.techniqskinandbeauty.com/products.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <loc>https://techniqskinandbeauty.com/products.html</loc>
+    <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.techniqskinandbeauty.com/Packages.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <loc>https://techniqskinandbeauty.com/Packages.html</loc>
+    <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.techniqskinandbeauty.com/newsletter.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <loc>https://techniqskinandbeauty.com/newsletter.html</loc>
+    <lastmod>2026-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=barrier-balancing-moisturizer</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=blemish-spot-treatment</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=charcoal-clay-cleanser</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=clarifying-toner-pads</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=cucumber-hydrating-tonerr</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=glycolic-and-retinol-pads</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=green-tea-citrus-cleanser</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=honey-brightening-cleanser</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=hydrating-moisturizer</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=mandelic-brightening-serum</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=mint-refining-toner</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=pomegranate-antioxidant-cleanser</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=retinol-2-scrub</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=revitalizing-cucumber-treatment</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://techniqskinandbeauty.com/product.html?id=vita-c-green-tea-serum</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>

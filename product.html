@@ -129,11 +129,47 @@
         <select id="variantSelect"></select>
       </div>
 
-      <button class="add-to-cart">Add to Cart</button>
+      <button class="add-to-cart">Add to Routine</button>
     </div>
 
   </main>
 
-  <script src="product.js"></script>
+ <script src="products.js"></script>
+ <script src="product.js"></script>
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    if (!window.PRODUCTS) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+    const product = window.PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+
+    const firstVariant = product.variants && product.variants.length ? product.variants[0] : null;
+    if (!firstVariant) return;
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.name,
+      "description": product.description,
+      "image": product.image
+        ? [`https://techniqskinandbeauty.com/${product.image.replace(/^\/+/, "")}`]
+        : [],
+      "offers": {
+        "@type": "Offer",
+        "url": `https://techniqskinandbeauty.com/product.html?id=${encodeURIComponent(product.id)}`,
+        "priceCurrency": "USD",
+        "price": String(firstVariant.price),
+        "availability": "https://schema.org/InStock"
+      }
+    };
+
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+  });
+</script>
 </body>
 </html>

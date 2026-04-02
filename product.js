@@ -3,7 +3,7 @@
 /*************************************************
  * PRODUCT DATA — FULL LIST
  *************************************************/
-const PRODUCTS = [
+window.PRODUCTS = [
   {
     id: "barrier-balancing-moisturizer",
     name: "Barrier Balancing Moisturizer",

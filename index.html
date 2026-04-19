@@ -926,7 +926,6 @@
         <p class="service-tagline">Smooth skin starts here.</p>
         <p>Professional waxing services designed to be as comfortable and effective as possible, leaving your skin smooth, clean, and irritation-free.</p>
         <ul class="service-items">
-        <ul class="service-items">
           <li><strong>Underarm Wax</strong></li>
           <li><strong>Lip &amp; Chin Wax</strong></li>
           <li><strong>Bikini Wax</strong></li>
@@ -1113,5 +1112,54 @@ document.addEventListener("DOMContentLoaded", function () {
 <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="floating-book-btn">
   Book Now - Limited Availability!
 </a>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const slides = document.querySelectorAll(".slide");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (!slides.length || !prevBtn || !nextBtn) return;
+
+  let currentSlide = 0;
+  let autoRotate;
+
+  function showSlide(index) {
+    slides.forEach((slide) => slide.classList.remove("active"));
+    slides[index].classList.add("active");
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function startAutoRotate() {
+    autoRotate = setInterval(nextSlide, 5000);
+  }
+
+  function resetAutoRotate() {
+    clearInterval(autoRotate);
+    startAutoRotate();
+  }
+
+  nextBtn.addEventListener("click", function () {
+    nextSlide();
+    resetAutoRotate();
+  });
+
+  prevBtn.addEventListener("click", function () {
+    prevSlide();
+    resetAutoRotate();
+  });
+
+  showSlide(currentSlide);
+  startAutoRotate();
+});
+</script>
 </body>
 </html>

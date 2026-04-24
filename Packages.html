@@ -403,6 +403,54 @@
       text-decoration: none;
       font-size: 14px;
     }
+
+
+    /* ── GIFT CARD FEATURE ── */
+    .gift-card-section {
+      margin-bottom: 55px;
+      background:
+        radial-gradient(700px 420px at 12% 18%, rgba(200,225,207,0.38), transparent 62%),
+        radial-gradient(760px 460px at 82% 10%, rgba(235,187,168,0.42), transparent 58%),
+        radial-gradient(700px 420px at 55% 92%, rgba(188,192,214,0.34), transparent 62%),
+        rgba(255,255,255,0.86);
+      border: 1px solid rgba(159,126,107,0.14);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.06);
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+    }
+
+    .gift-card-content { padding: 28px 34px; }
+    .gift-card-eyebrow {
+      display:inline-block; margin-bottom:10px; font-size:.72rem; letter-spacing:.14em;
+      text-transform:uppercase; color:#9f7e6b; font-weight:500;
+    }
+    .gift-card-content h2 {
+      font-family:'Playfair Display', serif; font-weight:500;
+      font-size:clamp(28px,3vw,40px); line-height:1.1; margin:0 0 12px; color:#2f2f2f;
+    }
+    .gift-card-content p {
+      font-size:15px; line-height:1.65; color:#555; margin:0 0 16px; max-width:520px;
+    }
+    .gift-card-content .gift-card-cta {
+      display:inline-flex; padding:11px 22px; border-radius:999px;
+      background:#EBBBA8; color:#262626; text-decoration:none; font-size:13px; font-weight:500;
+    }
+    .gift-card-image { padding:16px; }
+    .gift-card-image img {
+      width:100%; height:220px; object-fit:cover; display:block; border-radius:22px;
+    }
+
+    @media (max-width: 900px) {
+      .gift-card-section { grid-template-columns:1fr; }
+      .gift-card-content { padding:24px 20px 10px; text-align:center; }
+      .gift-card-content p { margin-left:auto; margin-right:auto; }
+      .gift-card-image { padding:14px; }
+      .gift-card-image img { height:180px; }
+    }
+
      /* ── FOOTER ── */
     footer {
       background: #fff; border-top: 1px solid rgba(0,0,0,0.07); padding: 52px 32px 36px;
@@ -482,6 +530,23 @@
         Thoughtfully curated facial packages and at-home care options designed
         to support your skin goals with intention and consistency.
       </p>
+    </section>
+
+
+
+    <!-- GIFT CARD FEATURE -->
+    <section class="gift-card-section" aria-labelledby="gift-card-heading">
+      <div class="gift-card-content">
+        <span class="gift-card-eyebrow">Gift Cards Available</span>
+        <h2 id="gift-card-heading">Give the Gift of Self-Care</h2>
+        <p>
+          Treat someone you love to a relaxing facial, skincare experience, or luxury service at Techniq Skin &amp; Beauty. Perfect for Mother&rsquo;s Day, birthdays, holidays, and thoughtful surprises.
+        </p>
+        <a class="gift-card-cta" href="https://app.squareup.com/gift/MLBWD3DPSBMPJ/order" target="_blank" rel="noopener noreferrer">Purchase Gift Card</a>
+      </div>
+      <div class="gift-card-image">
+        <img src="gift-card.PNG" alt="Purchase a gift card for Techniq Skin &amp; Beauty">
+      </div>
     </section>
 
     <!-- FACIAL PACKAGES -->

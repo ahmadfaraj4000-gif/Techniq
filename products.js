@@ -315,11 +315,12 @@ function injectCartStyles() {
       font-size:12px;
       padding:0 6px;
     }
-    .techniq-cart-panel{
+      .techniq-cart-panel{
       position:fixed;
       top:0;
       right:0;
-      height:100vh;
+      bottom:0;
+      height:100dvh;
       width:390px;
       max-width:94vw;
       background:rgba(255,255,255,.96);
@@ -452,6 +453,27 @@ function injectCartStyles() {
       cursor:pointer;
       font-size:13px;
     }
+    @media (max-width: 640px){
+  .techniq-cart-panel{
+    width:100vw;
+    max-width:100vw;
+    height:100dvh;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+
+  .techniq-cart-items{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    padding-bottom:16px;
+  }
+
+  .techniq-cart-foot{
+    position:sticky;
+    bottom:0;
+    padding-bottom:calc(20px + env(safe-area-inset-bottom));
+  }
+}
   `;
   document.head.appendChild(style);
 }

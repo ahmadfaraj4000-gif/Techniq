@@ -18,7 +18,9 @@ const PRODUCTS = [
     skinType: ["Dry", "Sensitive"],
     concerns: ["Dehydration"],
     productType: ["Moisturizer"],
-    variants: [{ name: "1.8 oz", price: 28.0 }],
+    variants: [
+      { name: "1.8 oz", price: 28.0, checkoutUrl: "https://square.link/u/2VaQCcGC" }
+    ],
   },
   {
     id: "blemish-spot-treatment",
@@ -29,7 +31,9 @@ const PRODUCTS = [
     skinType: ["Acne-Prone", "Oily"],
     concerns: ["Acne"],
     productType: ["Other"],
-    variants: [{ name: "Regular", price: 22.0 }],
+    variants: [
+      { name: "Regular", price: 22.0, checkoutUrl: "https://square.link/u/wupKbNmv" }
+    ],
   },
   {
     id: "charcoal-clay-cleanser",
@@ -41,8 +45,8 @@ const PRODUCTS = [
     concerns: ["Acne"],
     productType: ["Cleanser"],
     variants: [
-      { name: "2 oz", price: 12.47 },
-      { name: "6.4 oz", price: 31.97 },
+      { name: "2 oz", price: 12.47, checkoutUrl: "https://square.link/u/50gq7WLb" },
+      { name: "6.4 oz", price: 31.97, checkoutUrl: "https://square.link/u/50gq7WLb" },
     ],
   },
   {
@@ -54,7 +58,9 @@ const PRODUCTS = [
     skinType: ["Acne-Prone", "Oily"],
     concerns: ["Acne"],
     productType: ["Toner"],
-    variants: [{ name: "2 oz", price: 20.0 }],
+    variants: [
+      { name: "2 oz", price: 20.0, checkoutUrl: "https://square.link/u/LvvbLIty" }
+    ],
   },
   {
     id: "cucumber-hydrating-tonerr",
@@ -66,8 +72,8 @@ const PRODUCTS = [
     concerns: ["Dehydration"],
     productType: ["Toner"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "3.3 oz", price: 24.0 },
+      { name: "2 oz", price: 14.0, checkoutUrl: "https://square.link/u/LAFP39R2" },
+      { name: "3.3 oz", price: 24.0, checkoutUrl: "https://square.link/u/LAFP39R2" },
     ],
   },
   {
@@ -79,7 +85,9 @@ const PRODUCTS = [
     skinType: ["Mature"],
     concerns: ["Aging Skin", "Texture"],
     productType: ["Exfoliant", "Toner"],
-    variants: [{ name: "2 oz", price: 28.0 }],
+    variants: [
+      { name: "2 oz", price: 28.0, checkoutUrl: "https://square.link/u/JgnzSkRS" }
+    ],
   },
   {
     id: "green-tea-citrus-cleanser",
@@ -91,8 +99,8 @@ const PRODUCTS = [
     concerns: ["Dullness"],
     productType: ["Cleanser"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "6.4 oz", price: 32.0 },
+      { name: "2 oz", price: 14.0, checkoutUrl: "https://square.link/u/vCWaYz4F" },
+      { name: "6.4 oz", price: 32.0, checkoutUrl: "https://square.link/u/vCWaYz4F" },
     ],
   },
   {
@@ -105,8 +113,8 @@ const PRODUCTS = [
     concerns: ["Dullness", "Hyperpigmentation"],
     productType: ["Cleanser"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "6.4 oz", price: 32.0 },
+      { name: "2 oz", price: 14.0, checkoutUrl: "https://square.link/u/Ge2jvI0U" },
+      { name: "6.4 oz", price: 32.0, checkoutUrl: "https://square.link/u/Ge2jvI0U" },
     ],
   },
   {
@@ -119,8 +127,7 @@ const PRODUCTS = [
     concerns: ["Dehydration"],
     productType: ["Moisturizer"],
     variants: [
-      { name: "2 oz", price: 20.0 },
-      { name: "6.4 oz", price: 55.0 },
+      { name: "1.7 oz", price: 30.0, checkoutUrl: "https://square.link/u/xxjQUZxM" }
     ],
   },
   {
@@ -131,8 +138,10 @@ const PRODUCTS = [
     image: "images/mandelic-brightening-serum.png",
     skinType: ["All"],
     concerns: ["Dullness", "Hyperpigmentation"],
-    productType: ["Serum", "Exfoliant"],
-    variants: [{ name: "1 oz", price: 58.0 }],
+    productType: ["Serum"],
+    variants: [
+      { name: "1 oz", price: 30.0, checkoutUrl: "https://square.link/u/aGTwxVuW" }
+    ],
   },
   {
     id: "mint-refining-toner",
@@ -144,8 +153,8 @@ const PRODUCTS = [
     concerns: ["Acne"],
     productType: ["Toner"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "6.4 oz", price: 32.0 },
+      { name: "2 oz", price: 14.0, checkoutUrl: "https://square.link/u/cY8EERQ0" },
+      { name: "6.4 oz", price: 24.0, checkoutUrl: "https://square.link/u/cY8EERQ0" },
     ],
   },
   {
@@ -158,8 +167,8 @@ const PRODUCTS = [
     concerns: ["Dullness", "Hyperpigmentation"],
     productType: ["Cleanser"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "6.4 oz", price: 32.0 },
+      { name: "2 oz", price: 12.47, checkoutUrl: "https://square.link/u/hSHQO6yv" },
+      { name: "6.4 oz", price: 31.37, checkoutUrl: "https://square.link/u/hSHQO6yv" },
     ],
   },
   {
@@ -171,7 +180,9 @@ const PRODUCTS = [
     skinType: ["Mature"],
     concerns: ["Aging Skin", "Texture"],
     productType: ["Exfoliant"],
-    variants: [{ name: "2 oz", price: 28.0 }],
+    variants: [
+      { name: "2 oz", price: 40.0, checkoutUrl: "https://square.link/u/8pGdoI8Z" }
+    ],
   },
   {
     id: "revitalizing-cucumber-treatment",
@@ -182,7 +193,9 @@ const PRODUCTS = [
     skinType: ["Sensitive"],
     concerns: ["Dehydration"],
     productType: ["Mask"],
-    variants: [{ name: "2 oz", price: 40.0 }],
+    variants: [
+      { name: "2 oz", price: 46.0, checkoutUrl: "https://square.link/u/MaT8BT92" }
+    ],
   },
   {
     id: "vita-c-green-tea-serum",
@@ -193,7 +206,9 @@ const PRODUCTS = [
     skinType: ["All"],
     concerns: ["Dullness", "Hyperpigmentation"],
     productType: ["Serum"],
-    variants: [{ name: "1 oz", price: 58.0 }],
+    variants: [
+      { name: "1 oz", price: 40.0, checkoutUrl: "https://square.link/u/oKQCjlG4" }
+    ],
   },
 ];
 

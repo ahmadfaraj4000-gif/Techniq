@@ -2,6 +2,9 @@ const SQUARE_CHECKOUT_FUNCTION_URL =
   "https://wxfizlkphvgsmikhsosx.supabase.co/functions/v1/create-square-checkout";
 
 const CART_KEY = "techniqCart";
+const FREE_SHIPPING_THRESHOLD = 49.99;
+const ESTIMATED_SHIPPING = 12;
+const CT_TAX_RATE = 0.0635;
 
 const PRODUCTS = [
   {
@@ -191,6 +194,46 @@ function saveCart(cart) {
 
 function cartTotal(cart = getCart()) {
   return cart.reduce((sum, item) => sum + Number(item.price) * Number(item.quantity), 0);
+}
+
+function productSubtotal(cart = getCart()) {
+  return cart.reduce((sum, item) => {
+    return sum + Number(item.price) * Number(item.quantity);
+  }, 0);
+}
+
+function estimatedShipping(cart = getCart()) {
+  const subtotal = productSubtotal(cart);
+  if (!cart.length) return 0;
+  return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : ESTIMATED_SHIPPING;
+}
+
+function estimatedGrandTotal(cart = getCart()) {
+  return cartTotal(cart) + estimatedShipping(cart);
+}
+
+function estimatedTax(cart = getCart()) {
+  const taxableAmount = cartTotal(cart) + estimatedShipping(cart);
+  return taxableAmount * CT_TAX_RATE;
+}
+
+function estimatedFinalTotal(cart = getCart()) {
+  return cartTotal(cart) + estimatedShipping(cart) + estimatedTax(cart);
+}
+
+function freeShippingMessage(cart = getCart()) {
+  const subtotal = productSubtotal(cart);
+  const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
+
+  if (!cart.length) {
+    return "Free shipping on product orders over $49.99.";
+  }
+
+  if (subtotal >= FREE_SHIPPING_THRESHOLD) {
+    return "You unlocked free shipping.";
+  }
+
+  return `You are ${money(remaining)} away from free shipping.`;
 }
 
 function cartCount(cart = getCart()) {
@@ -453,6 +496,17 @@ function injectCartStyles() {
       cursor:pointer;
       font-size:13px;
     }
+    .techniq-shipping-note{
+  font-size:13px;
+      color:#9f7e6b;
+      background:rgba(235,187,168,.22);
+      border:1px solid rgba(159,126,107,.16);
+      border-radius:14px;
+      padding:10px 12px;
+      margin-bottom:12px;
+      text-align:center;
+      line-height:1.4;
+    }
     @media (max-width: 640px){
   .techniq-cart-panel{
     width:100vw;
@@ -497,9 +551,28 @@ function injectCartUI() {
       </div>
       <div class="techniq-cart-items" id="techniqCartItems"></div>
       <div class="techniq-cart-foot">
+
+      <div class="techniq-shipping-note" id="techniqShippingNote">
+      Free shipping on product orders over $49.99.
+      </div>
         <div class="techniq-total">
-          <span>Total</span>
+          <span>Products</span>
           <span id="techniqCartTotal">$0</span>
+        </div>
+
+        <div class="techniq-total">
+          <span>Shipping</span>
+          <span id="techniqShippingTotal">$0</span>
+        </div>
+
+        <div class="techniq-total">
+          <span>CT Tax</span>
+          <span id="techniqTaxTotal">$0</span>
+        </div>
+
+        <div class="techniq-total">
+          <strong>Total</strong>
+          <strong id="techniqGrandTotal">$0</strong>
         </div>
         <button class="techniq-checkout" id="techniqCheckoutBtn" type="button">Checkout</button>
         <button class="techniq-continue" id="techniqContinueBtn" type="button">Continue shopping</button>
@@ -538,9 +611,17 @@ function updateCartUI() {
   const countEl = document.getElementById("techniqCartCount");
   const totalEl = document.getElementById("techniqCartTotal");
   const itemsEl = document.getElementById("techniqCartItems");
+  const shippingNoteEl = document.getElementById("techniqShippingNote");
+  const shippingEl = document.getElementById("techniqShippingTotal");
+  const taxEl = document.getElementById("techniqTaxTotal");
+  const grandEl = document.getElementById("techniqGrandTotal");
 
-  if (countEl) countEl.textContent = cartCount(cart);
   if (totalEl) totalEl.textContent = money(cartTotal(cart));
+  if (shippingNoteEl) shippingNoteEl.textContent = freeShippingMessage(cart);
+  if (shippingEl) shippingEl.textContent = money(estimatedShipping(cart));
+  if (taxEl) taxEl.textContent = money(estimatedTax(cart));
+  if (grandEl) grandEl.textContent = money(estimatedFinalTotal(cart));
+  if (countEl) countEl.textContent = cartCount(cart);
 
   if (!itemsEl) return;
 

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Intake Forms | Techniq Skin & Beauty</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+
+    :root{
+      --lavender-gray:#BCC0D6;
+      --peach:#EBBBA8;
+      --dusty-mauve:#C8BBC7;
+      --mint:#C8E1CF;
+      --sage:#D2D7C7;
+      --taupe-pink:#D2C2BF;
+      --cool-sage:#C5D6CE;
+      --muted-tan:#E1C3AB;
+      --buttery:#E5CFA6;
+      --periwinkle:#BDC6D7;
+      --ink:#2f2f2f;
+      --muted:#666;
+      --line:rgba(0,0,0,0.08);
+      --card:rgba(255,255,255,0.82);
+      --shadow:0 18px 50px rgba(0,0,0,0.08);
+      --radius:22px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(188,192,214,0.45), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(235,187,168,0.34), transparent 55%),
+        radial-gradient(800px 500px at 50% 100%, rgba(200,225,207,0.22), transparent 55%),
+        #fff;
+      min-height:100vh;
+    }
+    .header{padding:1rem 2.5rem;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav{display:flex;flex-wrap:nowrap;align-items:center;max-width:1100px;margin:0 auto;position:relative;min-height:64px}
+    .brand,.brand:hover,.brand:visited{text-decoration:none;color:inherit}
+    .brand{display:flex;align-items:center;gap:10px;padding:6px 12px;border-radius:12px;background:rgba(0,0,0,.04);transition:all .25s ease;flex-shrink:1;min-width:0;cursor:pointer}
+    .brand img{height:42px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+    .brand:hover{background:rgba(0,0,0,.06);transform:translateY(-1px)}
+    .brand:active{transform:scale(.98)}
+    .nav-brand-text{font-family:'Playfair Display',serif;font-weight:600;font-size:1.15rem;letter-spacing:.02em;color:#2f2f2f;white-space:nowrap}
+    .nav-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:24px;align-items:center}
+    .nav-link{position:relative;text-decoration:none;font-family:Inter,sans-serif;font-size:.9rem;color:#2f2f2f;padding-bottom:4px}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:0;width:0%;height:1.5px;background:#9f7e6b;transition:width .25s ease}
+    .nav-link:hover::after{width:100%}
+    .hamburger{flex-shrink:0;display:none;margin-left:auto;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:200;width:42px;height:42px;align-items:center;justify-content:center}
+    .hamburger span{display:block;width:24px;height:2px;background:#2f2f2f;border-radius:2px;transition:all .3s ease}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:40px 32px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;color:#2f2f2f;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.07);width:100%;text-align:center;transition:color .2s ease}
+    .mobile-menu a:hover{color:#9f7e6b}
+    .mobile-menu .mobile-book{margin-top:10px;background:#EBBBA8;border-radius:30px;padding:14px 36px;font-size:1rem;border-bottom:none;font-family:Inter,sans-serif}
+    .btn-primary,.btn-secondary,.btn-danger,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:.72rem 1.35rem;border-radius:999px;font-size:.9rem;font-family:Inter,sans-serif;transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease,color .22s ease,border-color .22s ease;white-space:nowrap;border:none;cursor:pointer;line-height:1}
+    .btn-primary{background:#EBBBA8;color:#2f2f2f;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+    .btn-primary:hover{background:#DFAE9A;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+    .btn-secondary{background:#C8E1CF;color:#2f2f2f}
+    .btn-secondary:hover{background:#BDC6D7;transform:translateY(-1px)}
+    .btn-ghost{background:rgba(255,255,255,.72);border:1px solid var(--line);color:#333}
+    .btn-danger{background:#fff1f1;color:#7a2222;border:1px solid rgba(122,34,34,.15)}
+    .page-header{max-width:900px;margin:0 auto;padding:64px 28px 34px;text-align:center}
+    .page-eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;color:#9f7e6b;margin-bottom:14px;display:block}
+    h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;color:#2f2f2f}
+    .page-header h1{font-size:clamp(2.1rem,4vw,3.1rem);line-height:1.12;margin:0 0 14px}
+    .page-header p{font-size:15px;color:#666;font-weight:300;line-height:1.8;max-width:660px;margin:0 auto}
+    .shell{max-width:1100px;margin:0 auto;padding:0 28px 80px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .notice{padding:16px 18px;border-radius:18px;border:1px solid rgba(159,126,107,.16);background:rgba(255,255,255,.72);font-size:13.5px;color:#5e514b;line-height:1.65;margin-bottom:22px}
+    footer{background:#fff;border-top:1px solid rgba(0,0,0,.07);padding:52px 32px 36px}
+    .footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px}
+    .footer-col h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:#2f2f2f;margin:0 0 14px}
+    .footer-col p,.footer-col a{font-size:13.5px;color:#777;line-height:1.85;text-decoration:none;display:block;margin:0}
+    .footer-col a:hover{color:#9f7e6b}
+    .footer-bottom{max-width:1100px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(0,0,0,.07);font-size:12px;color:#bbb;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr;gap:28px}.nav-center{display:none}.hamburger{display:flex;margin-left:auto}}
+    @media(max-width:700px){.header{padding:.75rem 1rem}.nav{min-height:52px;justify-content:space-between}.brand{flex:1 1 auto;min-width:0;max-width:calc(100% - 52px);padding:5px 10px}.brand img{height:34px;flex-shrink:0}.nav-brand-text{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.page-header{padding:44px 20px 26px}.shell{padding:0 16px 60px}.footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column}}
+
+    .admin-grid{display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:start}
+    .panel{padding:22px}
+    .login-card{max-width:460px;margin:0 auto 80px;padding:28px}
+    label{display:block;font-size:13px;font-weight:500;margin-bottom:7px;color:#3d3d3d}
+    input,textarea,select{width:100%;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.82);border-radius:14px;padding:12px 13px;font:inherit;color:#2f2f2f;outline:none}
+    textarea{min-height:90px;resize:vertical}
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .filters{display:grid;gap:12px}
+    .list{display:grid;gap:12px;max-height:760px;overflow:auto;padding-right:4px}
+    .intake-item{border:1px solid rgba(0,0,0,.08);border-radius:16px;background:rgba(255,255,255,.7);padding:14px;cursor:pointer;transition:.18s ease}
+    .intake-item:hover,.intake-item.active{transform:translateY(-1px);border-color:rgba(159,126,107,.32);background:#fff}
+    .intake-item strong{display:block;margin-bottom:5px}
+    .intake-item small{color:#777;line-height:1.5;display:block}
+    .detail-empty{padding:40px;text-align:center;color:#777}
+    .detail-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:18px}
+    .detail-header h2{margin:0;font-size:1.65rem}
+    .detail-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .field{background:rgba(255,255,255,.62);border:1px solid rgba(0,0,0,.07);border-radius:15px;padding:12px}
+    .field span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#9f7e6b;margin-bottom:5px}
+    .field div{font-size:14px;line-height:1.5;white-space:pre-wrap}
+    .section-block{margin-top:18px}
+    .section-block h3{margin:0 0 10px;font-size:1.25rem}
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px}
+    .pill{font-size:12px;border:1px solid rgba(0,0,0,.08);background:#fff;border-radius:999px;padding:7px 10px}
+    .signature-img{max-width:100%;border:1px dashed rgba(0,0,0,.18);border-radius:14px;background:#fff;margin-top:8px}
+    .status{font-size:13px;line-height:1.5;color:#777;margin-top:12px}
+    .status.ok{color:#286140} .status.bad{color:#8d2424}
+    .hidden{display:none!important}
+    @media(max-width:930px){.admin-grid{grid-template-columns:1fr}.list{max-height:none}.summary-grid{grid-template-columns:1fr}}
+    @media print{.header,.mobile-menu,footer,.page-header,.sidebar,.toolbar,.detail-actions,.no-print{display:none!important}body{background:#fff}.shell{max-width:none;padding:0}.admin-grid{display:block}.card{box-shadow:none;border:none}}
+  </style>
+</head>
+<body>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="Packages.html">Packages</a>
+  <a href="products.html">Products</a>
+  <a href="newsletter.html">Newsletter</a>
+  <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="mobile-book">Book Now</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<header class="header">
+  <div class="nav">
+    <a href="index.html" class="brand">
+      <img src="images/techniq-of.png" alt="Techniq Skin & Beauty">
+      <span class="nav-brand-text">Techniq Skin &amp; Beauty</span>
+    </a>
+    <div class="nav-center">
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="Packages.html" class="nav-link">Packages</a>
+      <a href="newsletter.html" class="nav-link">Newsletter</a>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="btn-primary">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+  <div class="page-header">
+    <span class="page-eyebrow">Admin Only</span>
+    <h1>Intake Form Dashboard</h1>
+    <p>View, search, print, export, and review submitted Techniq Skin &amp; Beauty intake and consent forms.</p>
+  </div>
+
+  <main class="shell">
+    <section id="loginSection" class="card login-card">
+      <h2 style="margin-top:0">Admin Login</h2>
+      <p style="font-size:14px;line-height:1.7;color:#666;margin-bottom:18px">This page is public HTML, but the records are protected by Supabase Auth and Row Level Security. Only the approved admin email can read submissions.</p>
+      <form id="loginForm">
+        <div style="margin-bottom:12px"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="email" required></div>
+        <div style="margin-bottom:16px"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" required></div>
+        <button class="btn-primary" type="submit">Log In</button>
+        <div id="loginStatus" class="status"></div>
+      </form>
+    </section>
+
+    <section id="dashboard" class="admin-grid hidden">
+      <aside class="card panel sidebar">
+        <div class="toolbar">
+          <button class="btn-secondary" id="refreshBtn" type="button">Refresh</button>
+          <button class="btn-ghost" id="logoutBtn" type="button">Log Out</button>
+        </div>
+        <div class="filters">
+          <div><label for="searchInput">Search client</label><input id="searchInput" placeholder="Name, email, phone..."></div>
+          <div><label for="dateFilter">Appointment / submitted date</label><input id="dateFilter" type="date"></div>
+          <div><label for="reviewFilter">Review Status</label><select id="reviewFilter"><option value="">All</option><option value="unreviewed">Unreviewed</option><option value="reviewed">Reviewed</option></select></div>
+        </div>
+        <div class="toolbar" style="margin-top:18px">
+          <button class="btn-primary" id="exportCsvBtn" type="button">Export CSV</button>
+          <button class="btn-ghost" id="exportJsonBtn" type="button">Export JSON</button>
+        </div>
+        <div id="listStatus" class="status"></div>
+        <div id="formsList" class="list"></div>
+      </aside>
+
+      <section class="card panel" id="detailPanel">
+        <div class="detail-empty">Select a form submission to view details.</div>
+      </section>
+    </section>
+  </main>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Techniq Skin &amp; Beauty</h4>
+      <p>49 Tolland Turnpike Suite 202</p>
+      <p>Vernon, CT 06066</p>
+      <a href="tel:8602304411" style="margin-top:8px;">860-230-4411</a>
+      <a href="mailto:techniqskinandbeauty@gmail.com">techniqskinandbeauty@gmail.com</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hours</h4>
+      <p>Hours vary weekly.</p>
+      <p>Check the booking calendar for current availability.</p>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" style="margin-top:8px;color:#9f7e6b;">View Availability →</a>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="Packages.html">Packages &amp; Bundles</a>
+      <a href="products.html">Shop Products</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services">Book an Appointment</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Techniq Skin &amp; Beauty LLC · Vernon, CT</span>
+    <a href="https://www.instagram.com/techniqskinandbeauty?igsh=MWFoOW8yZzMzajhuZw==" target="_blank" rel="noopener noreferrer" class="footer-insta" aria-label="Follow us on Instagram">Instagram</a>
+    <span>Serving Vernon, Manchester, Rockville &amp; Tolland County</span>
+  </div>
+</footer>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>
+
+<script>
+  const SUPABASE_URL = "https://wxfizlkphvgsmikhsosx.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4Zml6bGtwaHZnc21pa2hzb3N4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTY0NjcsImV4cCI6MjA5MjczMjQ2N30.wKmhPWAr3Uu4ddL-rtpDkA374m2riOk_Gntzp77gbN0";
+  const APPROVED_ADMIN_EMAIL = "techniqskinandbeautyllc@gmail.com"; // Must match SQL policy or be changed in both places.
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  let allForms = [];
+  let selectedId = null;
+
+  const $ = (id) => document.getElementById(id);
+  function esc(v) { return String(v ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
+  function fmtDate(v) { return v ? new Date(v).toLocaleString() : ''; }
+  function arr(v) { return Array.isArray(v) ? v : []; }
+  function showLogin(msg='') {
+    $('loginSection').classList.remove('hidden');
+    $('dashboard').classList.add('hidden');
+    if (msg) $('loginStatus').textContent = msg;
+  }
+  function showDashboard() {
+    $('loginSection').classList.add('hidden');
+    $('dashboard').classList.remove('hidden');
+  }
+
+  async function checkSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) return showLogin();
+    const email = session.user?.email || '';
+    if (email.toLowerCase() !== APPROVED_ADMIN_EMAIL.toLowerCase()) {
+      await supabaseClient.auth.signOut();
+      return showLogin('This login is not approved for intake admin access.');
+    }
+    showDashboard();
+    await loadForms();
+  }
+
+  $('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    $('loginStatus').textContent = 'Logging in...';
+    const email = $('loginEmail').value.trim();
+    const password = $('loginPassword').value;
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+    if (error) { $('loginStatus').textContent = error.message; $('loginStatus').className='status bad'; return; }
+    if ((data.user?.email || '').toLowerCase() !== APPROVED_ADMIN_EMAIL.toLowerCase()) {
+      await supabaseClient.auth.signOut();
+      $('loginStatus').textContent = 'This email is not approved for intake admin access.';
+      $('loginStatus').className='status bad';
+      return;
+    }
+    $('loginStatus').className='status';
+    await checkSession();
+  });
+
+  $('logoutBtn').addEventListener('click', async () => { await supabaseClient.auth.signOut(); showLogin('Logged out.'); });
+  $('refreshBtn').addEventListener('click', loadForms);
+  ['searchInput','dateFilter','reviewFilter'].forEach(id => $(id).addEventListener('input', renderList));
+
+  async function loadForms() {
+    $('listStatus').textContent = 'Loading forms...';
+    const { data, error } = await supabaseClient
+      .from('client_intake_forms')
+      .select('*')
+      .order('created_at', { ascending:false });
+    if (error) {
+      $('listStatus').textContent = 'Could not load forms: ' + error.message;
+      $('listStatus').className = 'status bad';
+      return;
+    }
+    allForms = data || [];
+    $('listStatus').textContent = `${allForms.length} submission(s) loaded.`;
+    $('listStatus').className = 'status ok';
+    renderList();
+  }
+
+  function filteredForms() {
+    const q = $('searchInput').value.trim().toLowerCase();
+    const d = $('dateFilter').value;
+    const rf = $('reviewFilter').value;
+    return allForms.filter(f => {
+      const hay = [f.full_name,f.email,f.phone,f.emergency_contact].join(' ').toLowerCase();
+      const dateMatch = !d || (String(f.appointment_date || '').startsWith(d) || String(f.created_at || '').startsWith(d));
+      const reviewMatch = !rf || (rf === 'reviewed' ? !!f.reviewed_at : !f.reviewed_at);
+      return (!q || hay.includes(q)) && dateMatch && reviewMatch;
+    });
+  }
+
+  function renderList() {
+    const list = $('formsList');
+    const rows = filteredForms();
+    if (!rows.length) { list.innerHTML = '<div class="detail-empty">No matching forms.</div>'; return; }
+    list.innerHTML = rows.map(f => `
+      <div class="intake-item ${selectedId===f.id?'active':''}" data-id="${esc(f.id)}">
+        <strong>${esc(f.full_name || 'Unnamed Client')}</strong>
+        <small>${esc(f.email || '')} · ${esc(f.phone || '')}</small>
+        <small>Submitted: ${esc(fmtDate(f.created_at))}</small>
+        <small>${f.reviewed_at ? 'Reviewed' : 'Unreviewed'}</small>
+      </div>`).join('');
+    list.querySelectorAll('.intake-item').forEach(item => item.addEventListener('click', () => selectForm(item.dataset.id)));
+  }
+
+  function pillList(items) {
+    const a = arr(items);
+    return a.length ? `<div class="pill-row">${a.map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</div>` : '<div>None listed</div>';
+  }
+
+  function val(v) { return esc(v || '—'); }
+
+  function selectForm(id) {
+    selectedId = id;
+    renderList();
+    const f = allForms.find(x => x.id === id);
+    if (!f) return;
+    const routine = f.current_routine || {};
+    const lifestyle = f.lifestyle || {};
+    $('detailPanel').innerHTML = `
+      <div class="detail-header">
+        <div>
+          <h2>${esc(f.full_name || 'Client')}</h2>
+          <p style="margin:7px 0 0;color:#777;font-size:14px">Submitted ${esc(fmtDate(f.created_at))} · ${f.reviewed_at ? 'Reviewed ' + esc(fmtDate(f.reviewed_at)) : 'Unreviewed'}</p>
+        </div>
+        <div class="detail-actions no-print">
+          <button class="btn-secondary" onclick="printSelected()">Print / Save PDF</button>
+          <button class="btn-primary" onclick="markReviewed('${esc(f.id)}')">Mark Reviewed</button>
+          <button class="btn-ghost" onclick="downloadSelectedJson()">Download JSON</button>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="field"><span>Full Name</span><div>${val(f.full_name)}</div></div>
+        <div class="field"><span>DOB</span><div>${val(f.dob)}</div></div>
+        <div class="field"><span>Phone</span><div>${val(f.phone)}</div></div>
+        <div class="field"><span>Email</span><div>${val(f.email)}</div></div>
+        <div class="field"><span>Emergency Contact</span><div>${val(f.emergency_contact)}</div></div>
+        <div class="field"><span>Appointment Date</span><div>${val(f.appointment_date)}</div></div>
+      </div>
+
+      <div class="section-block"><h3>Health History</h3>${pillList(f.health_history)}<div class="summary-grid" style="margin-top:12px"><div class="field"><span>Medications / Supplements</span><div>${val(f.medications)}</div></div><div class="field"><span>Allergy / Condition Details</span><div>${val(f.allergy_details)}</div></div></div></div>
+      <div class="section-block"><h3>Used in Last 6 Months</h3>${pillList(f.used_last_6_months)}</div>
+      <div class="section-block"><h3>Skin Profile</h3>${pillList(f.main_concerns)}<div class="summary-grid" style="margin-top:12px"><div class="field"><span>Skin Type</span><div>${val(f.skin_type)}</div></div><div class="field"><span>Reactions</span><div>${arr(f.reactions_experienced).map(esc).join(', ') || '—'}</div></div></div></div>
+      <div class="section-block"><h3>Current Routine</h3><div class="summary-grid"><div class="field"><span>Cleanser</span><div>${val(routine.cleanser)}</div></div><div class="field"><span>Toner</span><div>${val(routine.toner)}</div></div><div class="field"><span>Serums</span><div>${val(routine.serums)}</div></div><div class="field"><span>Moisturizer</span><div>${val(routine.moisturizer)}</div></div><div class="field"><span>SPF Usage</span><div>${val(routine.spf_usage)}</div></div><div class="field"><span>Other Products</span><div>${val(routine.other_products)}</div></div></div></div>
+      <div class="section-block"><h3>Lifestyle</h3><div class="summary-grid"><div class="field"><span>Water Intake</span><div>${val(lifestyle.water_intake)}</div></div><div class="field"><span>Stress Level</span><div>${val(lifestyle.stress_level)}</div></div><div class="field"><span>Smoke / Vape</span><div>${val(lifestyle.smoke_vape)}</div></div><div class="field"><span>Facials</span><div>${val(lifestyle.facials_frequency)}</div></div></div></div>
+      <div class="section-block"><h3>Consent & Signature</h3><div class="summary-grid"><div class="field"><span>Client Printed Name</span><div>${val(f.client_printed_name)}</div></div><div class="field"><span>Signature Date</span><div>${val(f.signature_date)}</div></div><div class="field"><span>Consent Confirmed</span><div>${f.consent_confirmed ? 'Yes' : 'No'}</div></div></div>${f.signature_image ? `<img class="signature-img" src="${esc(f.signature_image)}" alt="Client signature">` : ''}</div>
+      <div class="section-block no-print"><h3>Admin Notes</h3><textarea id="adminNotes">${esc(f.admin_notes || '')}</textarea><div style="margin-top:10px"><button class="btn-secondary" onclick="saveNotes('${esc(f.id)}')">Save Notes</button></div><div id="notesStatus" class="status"></div></div>
+    `;
+  }
+
+  async function markReviewed(id) {
+    const { error } = await supabaseClient.from('client_intake_forms').update({ reviewed_at: new Date().toISOString() }).eq('id', id);
+    if (error) return alert(error.message);
+    await loadForms(); selectForm(id);
+  }
+
+  async function saveNotes(id) {
+    const notes = $('adminNotes').value;
+    const { error } = await supabaseClient.from('client_intake_forms').update({ admin_notes: notes }).eq('id', id);
+    $('notesStatus').textContent = error ? error.message : 'Notes saved.';
+    $('notesStatus').className = error ? 'status bad' : 'status ok';
+    if (!error) await loadForms();
+  }
+
+  function flattenForCsv(f) {
+    const routine = f.current_routine || {}, life = f.lifestyle || {};
+    return {
+      submitted_at: f.created_at,
+      reviewed_at: f.reviewed_at || '',
+      full_name: f.full_name || '',
+      dob: f.dob || '',
+      phone: f.phone || '',
+      email: f.email || '',
+      emergency_contact: f.emergency_contact || '',
+      appointment_date: f.appointment_date || '',
+      health_history: arr(f.health_history).join('; '),
+      medications: f.medications || '',
+      allergy_details: f.allergy_details || '',
+      used_last_6_months: arr(f.used_last_6_months).join('; '),
+      main_concerns: arr(f.main_concerns).join('; '),
+      skin_type: f.skin_type || '',
+      reactions_experienced: arr(f.reactions_experienced).join('; '),
+      cleanser: routine.cleanser || '',
+      toner: routine.toner || '',
+      serums: routine.serums || '',
+      moisturizer: routine.moisturizer || '',
+      spf_usage: routine.spf_usage || '',
+      other_products: routine.other_products || '',
+      water_intake: life.water_intake || '',
+      stress_level: life.stress_level || '',
+      smoke_vape: life.smoke_vape || '',
+      facials_frequency: life.facials_frequency || '',
+      client_printed_name: f.client_printed_name || '',
+      signature_date: f.signature_date || '',
+      consent_confirmed: f.consent_confirmed ? 'yes' : 'no',
+      admin_notes: f.admin_notes || ''
+    };
+  }
+
+  function downloadFile(filename, content, type) {
+    const blob = new Blob([content], {type});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function csvEscape(v) { return '"' + String(v ?? '').replace(/"/g,'""') + '"'; }
+  $('exportCsvBtn').addEventListener('click', () => {
+    const rows = filteredForms().map(flattenForCsv);
+    if (!rows.length) return alert('No forms to export.');
+    const headers = Object.keys(rows[0]);
+    const csv = [headers.join(','), ...rows.map(r => headers.map(h => csvEscape(r[h])).join(','))].join('\n');
+    downloadFile('techniq-intake-forms.csv', csv, 'text/csv');
+  });
+
+  $('exportJsonBtn').addEventListener('click', () => {
+    downloadFile('techniq-intake-forms.json', JSON.stringify(filteredForms(), null, 2), 'application/json');
+  });
+
+  function downloadSelectedJson() {
+    const f = allForms.find(x => x.id === selectedId);
+    if (!f) return;
+    downloadFile(`techniq-intake-${(f.full_name||'client').replace(/[^a-z0-9]+/gi,'-')}.json`, JSON.stringify(f, null, 2), 'application/json');
+  }
+  function printSelected() { window.print(); }
+
+  window.markReviewed = markReviewed;
+  window.saveNotes = saveNotes;
+  window.downloadSelectedJson = downloadSelectedJson;
+  window.printSelected = printSelected;
+
+  checkSession();
+</script>
+</body>
+</html>

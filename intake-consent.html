@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Intake & Consent Form | Techniq Skin & Beauty</title>
+  <meta name="description" content="Complete your secure client intake and consent form before your appointment at Techniq Skin & Beauty in Vernon, CT." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+
+    :root{
+      --lavender-gray:#BCC0D6;
+      --peach:#EBBBA8;
+      --dusty-mauve:#C8BBC7;
+      --mint:#C8E1CF;
+      --sage:#D2D7C7;
+      --taupe-pink:#D2C2BF;
+      --cool-sage:#C5D6CE;
+      --muted-tan:#E1C3AB;
+      --buttery:#E5CFA6;
+      --periwinkle:#BDC6D7;
+      --ink:#2f2f2f;
+      --muted:#666;
+      --line:rgba(0,0,0,0.08);
+      --card:rgba(255,255,255,0.82);
+      --shadow:0 18px 50px rgba(0,0,0,0.08);
+      --radius:22px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(188,192,214,0.45), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(235,187,168,0.34), transparent 55%),
+        radial-gradient(800px 500px at 50% 100%, rgba(200,225,207,0.22), transparent 55%),
+        #fff;
+      min-height:100vh;
+    }
+    .header{padding:1rem 2.5rem;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav{display:flex;flex-wrap:nowrap;align-items:center;max-width:1100px;margin:0 auto;position:relative;min-height:64px}
+    .brand,.brand:hover,.brand:visited{text-decoration:none;color:inherit}
+    .brand{display:flex;align-items:center;gap:10px;padding:6px 12px;border-radius:12px;background:rgba(0,0,0,.04);transition:all .25s ease;flex-shrink:1;min-width:0;cursor:pointer}
+    .brand img{height:42px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+    .brand:hover{background:rgba(0,0,0,.06);transform:translateY(-1px)}
+    .brand:active{transform:scale(.98)}
+    .nav-brand-text{font-family:'Playfair Display',serif;font-weight:600;font-size:1.15rem;letter-spacing:.02em;color:#2f2f2f;white-space:nowrap}
+    .nav-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:24px;align-items:center}
+    .nav-link{position:relative;text-decoration:none;font-family:Inter,sans-serif;font-size:.9rem;color:#2f2f2f;padding-bottom:4px}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:0;width:0%;height:1.5px;background:#9f7e6b;transition:width .25s ease}
+    .nav-link:hover::after{width:100%}
+    .hamburger{flex-shrink:0;display:none;margin-left:auto;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:200;width:42px;height:42px;align-items:center;justify-content:center}
+    .hamburger span{display:block;width:24px;height:2px;background:#2f2f2f;border-radius:2px;transition:all .3s ease}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:40px 32px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;color:#2f2f2f;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.07);width:100%;text-align:center;transition:color .2s ease}
+    .mobile-menu a:hover{color:#9f7e6b}
+    .mobile-menu .mobile-book{margin-top:10px;background:#EBBBA8;border-radius:30px;padding:14px 36px;font-size:1rem;border-bottom:none;font-family:Inter,sans-serif}
+    .btn-primary,.btn-secondary,.btn-danger,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:.72rem 1.35rem;border-radius:999px;font-size:.9rem;font-family:Inter,sans-serif;transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease,color .22s ease,border-color .22s ease;white-space:nowrap;border:none;cursor:pointer;line-height:1}
+    .btn-primary{background:#EBBBA8;color:#2f2f2f;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+    .btn-primary:hover{background:#DFAE9A;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+    .btn-secondary{background:#C8E1CF;color:#2f2f2f}
+    .btn-secondary:hover{background:#BDC6D7;transform:translateY(-1px)}
+    .btn-ghost{background:rgba(255,255,255,.72);border:1px solid var(--line);color:#333}
+    .btn-danger{background:#fff1f1;color:#7a2222;border:1px solid rgba(122,34,34,.15)}
+    .page-header{max-width:900px;margin:0 auto;padding:64px 28px 34px;text-align:center}
+    .page-eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;color:#9f7e6b;margin-bottom:14px;display:block}
+    h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;color:#2f2f2f}
+    .page-header h1{font-size:clamp(2.1rem,4vw,3.1rem);line-height:1.12;margin:0 0 14px}
+    .page-header p{font-size:15px;color:#666;font-weight:300;line-height:1.8;max-width:660px;margin:0 auto}
+    .shell{max-width:1100px;margin:0 auto;padding:0 28px 80px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .notice{padding:16px 18px;border-radius:18px;border:1px solid rgba(159,126,107,.16);background:rgba(255,255,255,.72);font-size:13.5px;color:#5e514b;line-height:1.65;margin-bottom:22px}
+    footer{background:#fff;border-top:1px solid rgba(0,0,0,.07);padding:52px 32px 36px}
+    .footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px}
+    .footer-col h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:#2f2f2f;margin:0 0 14px}
+    .footer-col p,.footer-col a{font-size:13.5px;color:#777;line-height:1.85;text-decoration:none;display:block;margin:0}
+    .footer-col a:hover{color:#9f7e6b}
+    .footer-bottom{max-width:1100px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(0,0,0,.07);font-size:12px;color:#bbb;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr;gap:28px}.nav-center{display:none}.hamburger{display:flex;margin-left:auto}}
+    @media(max-width:700px){.header{padding:.75rem 1rem}.nav{min-height:52px;justify-content:space-between}.brand{flex:1 1 auto;min-width:0;max-width:calc(100% - 52px);padding:5px 10px}.brand img{height:34px;flex-shrink:0}.nav-brand-text{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.page-header{padding:44px 20px 26px}.shell{padding:0 16px 60px}.footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column}}
+
+    .form-card{padding:30px}
+    form{display:grid;gap:26px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px}
+    .section-title h2{font-size:1.45rem;margin:0}
+    .section-title span{font-size:12px;color:#9f7e6b;text-transform:uppercase;letter-spacing:.12em}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    label{display:block;font-size:13px;font-weight:500;color:#3d3d3d;margin-bottom:7px}
+    input, textarea, select{width:100%;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.82);border-radius:14px;padding:12px 13px;font:inherit;color:#2f2f2f;outline:none;transition:border .2s ease, box-shadow .2s ease}
+    input:focus, textarea:focus, select:focus{border-color:#DFAE9A;box-shadow:0 0 0 4px rgba(235,187,168,.20)}
+    textarea{min-height:88px;resize:vertical;line-height:1.55}
+    .checks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .check{display:flex;align-items:center;gap:9px;padding:11px 12px;border:1px solid rgba(0,0,0,.08);border-radius:14px;background:rgba(255,255,255,.64);font-size:13px;line-height:1.25;cursor:pointer}
+    .check input{width:auto;accent-color:#DFAE9A}
+    .radio-row{display:flex;flex-wrap:wrap;gap:10px}
+    .signature-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+    .sig-box{border:1px dashed rgba(0,0,0,.22);border-radius:18px;background:#fff;overflow:hidden}
+    #signaturePad{display:block;width:100%;height:180px;touch-action:none}
+    .sig-actions{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:8px}
+    .consent-copy{font-size:14px;line-height:1.8;color:#555;background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.07);padding:18px;border-radius:18px}
+    .form-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:22px}
+    .status{font-size:14px;line-height:1.6}
+    .status.ok{color:#286140} .status.bad{color:#8d2424}
+    .hidden{display:none!important}
+    @media(max-width:850px){.grid-2,.grid-3,.signature-wrap{grid-template-columns:1fr}.checks{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.form-card{padding:20px}.checks{grid-template-columns:1fr}.form-actions{align-items:stretch}.form-actions button{width:100%}}
+    @media print{.header,.mobile-menu,footer,.no-print,.form-actions{display:none!important}body{background:#fff}.shell{max-width:none;padding:0}.card{box-shadow:none;border:none}}
+  </style>
+</head>
+<body>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="Packages.html">Packages</a>
+  <a href="products.html">Products</a>
+  <a href="newsletter.html">Newsletter</a>
+  <a href="intake-consent.html">Intake Form</a>
+  <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="mobile-book">Book Now</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<header class="header">
+  <div class="nav">
+    <a href="index.html" class="brand">
+      <img src="images/techniq-of.png" alt="Techniq Skin & Beauty">
+      <span class="nav-brand-text">Techniq Skin &amp; Beauty</span>
+    </a>
+    <div class="nav-center">
+      <a href="products.html" class="nav-link">Products</a>
+      <a href="Packages.html" class="nav-link">Packages</a>
+      <a href="newsletter.html" class="nav-link">Newsletter</a>
+      <a href="intake-consent.html" class="nav-link">Intake Form</a>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="btn-primary">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+  <div class="page-header">
+    <span class="page-eyebrow">Before Your Appointment</span>
+    <h1>Client Intake &amp; Consent Form</h1>
+    <p>Please complete this form before your service. Your answers help Techniq Skin &amp; Beauty tailor your appointment safely and professionally.</p>
+  </div>
+
+  <main class="shell">
+    <div class="notice">
+      <strong>Privacy note:</strong> This form is submitted to Techniq Skin &amp; Beauty’s Supabase database. Do not put Social Security numbers, insurance numbers, or unrelated medical documents in this form.
+    </div>
+
+    <section class="card form-card">
+      <form id="intakeForm">
+        <section>
+          <div class="section-title"><h2>Client Information</h2><span>Required</span></div>
+          <div class="grid-2">
+            <div><label for="full_name">Full Name *</label><input id="full_name" name="full_name" autocomplete="name" required></div>
+            <div><label for="dob">Date of Birth *</label><input id="dob" name="dob" type="date" required></div>
+            <div><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
+            <div><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="grid-span"><label for="emergency_contact">Emergency Contact Name &amp; Phone</label><input id="emergency_contact" name="emergency_contact"></div>
+            <div><label for="appointment_date">Appointment Date</label><input id="appointment_date" name="appointment_date" type="date"></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Health History</h2><span>Check all that apply</span></div>
+          <div class="checks" data-group="health_history">
+            <label class="check"><input type="checkbox" value="Pregnant / Trying to Conceive">Pregnant / Trying to Conceive</label>
+            <label class="check"><input type="checkbox" value="Breastfeeding">Breastfeeding</label>
+            <label class="check"><input type="checkbox" value="Diabetes">Diabetes</label>
+            <label class="check"><input type="checkbox" value="Blood Pressure Issues">Blood Pressure Issues</label>
+            <label class="check"><input type="checkbox" value="Heart Condition">Heart Condition</label>
+            <label class="check"><input type="checkbox" value="Thyroid Condition">Thyroid Condition</label>
+            <label class="check"><input type="checkbox" value="Hormonal Imbalance">Hormonal Imbalance</label>
+            <label class="check"><input type="checkbox" value="Autoimmune Disorder">Autoimmune Disorder</label>
+            <label class="check"><input type="checkbox" value="Skin Conditions">Skin Conditions: eczema, rosacea, psoriasis</label>
+            <label class="check"><input type="checkbox" value="Cold Sores / HSV">Cold Sores / HSV</label>
+            <label class="check"><input type="checkbox" value="Allergies">Allergies</label>
+          </div>
+          <div class="grid-2" style="margin-top:16px">
+            <div><label for="medications">Medications / Supplements</label><textarea id="medications" name="medications"></textarea></div>
+            <div><label for="allergy_details">Allergy / Skin Condition Details</label><textarea id="allergy_details" name="allergy_details"></textarea></div>
+          </div>
+          <label style="margin-top:16px">Used in last 6 months</label>
+          <div class="checks" data-group="used_last_6_months">
+            <label class="check"><input type="checkbox" value="Accutane">Accutane</label>
+            <label class="check"><input type="checkbox" value="Retinol / Retin-A">Retinol / Retin-A</label>
+            <label class="check"><input type="checkbox" value="Chemical Peels">Chemical Peels</label>
+            <label class="check"><input type="checkbox" value="Laser Treatments">Laser Treatments</label>
+            <label class="check"><input type="checkbox" value="None">None</label>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Skin Profile</h2><span>Skin goals</span></div>
+          <label>Main Concerns</label>
+          <div class="checks" data-group="main_concerns">
+            <label class="check"><input type="checkbox" value="Acne">Acne</label>
+            <label class="check"><input type="checkbox" value="Hyperpigmentation">Hyperpigmentation</label>
+            <label class="check"><input type="checkbox" value="Aging">Aging</label>
+            <label class="check"><input type="checkbox" value="Dryness">Dryness</label>
+            <label class="check"><input type="checkbox" value="Oiliness">Oiliness</label>
+            <label class="check"><input type="checkbox" value="Sensitivity">Sensitivity</label>
+            <label class="check"><input type="checkbox" value="Texture">Texture</label>
+          </div>
+          <div class="grid-2" style="margin-top:16px">
+            <div>
+              <label for="skin_type">Skin Type</label>
+              <select id="skin_type" name="skin_type">
+                <option value="">Select one</option><option>Dry</option><option>Oily</option><option>Combination</option><option>Sensitive</option><option>Not Sure</option>
+              </select>
+            </div>
+            <div>
+              <label>Reactions Experienced</label>
+              <div class="radio-row checks" data-group="reactions_experienced" style="grid-template-columns:repeat(4,1fr)">
+                <label class="check"><input type="checkbox" value="Burning">Burning</label>
+                <label class="check"><input type="checkbox" value="Itching">Itching</label>
+                <label class="check"><input type="checkbox" value="Redness">Redness</label>
+                <label class="check"><input type="checkbox" value="Peeling">Peeling</label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Current Routine</h2><span>Products used</span></div>
+          <div class="grid-3">
+            <div><label for="cleanser">Cleanser</label><input id="cleanser" name="cleanser"></div>
+            <div><label for="toner">Toner</label><input id="toner" name="toner"></div>
+            <div><label for="serums">Serums</label><input id="serums" name="serums"></div>
+            <div><label for="moisturizer">Moisturizer</label><input id="moisturizer" name="moisturizer"></div>
+            <div><label for="spf_usage">SPF Usage</label><input id="spf_usage" name="spf_usage" placeholder="Daily, sometimes, never..."></div>
+            <div><label for="other_products">Other Products</label><input id="other_products" name="other_products"></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Lifestyle</h2><span>General habits</span></div>
+          <div class="grid-2">
+            <div><label for="water_intake">Water Intake</label><select id="water_intake" name="water_intake"><option value="">Select</option><option>Low</option><option>Moderate</option><option>High</option></select></div>
+            <div><label for="stress_level">Stress Level</label><select id="stress_level" name="stress_level"><option value="">Select</option><option>Low</option><option>Moderate</option><option>High</option></select></div>
+            <div><label for="smoke_vape">Smoke / Vape</label><select id="smoke_vape" name="smoke_vape"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+            <div><label for="facials_frequency">Facials</label><select id="facials_frequency" name="facials_frequency"><option value="">Select</option><option>First Time</option><option>Occasional</option><option>Regular</option></select></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title"><h2>Consent &amp; Liability Waiver</h2><span>Signature required</span></div>
+          <div class="consent-copy">
+            <p>I confirm that the information provided is accurate to the best of my knowledge. I understand that all treatments provided are cosmetic, not medical, and results may vary.</p>
+            <p>I acknowledge potential side effects including redness, irritation, or breakouts. I agree to follow all aftercare instructions given.</p>
+            <p>I voluntarily consent to treatments and release Techniq Skin &amp; Beauty LLC and its esthetician(s) from liability, except in cases of gross negligence.</p>
+          </div>
+          <div class="signature-wrap" style="margin-top:18px">
+            <div>
+              <label for="client_printed_name">Client Name Printed *</label>
+              <input id="client_printed_name" name="client_printed_name" required>
+              <label for="signature_date" style="margin-top:14px">Date *</label>
+              <input id="signature_date" name="signature_date" type="date" required>
+            </div>
+            <div>
+              <label>Draw Signature *</label>
+              <div class="sig-box"><canvas id="signaturePad"></canvas></div>
+              <div class="sig-actions no-print"><small>Sign with finger, mouse, or trackpad.</small><button class="btn-ghost" type="button" id="clearSignature">Clear Signature</button></div>
+            </div>
+          </div>
+          <label class="check" style="margin-top:16px"><input id="consent_confirmed" name="consent_confirmed" type="checkbox" required> I have read and agree to the consent and liability waiver above.</label>
+        </section>
+
+        <div class="form-actions no-print">
+          <div>
+            <button class="btn-secondary" type="button" id="printCopy">Print / Save Copy</button>
+            <button class="btn-ghost" type="button" id="downloadJson">Download Copy</button>
+          </div>
+          <div>
+            <button class="btn-primary" type="submit" id="submitBtn">Submit Intake Form</button>
+          </div>
+          <div id="formStatus" class="status"></div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Techniq Skin &amp; Beauty</h4>
+      <p>49 Tolland Turnpike Suite 202</p>
+      <p>Vernon, CT 06066</p>
+      <a href="tel:8602304411" style="margin-top:8px;">860-230-4411</a>
+      <a href="mailto:techniqskinandbeauty@gmail.com">techniqskinandbeauty@gmail.com</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hours</h4>
+      <p>Hours vary weekly.</p>
+      <p>Check the booking calendar for current availability.</p>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" style="margin-top:8px;color:#9f7e6b;">View Availability →</a>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="Packages.html">Packages &amp; Bundles</a>
+      <a href="products.html">Shop Products</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services">Book an Appointment</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Techniq Skin &amp; Beauty LLC · Vernon, CT</span>
+    <a href="https://www.instagram.com/techniqskinandbeauty?igsh=MWFoOW8yZzMzajhuZw==" target="_blank" rel="noopener noreferrer" class="footer-insta" aria-label="Follow us on Instagram">Instagram</a>
+    <span>Serving Vernon, Manchester, Rockville &amp; Tolland County</span>
+  </div>
+</footer>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>
+
+<script>
+  const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
+  const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const today = new Date().toISOString().slice(0, 10);
+  document.getElementById('signature_date').value = today;
+
+  const canvas = document.getElementById('signaturePad');
+  const ctx = canvas.getContext('2d');
+  let drawing = false, hasSignature = false, last = null;
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const old = canvas.toDataURL();
+    canvas.width = Math.floor(rect.width * ratio);
+    canvas.height = Math.floor(180 * ratio);
+    ctx.scale(ratio, ratio);
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#2f2f2f';
+    const img = new Image();
+    img.onload = () => { if (hasSignature) ctx.drawImage(img, 0, 0, rect.width, 180); };
+    img.src = old;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function point(e) {
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches && e.touches[0];
+    return { x: (touch ? touch.clientX : e.clientX) - rect.left, y: (touch ? touch.clientY : e.clientY) - rect.top };
+  }
+  function start(e) { drawing = true; last = point(e); e.preventDefault(); }
+  function move(e) {
+    if (!drawing) return;
+    const p = point(e);
+    ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+    last = p; hasSignature = true; e.preventDefault();
+  }
+  function end() { drawing = false; last = null; }
+  ['mousedown','touchstart'].forEach(ev => canvas.addEventListener(ev, start, {passive:false}));
+  ['mousemove','touchmove'].forEach(ev => canvas.addEventListener(ev, move, {passive:false}));
+  ['mouseup','mouseleave','touchend','touchcancel'].forEach(ev => canvas.addEventListener(ev, end));
+
+  document.getElementById('clearSignature').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasSignature = false;
+  });
+
+  function checkedValues(group) {
+    return Array.from(document.querySelectorAll(`[data-group="${group}"] input:checked`)).map(i => i.value);
+  }
+
+  function collectForm() {
+    const fd = new FormData(document.getElementById('intakeForm'));
+    const payload = Object.fromEntries(fd.entries());
+    payload.health_history = checkedValues('health_history');
+    payload.used_last_6_months = checkedValues('used_last_6_months');
+    payload.main_concerns = checkedValues('main_concerns');
+    payload.reactions_experienced = checkedValues('reactions_experienced');
+    payload.consent_confirmed = document.getElementById('consent_confirmed').checked;
+    payload.signature_image = hasSignature ? canvas.toDataURL('image/png') : "";
+    payload.submitted_from = window.location.href;
+    payload.submitted_at_local = new Date().toLocaleString();
+    return payload;
+  }
+
+  function setStatus(msg, type) {
+    const el = document.getElementById('formStatus');
+    el.textContent = msg;
+    el.className = 'status ' + (type || '');
+  }
+
+  function downloadFile(filename, content, type) {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function safeName(name) { return (name || 'client').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+
+  document.getElementById('downloadJson').addEventListener('click', () => {
+    const p = collectForm();
+    downloadFile(`techniq-intake-${safeName(p.full_name)}.json`, JSON.stringify(p, null, 2), 'application/json');
+  });
+
+  document.getElementById('printCopy').addEventListener('click', () => window.print());
+
+  document.getElementById('intakeForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!hasSignature) { setStatus('Please draw your signature before submitting.', 'bad'); return; }
+
+    const payload = collectForm();
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+    setStatus('Submitting intake form...', '');
+
+    const row = {
+      full_name: payload.full_name,
+      dob: payload.dob || null,
+      phone: payload.phone,
+      email: payload.email,
+      emergency_contact: payload.emergency_contact || null,
+      appointment_date: payload.appointment_date || null,
+      health_history: payload.health_history,
+      medications: payload.medications || null,
+      allergy_details: payload.allergy_details || null,
+      used_last_6_months: payload.used_last_6_months,
+      main_concerns: payload.main_concerns,
+      skin_type: payload.skin_type || null,
+      reactions_experienced: payload.reactions_experienced,
+      current_routine: {
+        cleanser: payload.cleanser || '',
+        toner: payload.toner || '',
+        serums: payload.serums || '',
+        moisturizer: payload.moisturizer || '',
+        spf_usage: payload.spf_usage || '',
+        other_products: payload.other_products || ''
+      },
+      lifestyle: {
+        water_intake: payload.water_intake || '',
+        stress_level: payload.stress_level || '',
+        smoke_vape: payload.smoke_vape || '',
+        facials_frequency: payload.facials_frequency || ''
+      },
+      client_printed_name: payload.client_printed_name,
+      signature_date: payload.signature_date,
+      consent_confirmed: payload.consent_confirmed,
+      signature_image: payload.signature_image,
+      full_payload: payload
+    };
+
+    const { error } = await supabase.from('client_intake_forms').insert(row);
+    if (error) {
+      console.error(error);
+      setStatus('Submission failed: ' + error.message, 'bad');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Intake Form';
+      return;
+    }
+
+    setStatus('Submitted successfully. You can print or download a copy for your records.', 'ok');
+    submitBtn.textContent = 'Submitted';
+  });
+</script>
+</body>
+</html>

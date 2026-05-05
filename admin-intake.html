@@ -352,6 +352,9 @@
   }
 
   function val(v) { return esc(v || '—'); }
+  function agreementValue(f, key) {
+    return f[key] || (f.signed_agreement_snapshot && f.signed_agreement_snapshot[key]) || (f.full_payload && f.full_payload[key]) || '';
+  }
 
   function selectForm(id) {
     selectedId = id;
@@ -387,7 +390,7 @@
       <div class="section-block"><h3>Skin Profile</h3>${pillList(f.main_concerns)}<div class="summary-grid" style="margin-top:12px"><div class="field"><span>Skin Type</span><div>${val(f.skin_type)}</div></div><div class="field"><span>Reactions</span><div>${arr(f.reactions_experienced).map(esc).join(', ') || '—'}</div></div></div></div>
       <div class="section-block"><h3>Current Routine</h3><div class="summary-grid"><div class="field"><span>Cleanser</span><div>${val(routine.cleanser)}</div></div><div class="field"><span>Toner</span><div>${val(routine.toner)}</div></div><div class="field"><span>Serums</span><div>${val(routine.serums)}</div></div><div class="field"><span>Moisturizer</span><div>${val(routine.moisturizer)}</div></div><div class="field"><span>SPF Usage</span><div>${val(routine.spf_usage)}</div></div><div class="field"><span>Other Products</span><div>${val(routine.other_products)}</div></div></div></div>
       <div class="section-block"><h3>Lifestyle</h3><div class="summary-grid"><div class="field"><span>Water Intake</span><div>${val(lifestyle.water_intake)}</div></div><div class="field"><span>Stress Level</span><div>${val(lifestyle.stress_level)}</div></div><div class="field"><span>Smoke / Vape</span><div>${val(lifestyle.smoke_vape)}</div></div><div class="field"><span>Facials</span><div>${val(lifestyle.facials_frequency)}</div></div></div></div>
-      <div class="section-block"><h3>Consent & Signature</h3><div class="summary-grid"><div class="field"><span>Client Printed Name</span><div>${val(f.client_printed_name)}</div></div><div class="field"><span>Signature Date</span><div>${val(f.signature_date)}</div></div><div class="field"><span>Consent Confirmed</span><div>${f.consent_confirmed ? 'Yes' : 'No'}</div></div></div>${f.signature_image ? `<img class="signature-img" src="${esc(f.signature_image)}" alt="Client signature">` : ''}</div>
+      <div class="section-block"><h3>Consent & Signature</h3><div class="summary-grid"><div class="field"><span>Client Printed Name</span><div>${val(f.client_printed_name)}</div></div><div class="field"><span>Signature Date</span><div>${val(f.signature_date)}</div></div><div class="field"><span>Consent Confirmed</span><div>${f.consent_confirmed ? 'Yes' : 'No'}</div></div><div class="field"><span>Agreement Version</span><div>${val(agreementValue(f, 'agreement_version'))}</div></div><div class="field"><span>No-Show Policy</span><div>${val(agreementValue(f, 'no_show_policy'))}</div></div><div class="field"><span>Scheduling Notice</span><div>${agreementValue(f, 'minimum_scheduling_notice_hours') || 24} hours minimum notice</div></div></div><div class="field" style="margin-top:12px"><span>Exact Agreement Text Signed</span><div>${val(agreementValue(f, 'agreement_text'))}</div></div>${f.signature_image ? `<img class="signature-img" src="${esc(f.signature_image)}" alt="Client signature">` : ''}</div>
       <div class="section-block no-print"><h3>Admin Notes</h3><textarea id="adminNotes">${esc(f.admin_notes || '')}</textarea><div style="margin-top:10px"><button class="btn-secondary" onclick="saveNotes('${esc(f.id)}')">Save Notes</button></div><div id="notesStatus" class="status"></div></div>
     `;
   }
@@ -437,6 +440,9 @@
       client_printed_name: f.client_printed_name || '',
       signature_date: f.signature_date || '',
       consent_confirmed: f.consent_confirmed ? 'yes' : 'no',
+      agreement_version: agreementValue(f, 'agreement_version'),
+      no_show_policy: agreementValue(f, 'no_show_policy'),
+      agreement_text: agreementValue(f, 'agreement_text'),
       admin_notes: f.admin_notes || ''
     };
   }

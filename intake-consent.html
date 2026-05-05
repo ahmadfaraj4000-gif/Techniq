@@ -259,10 +259,13 @@
 
         <section>
           <div class="section-title"><h2>Consent &amp; Liability Waiver</h2><span>Signature required</span></div>
-          <div class="consent-copy">
+          <div class="consent-copy" id="agreementText">
+            <p><strong>Consent Agreement Version:</strong> Techniq Intake Consent v2026-05-05</p>
             <p>I confirm that the information provided is accurate to the best of my knowledge. I understand that all treatments provided are cosmetic, not medical, and results may vary.</p>
-            <p>I acknowledge potential side effects including redness, irritation, or breakouts. I agree to follow all aftercare instructions given.</p>
-            <p>I voluntarily consent to treatments and release Techniq Skin &amp; Beauty LLC and its esthetician(s) from liability, except in cases of gross negligence.</p>
+            <p>I understand that I am responsible for disclosing medications, allergies, skin conditions, recent treatments, pregnancy, breastfeeding, and any other information that may affect my service. I understand that failure to disclose accurate information may increase the risk of irritation, reaction, injury, or unsatisfactory results.</p>
+            <p>I acknowledge potential side effects including redness, sensitivity, irritation, breakouts, dryness, peeling, allergic reaction, or temporary changes in skin appearance. I agree to follow all aftercare instructions given by Techniq Skin &amp; Beauty LLC.</p>
+            <p>I understand that services are by appointment and that appointments must be scheduled or changed at least 24 hours before the service time. I agree that no-shows and appointments missed without at least 24 hours notice may be charged 30% of the missed service price.</p>
+            <p>I voluntarily consent to treatments and release Techniq Skin &amp; Beauty LLC and its esthetician(s) from liability, except in cases of gross negligence or willful misconduct.</p>
           </div>
           <div class="signature-wrap" style="margin-top:18px">
             <div>
@@ -350,7 +353,19 @@
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const today = new Date().toISOString().slice(0, 10);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowISO = tomorrow.toISOString().slice(0, 10);
   document.getElementById('signature_date').value = today;
+  document.getElementById('appointment_date').min = tomorrowISO;
+
+  const AGREEMENT_VERSION = 'Techniq Intake Consent v2026-05-05';
+  const NO_SHOW_POLICY = 'Appointments must be scheduled or changed at least 24 hours before the service time. No-shows and appointments missed without at least 24 hours notice may be charged 30% of the missed service price.';
+  function getAgreementText() {
+    return Array.from(document.querySelectorAll('#agreementText p'))
+      .map(p => p.textContent.trim())
+      .join('\n\n');
+  }
 
   const canvas = document.getElementById('signaturePad');
   const ctx = canvas.getContext('2d');
@@ -408,6 +423,23 @@
     payload.reactions_experienced = checkedValues('reactions_experienced');
     payload.consent_confirmed = document.getElementById('consent_confirmed').checked;
     payload.signature_image = hasSignature ? canvas.toDataURL('image/png') : "";
+    payload.agreement_version = AGREEMENT_VERSION;
+    payload.agreement_text = getAgreementText();
+    payload.no_show_policy = NO_SHOW_POLICY;
+    payload.minimum_scheduling_notice_hours = 24;
+    payload.no_show_fee_percent = 30;
+    payload.signed_agreement_snapshot = {
+      agreement_version: AGREEMENT_VERSION,
+      agreement_text: getAgreementText(),
+      no_show_policy: NO_SHOW_POLICY,
+      minimum_scheduling_notice_hours: 24,
+      no_show_fee_percent: 30,
+      consent_confirmed: payload.consent_confirmed,
+      client_printed_name: payload.client_printed_name || '',
+      signature_date: payload.signature_date || '',
+      signed_at_local: new Date().toLocaleString(),
+      signed_from_url: window.location.href
+    };
     payload.submitted_from = window.location.href;
     payload.submitted_at_local = new Date().toLocaleString();
     return payload;
@@ -439,6 +471,11 @@
   document.getElementById('intakeForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!hasSignature) { setStatus('Please draw your signature before submitting.', 'bad'); return; }
+    const appointmentDate = document.getElementById('appointment_date').value;
+    if (appointmentDate && appointmentDate < tomorrowISO) {
+      setStatus('Appointments must be scheduled at least 24 hours before the service. Please choose tomorrow or a later date.', 'bad');
+      return;
+    }
 
     const payload = collectForm();
     const submitBtn = document.getElementById('submitBtn');
@@ -478,6 +515,12 @@
       signature_date: payload.signature_date,
       consent_confirmed: payload.consent_confirmed,
       signature_image: payload.signature_image,
+      agreement_version: payload.agreement_version,
+      agreement_text: payload.agreement_text,
+      no_show_policy: payload.no_show_policy,
+      minimum_scheduling_notice_hours: payload.minimum_scheduling_notice_hours,
+      no_show_fee_percent: payload.no_show_fee_percent,
+      signed_agreement_snapshot: payload.signed_agreement_snapshot,
       full_payload: payload
     };
 

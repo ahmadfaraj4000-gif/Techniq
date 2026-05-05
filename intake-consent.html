@@ -347,7 +347,7 @@
 <script>
   const SUPABASE_URL = "https://wxfizlkphvgsmikhsosx.supabase.co";
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4Zml6bGtwaHZnc21pa2hzb3N4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTY0NjcsImV4cCI6MjA5MjczMjQ2N30.wKmhPWAr3Uu4ddL-rtpDkA374m2riOk_Gntzp77gbN0";
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const today = new Date().toISOString().slice(0, 10);
   document.getElementById('signature_date').value = today;
@@ -481,7 +481,7 @@
       full_payload: payload
     };
 
-    const { error } = await supabase
+    const { error } = await sb
       .from('client_intake_forms')
       .insert([row]);
     if (error) {

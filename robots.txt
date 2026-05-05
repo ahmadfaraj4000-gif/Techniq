@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /intake-consent.html
+Disallow: /admin-intake.html
+
+Sitemap: https://techniqskinandbeauty.com/sitemap.xml

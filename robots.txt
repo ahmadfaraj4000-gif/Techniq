@@ -4,4 +4,6 @@ Allow: /
 Disallow: /intake-consent.html
 Disallow: /admin-intake.html
 
+Allow: /llms.txt
+
 Sitemap: https://techniqskinandbeauty.com/sitemap.xml

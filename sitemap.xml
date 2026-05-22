@@ -3,41 +3,48 @@
 
   <url>
     <loc>https://techniqskinandbeauty.com/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://techniqskinandbeauty.com/facials-manchester-vernon-ct.html</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
+    <loc>https://techniqskinandbeauty.com/skincare-manchester-ct.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
     <loc>https://techniqskinandbeauty.com/brazilian-wax-manchester-ct.html</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://techniqskinandbeauty.com/acne-facial-vernon-ct.html</loc>
-    <lastmod>2026-05-19</lastmod>
+    <loc>https://techniqskinandbeauty.com/acne-corrective-vernon-ct.html</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://techniqskinandbeauty.com/products.html</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://techniqskinandbeauty.com/packages.html</loc>
+    <loc>https://techniqskinandbeauty.com/Packages.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

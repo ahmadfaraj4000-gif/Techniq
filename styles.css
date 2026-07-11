@@ -845,3 +845,44 @@ body.home .header {
   transform: translateY(1px) !important;
   box-shadow: inset 0 2px 5px rgba(92,55,43,0.18), 0 4px 10px rgba(120,76,60,0.16) !important;
 }
+
+/* Compact, consistent CTA labels and stable iOS tap colors. */
+.btn-primary,
+.btn-secondary,
+.mobile-book,
+.service-book-link,
+.gift-card-cta,
+.package-card > a,
+.promo-cta,
+.add-to-cart,
+.techniq-cart-fab,
+.techniq-checkout,
+.floating-book-btn,
+.signup-form button[type="submit"] {
+  color: #6b4f3a !important;
+  font-weight: 700 !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary,
+.btn-secondary,
+.service-book-link,
+.gift-card-cta,
+.package-card > a,
+.promo-cta,
+.add-to-cart,
+.signup-form button[type="submit"] {
+  width: fit-content;
+  max-width: 100%;
+  padding-left: 1.1rem !important;
+  padding-right: 1.1rem !important;
+}
+
+.add-to-cart:focus,
+.add-to-cart:hover,
+.add-to-cart:active,
+.card-add-button:focus,
+.card-add-button:hover,
+.card-add-button:active {
+  color: #6b4f3a !important;
+}

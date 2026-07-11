@@ -3,7 +3,10 @@ function money(n) {
 }
 
 const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
+const requestedProductId = params.get("id");
+const productId = requestedProductId === "cucumber-hydrating-tonerr"
+  ? "cucumber-hydrating-toner"
+  : requestedProductId;
 const product = window.PRODUCTS.find((p) => p.id === productId);
 
 if (!product) {
@@ -21,7 +24,7 @@ const variantSelect = document.getElementById("variantSelect");
 const addToCartBtn = document.querySelector(".add-to-cart");
 
 imgEl.src = product.image;
-imgEl.alt = product.name;
+imgEl.alt = window.getAltText(product.id) || product.name;
 
 nameEl.textContent = product.name;
 descEl.textContent = product.description;

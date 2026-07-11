@@ -110,7 +110,7 @@
 
     <!-- IMAGE -->
     <div class="product-image">
-      <img id="productImage" alt="Product image">
+      <img id="productImage" alt="Professional skincare product from Techniq Skin & Beauty">
     </div>
 
     <!-- INFO -->
@@ -141,7 +141,10 @@
     if (!window.PRODUCTS) return;
 
     const params = new URLSearchParams(window.location.search);
-    const productId = params.get("id");
+    const requestedProductId = params.get("id");
+    const productId = requestedProductId === "cucumber-hydrating-tonerr"
+      ? "cucumber-hydrating-toner"
+      : requestedProductId;
     const product = window.PRODUCTS.find(p => p.id === productId);
     if (!product) return;
 

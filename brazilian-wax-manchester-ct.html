@@ -141,8 +141,10 @@ p,li{
   font-size:14px;
   font-weight:600;
 }
-.btn-primary{background:var(--peach);color:var(--ink)}
-.btn-secondary{background:var(--mint);color:var(--ink)}
+.btn{border:1px solid rgba(151,91,68,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 10px 24px rgba(143,91,72,.2);transition:.2s ease;text-shadow:0 1px 0 rgba(255,255,255,.45)}
+.btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 #fff,0 15px 30px rgba(120,76,60,.26)}
+.btn-primary{background:linear-gradient(180deg,#f9e1d7,var(--peach) 48%,#dca087);color:var(--ink)}
+.btn-secondary{background:linear-gradient(180deg,#e9f5ec,var(--mint) 52%,#b4cfbc);color:var(--ink)}
 .related{
   margin-top:34px;
   padding-top:24px;

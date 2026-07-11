@@ -89,8 +89,10 @@ p,li{color:var(--muted);font-size:16px;line-height:1.85}
 .cta{padding:30px;margin-top:36px;background:radial-gradient(600px 240px at 20% 0%, rgba(235,187,168,.26), transparent 60%),rgba(255,255,255,.86)}
 .btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:999px;text-decoration:none!important;font-size:14px;font-weight:600}
-.btn-primary{background:var(--peach);color:var(--ink)}
-.btn-secondary{background:var(--mint);color:var(--ink)}
+.btn{border:1px solid rgba(151,91,68,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 10px 24px rgba(143,91,72,.2);transition:.2s ease;text-shadow:0 1px 0 rgba(255,255,255,.45)}
+.btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 #fff,0 15px 30px rgba(120,76,60,.26)}
+.btn-primary{background:linear-gradient(180deg,#f9e1d7,var(--peach) 48%,#dca087);color:var(--ink)}
+.btn-secondary{background:linear-gradient(180deg,#e9f5ec,var(--mint) 52%,#b4cfbc);color:var(--ink)}
 .related{margin-top:34px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px 18px}
 .footer-note{margin-top:34px;font-size:13px;color:#999}
 @media(max-width:800px){

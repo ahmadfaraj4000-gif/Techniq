@@ -112,7 +112,7 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
   position: relative;
   min-height: 64px;
@@ -169,11 +169,10 @@
 }
 
 .nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;
+  margin-left: auto;
   display: flex;
-  gap: 24px;
+  gap: 28px;
   align-items: center;
 }
 
@@ -184,6 +183,7 @@
   font-size: 0.9rem;
   color: #2f2f2f;
   padding-bottom: 4px;
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -375,25 +375,32 @@
 }
 
 .btn-primary {
-  background: #EBBBA8;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(180deg,#f8ddd2 0%,#EBBBA8 48%,#dfa58f 100%);
   color: #2f2f2f;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  border:1px solid rgba(151,91,68,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(121,71,54,.12),0 10px 24px rgba(143,91,72,.2);
+  text-shadow:0 1px 0 rgba(255,255,255,.45);
 }
 
 .btn-primary:hover {
-  background: #DFAE9A;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  background:linear-gradient(180deg,#fbe4da 0%,#efc2b0 48%,#dda088 100%);
+  transform: translateY(-2px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(121,71,54,.14),0 14px 30px rgba(143,91,72,.26);
 }
 
 .btn-secondary {
-  background: #C8E1CF;
+  background:linear-gradient(180deg,#e6f3ea 0%,#C8E1CF 52%,#b7d2bf 100%);
   color: #2f2f2f;
+  border:1px solid rgba(76,120,89,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 20px rgba(75,108,86,.14);
 }
 
 .btn-secondary:hover {
-  background: #BDC6D7;
-  transform: translateY(-1px);
+  background:linear-gradient(180deg,#edf7f0 0%,#d0e8d6 52%,#b9d5c1 100%);
+  transform: translateY(-2px);
+  box-shadow:inset 0 1px 0 #fff,0 12px 26px rgba(75,108,86,.2);
 }
 
     /* ── HERO ── */
@@ -458,16 +465,38 @@
   border-bottom: 1px solid rgba(0,0,0,0.07);
   padding: 72px 32px;
   background: rgba(255,255,255,0.55);
-  text-align: center;
 }
 
 .story-inner {
-  max-width: 720px;
+  max-width: 1100px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(280px, .86fr) 1.14fr;
   align-items: center;
-  gap: 0;
+  gap: 64px;
+}
+
+.story-photo {
+  margin: 0;
+  min-height: 560px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(159,126,107,.14);
+  background: #eee8e2;
+  box-shadow: 0 24px 60px rgba(64,45,35,.14);
+}
+
+.story-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.story-content {
+  text-align: left;
 }
 
 .story-eyebrow {
@@ -493,7 +522,7 @@
   height: 1.5px;
   background: #EBBBA8;
   border: none;
-  margin: 0 auto 32px;
+  margin: 0 0 32px;
 }
 
 .story-text {
@@ -501,7 +530,7 @@
   line-height: 1.85;
   color: #555;
   font-weight: 300;
-  text-align: center;
+  text-align: left;
 }
 
 .story-text p {
@@ -510,6 +539,14 @@
 
 .story-text p:last-child {
   margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .story-inner { grid-template-columns: 1fr; gap: 34px; }
+  .story-photo, .story-photo img { min-height: 480px; }
+  .story-content { text-align: center; }
+  .story-divider { margin-left: auto; margin-right: auto; }
+  .story-text { text-align: center; }
 }
 
     /* ── SERVICES ── */
@@ -805,7 +842,7 @@
       .hero-sub { max-width: 100%; }
       .hero-actions { justify-content: center; }
       .hero-logo-wrap { width: 280px; height: 340px; margin: 0 auto; }
-      .story-inner { grid-template-columns: 1fr; gap: 14px; }
+      .story-inner { grid-template-columns: 1fr; gap: 32px; }
       .story-label-col { font-size: 1.45rem; }
       .services-grid { grid-template-columns: 1fr; }
       .service-card-head { align-items: flex-start; }
@@ -814,7 +851,13 @@
       .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
     }
     @media (max-width: 540px) {
-      .hero-split, .services-section, .story-strip, .testimonials-section, .faq-section { padding-left: 20px; padding-right: 20px; }
+      .hero-split { padding: 36px 18px 42px; gap: 26px; }
+      .hero-logo-wrap { width: min(100%, 270px); height: 325px; }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; min-height: 46px; }
+      .services-section, .story-strip, .testimonials-section, .faq-section { padding-left: 18px; padding-right: 18px; }
+      .story-strip { padding-top: 52px; padding-bottom: 52px; }
+      .story-photo, .story-photo img { min-height: 420px; }
       .gallery-section { padding: 56px 20px; }
       .gallery-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
       .footer-inner { grid-template-columns: 1fr; }
@@ -824,6 +867,7 @@
       .service-card-head { flex-direction: column; gap: 10px; }
       .service-items li { min-height: 0; padding: 13px 12px; }
       .service-price { min-width: 54px; }
+      footer { padding: 42px 20px 28px; }
     }
     /* ── FLOATING BOOK BUTTON ── */
     .floating-book-btn {
@@ -862,7 +906,7 @@
     /* MOBILE VERSION */
     @media (max-width: 768px) {
       body.home {
-        padding-bottom: calc(92px + env(safe-area-inset-bottom));
+        padding-bottom: calc(62px + env(safe-area-inset-bottom));
       }
 
       .floating-book-btn {
@@ -870,12 +914,12 @@
         right: 0;
         bottom: 0;
         width: 100%;
-        padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+        min-height: 54px;
+        padding: 13px 18px calc(13px + env(safe-area-inset-bottom));
         border-radius: 0;
-        background: rgba(255,255,255,0.94);
-        box-shadow: 0 -8px 24px rgba(0,0,0,0.12);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
         opacity: 1;
         pointer-events: auto;
         transform: none;
@@ -889,28 +933,16 @@
       }
 
       .floating-book-btn::before {
-        content: "Book Now";
-        display: block;
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 17px 20px;
-        border-radius: 16px;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 1;
-        background: #EBBBA8;
-        color: #2f2f2f;
-        box-shadow: 0 8px 18px rgba(159,126,107,0.24);
+        content: none;
       }
 
       .floating-book-btn span {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-        white-space: nowrap;
+        position: static;
+        display: block;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip: auto;
       }
 
       .floating-book-btn.pulse {
@@ -1009,8 +1041,9 @@
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">&times;</button>
   <a href="index.html">Home</a>
-  <a href="Packages.html">Packages</a>
+  <a href="about.html">About</a>
   <a href="products.html">Products</a>
+  <a href="Packages.html">Packages</a>
   <a href="newsletter.html">Newsletter</a>
   <a href="intake-consent.html">Intake Form</a>
   <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="mobile-book">Book Now</a>
@@ -1028,6 +1061,7 @@
 
     <!-- CENTER: Nav -->
     <div class="nav-center">
+      <a href="about.html" class="nav-link">About</a>
       <a href="products.html" class="nav-link">Products</a>
       <a href="Packages.html" class="nav-link">Packages</a>
       <a href="newsletter.html" class="nav-link">Newsletter</a>
@@ -1055,8 +1089,8 @@
     <div class="hero-actions">
       <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="btn-primary">Book Now</a>
      <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" target="_blank" rel="noopener noreferrer" class="btn-secondary">View Services</a>
-      
     </div>
+    <p style="margin:14px 0 0;font-size:12.5px;color:#6f6f6f;line-height:1.6;">Secure online booking through Square · Licensed esthetician guidance · 24-hour cancellation policy</p>
     
   </div>
     <div class="hero-right">
@@ -1073,14 +1107,19 @@
 <!-- ══ OUR STORY ══ -->
 <div class="story-strip">
   <div class="story-inner">
-    <span class="story-eyebrow">Who We Are</span>
-    <div class="story-label-col">Our Story</div>
-    <hr class="story-divider">
-    <div class="story-text">
-      <p>Techniq Skin &amp; Beauty was created with one goal in mind: 
-  <span class="highlight">real results that last</span>.</p>
-      <p>Serving clients in Manchester, Vernon, Rockville, and surrounding areas, we offer customized facials, acne treatments, and advanced skincare services tailored to your unique skin using a results-driven approach.</p>
-      <p>Every appointment begins with a thoughtful consultation to understand your skin and build a plan for long-term progress, not just a quick fix. We also focus on client education, so you know exactly how to care for your skin and maintain your results at home.</p>
+    <figure class="story-photo">
+      <img src="images/techniq-treatment-room.png" alt="Facial treatment room at Techniq Skin and Beauty, a licensed esthetician studio in Manchester, CT" loading="lazy">
+    </figure>
+    <div class="story-content">
+      <span class="story-eyebrow">Who We Are</span>
+      <div class="story-label-col">Our Story</div>
+      <hr class="story-divider">
+      <div class="story-text">
+        <p>Techniq Skin &amp; Beauty was created with one goal in mind: 
+    <span class="highlight">real results that last</span>.</p>
+        <p>Serving clients in Manchester, Vernon, Rockville, and surrounding areas, we offer customized facials, acne treatments, and advanced skincare services tailored to your unique skin using a results-driven approach.</p>
+        <p>Every appointment begins with a thoughtful consultation to understand your skin and build a plan for long-term progress, not just a quick fix. We also focus on client education, so you know exactly how to care for your skin and maintain your results at home.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -1103,12 +1142,12 @@
         </div>
         <p>Every facial is tailored to your skin’s current needs, whether you’re maintaining your glow or targeting concerns like acne, texture, or hyperpigmentation. No two treatments are the same, because your skin isn’t.</p>
         <ul class="service-items">
-          <li><span class="service-name"><strong>The Skin Reset</strong><em>New clients</em></span><b class="service-price">$160</b></li>
-          <li><span class="service-name"><strong>The Essential Techniq</strong><em>Personalized facial</em></span><b class="service-price">$100</b></li>
-          <li><span class="service-name"><strong>The Euphoria Techniq</strong><em>Relaxation facial</em></span><b class="service-price">$130</b></li>
-          <li><span class="service-name"><strong>The Renewal Techniq</strong><em>Add-ons vary</em></span><b class="service-price">$140+</b></li>
-          <li><span class="service-name"><strong>The Rugged Techniq</strong><em>Men's facial</em></span><b class="service-price">$110</b></li>
-          <li><span class="service-name"><strong>The Fresh Start Techniq</strong><em>Teen facial</em></span><b class="service-price">$65</b></li>
+          <li><span class="service-name"><strong>The Skin Reset</strong><em>New clients</em></span><b class="service-price">$159.99</b></li>
+          <li><span class="service-name"><strong>The Essential Techniq</strong><em>Personalized facial</em></span><b class="service-price">$99.99</b></li>
+          <li><span class="service-name"><strong>The Euphoria Techniq</strong><em>Relaxation facial</em></span><b class="service-price">$129.99</b></li>
+          <li><span class="service-name"><strong>The Renewal Techniq</strong><em>Add-ons vary</em></span><b class="service-price">$139.99+</b></li>
+          <li><span class="service-name"><strong>The Rugged Techniq</strong><em>Men's facial</em></span><b class="service-price">$109.99</b></li>
+          <li><span class="service-name"><strong>The Fresh Start Techniq</strong><em>Teen facial</em></span><b class="service-price">$64.99</b></li>
         </ul>
         <div class="service-card-actions">
           <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="service-book-link">Book a Facial</a>
@@ -1129,12 +1168,12 @@
         </div>
         <p>Professional waxing services designed to be as comfortable and effective as possible, leaving your skin smooth, clean, and irritation-free.</p>
         <ul class="service-items">
-          <li><span class="service-name"><strong>Underarm Wax</strong><em>Routine upkeep</em></span><b class="service-price">$20</b></li>
-          <li><span class="service-name"><strong>Lip Wax</strong><em>Upper lip</em></span><b class="service-price">$7</b></li>
-          <li><span class="service-name"><strong>Chin Wax</strong><em>Chin area</em></span><b class="service-price">$12</b></li>
-          <li><span class="service-name"><strong>Bikini Wax</strong><em>Bikini line</em></span><b class="service-price">$30</b></li>
-          <li><span class="service-name"><strong>Brazilian Wax</strong><em>Full Brazilian</em></span><b class="service-price">$60</b></li>
-          <li><span class="service-name"><strong>Vagacial Treatment</strong><em>Options vary</em></span><b class="service-price">$35+</b></li>
+          <li><span class="service-name"><strong>Underarm Wax</strong><em>Routine upkeep</em></span><b class="service-price">$19.99</b></li>
+          <li><span class="service-name"><strong>Lip Wax</strong><em>Upper lip</em></span><b class="service-price">$6.99</b></li>
+          <li><span class="service-name"><strong>Chin Wax</strong><em>Chin area</em></span><b class="service-price">$11.99</b></li>
+          <li><span class="service-name"><strong>Bikini Wax</strong><em>Bikini line</em></span><b class="service-price">$29.99</b></li>
+          <li><span class="service-name"><strong>Brazilian Wax</strong><em>Full Brazilian</em></span><b class="service-price">$59.99</b></li>
+          <li><span class="service-name"><strong>Vagacial Treatment</strong><em>Options vary</em></span><b class="service-price">$34.99+</b></li>
         </ul>
         <div class="service-card-actions">
           <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="service-book-link secondary">Book Waxing</a>
@@ -1240,8 +1279,12 @@
         <p>Yes. Treatments are always customized, so whether you are dealing with breakouts, sensitivity, or hyperpigmentation, your service will be adjusted accordingly. If you have specific concerns, you are welcome to reach out before booking.</p>
       </details>
       <details>
+        <summary>How do I choose the right products for my skin?</summary>
+        <p>Start with your current skin type and main concern rather than choosing products based only on trends. The product shop can be filtered by skin type, concern, and product category. If you are unsure, book a consultation for professional guidance before starting a new routine.</p>
+      </details>
+      <details>
         <summary>What is the cancellation policy?</summary>
-        <p>Please cancel or reschedule at least 24 hours in advance. Late cancellations or no-shows are subject to a $30 fee. Life happens, so give as much notice as you can.</p>
+        <p>Please cancel or reschedule at least 24 hours in advance. Late cancellations or no-shows are subject to a $29.99 fee. Life happens, so give as much notice as you can.</p>
       </details>
       <details>
         <summary>How do I book?</summary>
@@ -1319,6 +1362,8 @@
       <h4>Explore</h4>
       <a href="Packages.html">Packages &amp; Bundles</a>
       <a href="products.html">Shop Products</a>
+      <a href="about.html">About Shaniqua</a>
+      <a href="policies.html">Policies</a>
       <a href="/skincare-manchester-ct.html">Skincare Manchester CT</a>
       <a href="/facials-manchester-vernon-ct.html">Facials Manchester &amp; Vernon</a>
       <a href="/acne-corrective-vernon-ct.html">Acne &amp; Corrective Skincare</a>
@@ -1343,6 +1388,9 @@
     <span>Serving Vernon, Manchester, Rockville & Tolland County</span>
 
    
+  </div>
+  <div class="footer-legal" style="max-width:1100px;margin:22px auto 0;padding-top:18px;border-top:1px solid rgba(0,0,0,.1);display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;font-size:12px;">
+    <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookie-policy.html">Cookie Policy</a><a href="accessibility.html">Accessibility</a><button type="button" data-cookie-preferences style="border:0;background:none;padding:0;color:#777;font:inherit;cursor:pointer;">Cookie Choices</button>
   </div>
   </footer>
 
@@ -1479,6 +1527,19 @@ document.addEventListener("DOMContentLoaded", function () {
   showSlide(currentSlide);
   startAutoRotate();
 });
+</script>
+<style>
+.skin-reset-modal{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(31,27,30,.62);backdrop-filter:blur(10px)}
+.skin-reset-modal.active{display:flex}.skin-reset-card{position:relative;width:min(760px,100%);max-height:min(860px,92vh);overflow:auto;border:1px solid rgba(255,255,255,.7);border-radius:30px;padding:38px;background:radial-gradient(500px 320px at 95% 0,rgba(235,187,168,.36),transparent 60%),radial-gradient(480px 300px at 0 100%,rgba(188,192,214,.3),transparent 65%),#fff;box-shadow:0 34px 90px rgba(0,0,0,.3)}
+.skin-reset-close{position:absolute;right:18px;top:16px;width:40px;height:40px;border:1px solid rgba(0,0,0,.1);border-radius:50%;background:rgba(255,255,255,.8);font-size:23px;cursor:pointer}.skin-reset-kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9f7e6b;font-weight:600}.skin-reset-card h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.7rem);font-weight:400;line-height:1.05;margin:8px 0}.skin-reset-meta{font-weight:600;color:#6d5449;margin-bottom:17px}.skin-reset-lead{font-size:16px;line-height:1.65;color:#4f4f4f}.skin-reset-free{display:flex;align-items:center;gap:15px;border-radius:18px;padding:17px 20px;background:rgba(200,225,207,.34);margin:20px 0 8px}.skin-reset-free strong{font-size:clamp(1.6rem,4vw,2.5rem);line-height:1;color:#477052;white-space:nowrap}.skin-reset-free span{font-size:13px;color:#4f5c53}.skin-reset-terms{margin:0 2px 20px;font-size:10.5px;line-height:1.5;color:#777}.skin-reset-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.skin-reset-book{color:#2f2f2f;text-decoration:none;padding:13px 23px;border-radius:999px;font-weight:600;background:linear-gradient(180deg,#f8ddd2,#EBBBA8 48%,#dfa58f);border:1px solid rgba(151,91,68,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 12px 28px rgba(143,91,72,.23)}.skin-reset-dismiss{border:0;background:transparent;color:#666;text-decoration:underline;cursor:pointer;padding:12px}
+.cookie-banner{position:fixed;z-index:3100;left:24px;right:24px;bottom:22px;display:none;align-items:center;justify-content:space-between;gap:20px;max-width:980px;margin:auto;padding:17px 20px;border:1px solid rgba(0,0,0,.1);border-radius:18px;background:rgba(255,255,255,.96);box-shadow:0 18px 55px rgba(0,0,0,.2);backdrop-filter:blur(12px)}.cookie-banner.active{display:flex}.cookie-banner strong{font-family:'Playfair Display',serif;font-size:18px}.cookie-banner p{font-size:12.5px;color:#606060;margin:3px 0 0;line-height:1.5}.cookie-banner a{color:#76574a}.cookie-actions{display:flex;gap:9px;flex-shrink:0}.cookie-actions button{border:1px solid rgba(0,0,0,.12);border-radius:999px;padding:10px 16px;cursor:pointer}.cookie-accept{background:#EBBBA8}.cookie-deny{background:#fff}
+@media(max-width:650px){.skin-reset-card{padding:30px 22px 24px}.skin-reset-free{align-items:flex-start;flex-direction:column;gap:7px}.cookie-banner{align-items:stretch;flex-direction:column}.cookie-actions{display:grid;grid-template-columns:1fr 1fr}.cookie-actions button{width:100%}}
+@media(max-width:480px){.skin-reset-modal{padding:12px}.skin-reset-card{max-height:calc(100dvh - 24px);padding:26px 18px 20px;border-radius:22px}.skin-reset-card h2{font-size:2rem;padding-right:30px}.skin-reset-meta{font-size:13px}.skin-reset-lead{font-size:14px}.skin-reset-free{padding:14px 16px;margin-top:15px}.skin-reset-actions{display:grid;grid-template-columns:1fr}.skin-reset-book,.skin-reset-dismiss{text-align:center;width:100%}.cookie-banner{left:10px;right:10px;bottom:10px;padding:14px}}
+</style>
+<div class="skin-reset-modal" id="skinResetModal" role="dialog" aria-modal="true" aria-labelledby="skinResetTitle" aria-hidden="true"><div class="skin-reset-card"><button class="skin-reset-close" type="button" data-skin-reset-close aria-label="Close Skin Reset offer">&times;</button><div class="skin-reset-kicker">New here?</div><h2 id="skinResetTitle">Start with The Skin Reset</h2><div class="skin-reset-meta">$159.99 · 1 hour · New clients only</div><p class="skin-reset-lead">A comprehensive consultation, customized facial, and personalized treatment plan designed to help you take control of your skin.</p><div class="skin-reset-free"><strong>$50 CREDIT</strong><span>toward professional skincare products to start your at-home routine.</span></div><p class="skin-reset-terms">Offer valid for new customers only. Limit one product credit per customer. Cannot be combined with any other promotion, discount, package, or offer. Product selection and availability may vary.</p><div class="skin-reset-actions"><a class="skin-reset-book" href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services/FZ7X7MVC7N33LYYUZJFIEODP">Book The Skin Reset</a><button class="skin-reset-dismiss" type="button" data-skin-reset-close>Maybe later</button></div></div></div>
+<div class="cookie-banner" id="cookieConsentBanner" role="dialog" aria-live="polite" aria-hidden="true" aria-label="Cookie consent"><div><strong>Cookie choices</strong><p>We use necessary browser storage for your cart, cookie choice, and first-visit preferences. Read our <a href="cookie-policy.html">Cookie Policy</a>.</p></div><div class="cookie-actions"><button class="cookie-deny" type="button" data-cookie-deny>Decline optional</button><button class="cookie-accept" type="button" data-cookie-accept>Accept</button></div></div>
+<script>
+(function(){const promo=document.getElementById('skinResetModal');const banner=document.getElementById('cookieConsentBanner');const promoKey='techniqSkinResetPromoSeen';const cookieKey='techniqCookieConsent';const read=k=>{try{return localStorage.getItem(k)}catch(e){return null}};const write=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};const showCookies=()=>{if(banner){banner.classList.add('active');banner.setAttribute('aria-hidden','false')}};const openCookies=()=>{if(!read(cookieKey))showCookies()};const closePromo=()=>{if(!promo)return;promo.classList.remove('active');promo.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(openCookies,350)};if(promo&&!read(promoKey)){setTimeout(()=>{write(promoKey,'shown');promo.classList.add('active');promo.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';promo.querySelector('.skin-reset-close').focus()},900)}else{setTimeout(openCookies,700)}document.querySelectorAll('[data-skin-reset-close]').forEach(b=>b.addEventListener('click',closePromo));if(promo)promo.addEventListener('click',e=>{if(e.target===promo)closePromo()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&promo&&promo.classList.contains('active'))closePromo()});document.querySelectorAll('[data-cookie-preferences]').forEach(b=>b.addEventListener('click',showCookies));document.querySelectorAll('[data-cookie-accept]').forEach(b=>b.addEventListener('click',()=>{write(cookieKey,'accepted');banner.classList.remove('active');banner.setAttribute('aria-hidden','true')}));document.querySelectorAll('[data-cookie-deny]').forEach(b=>b.addEventListener('click',()=>{write(cookieKey,'essential-only');banner.classList.remove('active');banner.setAttribute('aria-hidden','true')}))})();
 </script>
 </body>
 </html>

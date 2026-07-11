@@ -3,7 +3,7 @@ const SQUARE_CHECKOUT_FUNCTION_URL =
 
 const CART_KEY = "techniqCart";
 const FREE_SHIPPING_THRESHOLD = 49.99;
-const ESTIMATED_SHIPPING = 12;
+const ESTIMATED_SHIPPING = 11.99;
 const CT_TAX_RATE = 0.0635;
 
 const PRODUCTS = [
@@ -15,7 +15,7 @@ const PRODUCTS = [
     skinType: ["Dry", "Sensitive"],
     concerns: ["Dehydration"],
     productType: ["Moisturizer"],
-    variants: [{ name: "1.8 oz", price: 28.0 }]
+    variants: [{ name: "1.8 oz", price: 27.99 }]
   },
   {
     id: "blemish-spot-treatment",
@@ -25,7 +25,7 @@ const PRODUCTS = [
     skinType: ["Acne-Prone", "Oily"],
     concerns: ["Acne"],
     productType: ["Other"],
-    variants: [{ name: "Regular", price: 22.0 }]
+    variants: [{ name: "Regular", price: 21.99 }]
   },
   {
     id: "charcoal-clay-cleanser",
@@ -48,19 +48,19 @@ const PRODUCTS = [
     skinType: ["Acne-Prone", "Oily"],
     concerns: ["Acne"],
     productType: ["Toner"],
-    variants: [{ name: "2 oz", price: 20.0 }]
+    variants: [{ name: "2 oz", price: 19.99 }]
   },
   {
-    id: "cucumber-hydrating-tonerr",
-    name: "Cucumber Hydrating Tonerr",
+    id: "cucumber-hydrating-toner",
+    name: "Cucumber Hydrating Toner",
     description: "A hydrating toner that helps comfort and refresh the skin while supporting a balanced feel.",
     image: "images/cucumber-hydrating-toner.png",
     skinType: ["Dry", "Sensitive"],
     concerns: ["Dehydration"],
     productType: ["Toner"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "3.3 oz", price: 24.0 }
+      { name: "2 oz", price: 13.99 },
+      { name: "3.3 oz", price: 23.99 }
     ]
   },
   {
@@ -71,7 +71,7 @@ const PRODUCTS = [
     skinType: ["Mature"],
     concerns: ["Aging Skin", "Texture"],
     productType: ["Exfoliant", "Toner"],
-    variants: [{ name: "2 oz", price: 28.0 }]
+    variants: [{ name: "2 oz", price: 27.99 }]
   },
   {
     id: "green-tea-citrus-cleanser",
@@ -82,8 +82,8 @@ const PRODUCTS = [
     concerns: ["Dullness"],
     productType: ["Cleanser"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "6.4 oz", price: 32.0 }
+      { name: "2 oz", price: 13.99 },
+      { name: "6.4 oz", price: 31.99 }
     ]
   },
   {
@@ -95,8 +95,8 @@ const PRODUCTS = [
     concerns: ["Dullness", "Hyperpigmentation"],
     productType: ["Cleanser"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "6.4 oz", price: 32.0 }
+      { name: "2 oz", price: 13.99 },
+      { name: "6.4 oz", price: 31.99 }
     ]
   },
   {
@@ -107,7 +107,7 @@ const PRODUCTS = [
     skinType: ["Dry"],
     concerns: ["Dehydration"],
     productType: ["Moisturizer"],
-    variants: [{ name: "1.7 oz", price: 30.0 }]
+    variants: [{ name: "1.7 oz", price: 29.99 }]
   },
   {
     id: "mandelic-brightening-serum",
@@ -117,7 +117,7 @@ const PRODUCTS = [
     skinType: ["All"],
     concerns: ["Dullness", "Hyperpigmentation"],
     productType: ["Serum"],
-    variants: [{ name: "1 oz", price: 30.0 }]
+    variants: [{ name: "1 oz", price: 29.99 }]
   },
   {
     id: "mint-refining-toner",
@@ -128,8 +128,8 @@ const PRODUCTS = [
     concerns: ["Acne"],
     productType: ["Toner"],
     variants: [
-      { name: "2 oz", price: 14.0 },
-      { name: "6.4 oz", price: 24.0 }
+      { name: "2 oz", price: 13.99 },
+      { name: "6.4 oz", price: 23.99 }
     ]
   },
   {
@@ -153,7 +153,7 @@ const PRODUCTS = [
     skinType: ["Mature"],
     concerns: ["Aging Skin", "Texture"],
     productType: ["Exfoliant"],
-    variants: [{ name: "2 oz", price: 40.0 }]
+    variants: [{ name: "2 oz", price: 39.99 }]
   },
   {
     id: "revitalizing-cucumber-treatment",
@@ -163,7 +163,7 @@ const PRODUCTS = [
     skinType: ["Sensitive"],
     concerns: ["Dehydration"],
     productType: ["Mask"],
-    variants: [{ name: "2 oz", price: 46.0 }]
+    variants: [{ name: "2 oz", price: 45.99 }]
   },
   {
     id: "vita-c-green-tea-serum",
@@ -173,7 +173,7 @@ const PRODUCTS = [
     skinType: ["All"],
     concerns: ["Dullness", "Hyperpigmentation"],
     productType: ["Serum"],
-    variants: [{ name: "1 oz", price: 40.0 }]
+    variants: [{ name: "1 oz", price: 39.99 }]
   }
 ];
 
@@ -496,6 +496,13 @@ function injectCartStyles() {
       cursor:pointer;
       font-size:13px;
     }
+    .techniq-checkout-trust{
+      margin:10px 0 0;
+      color:#666;
+      font-size:11.5px;
+      line-height:1.45;
+      text-align:center;
+    }
     .techniq-shipping-note{
   font-size:13px;
       color:#9f7e6b;
@@ -575,6 +582,7 @@ function injectCartUI() {
           <strong id="techniqGrandTotal">$0</strong>
         </div>
         <button class="techniq-checkout" id="techniqCheckoutBtn" type="button">Checkout</button>
+        <p class="techniq-checkout-trust">Secure payment processing through Square · Order totals shown before payment</p>
         <button class="techniq-continue" id="techniqContinueBtn" type="button">Continue shopping</button>
       </div>
     </aside>
@@ -634,7 +642,7 @@ function updateCartUI() {
     .map(
       (item) => `
       <div class="techniq-cart-item">
-        <img src="${item.image || ""}" alt="${item.name}">
+        <img src="${item.image || ""}" alt="${getAltText(item.id) || item.name}">
         <div>
           <h4>${item.name}</h4>
           <p>${item.variant} · ${money(item.price)}</p>
@@ -673,26 +681,28 @@ const state = {
 };
 
 const ALT_TEXT = {
-  "barrier-balancing-moisturizer": "Barrier Balancing Moisturizer Manchester CT",
-  "blemish-spot-treatment": "Blemish Spot Treatment Vernon CT",
-  "charcoal-clay-cleanser": "Charcoal Clay Cleanser Manchester CT",
-  "clarifying-toner-pads": "Clarifying Toner Pads Vernon CT",
-  "cucumber-hydrating-tonerr": "Cucumber Hydrating Toner Manchester CT",
-  "glycolic-and-retinol-pads": "Glycolic and Retinol Pads Vernon CT",
-  "green-tea-citrus-cleanser": "Green Tea Citrus Cleanser Manchester CT",
-  "honey-brightening-cleanser": "Honey Brightening Cleanser Vernon CT",
-  "hydrating-moisturizer": "Hydrating Moisturizer Manchester CT",
-  "mandelic-brightening-serum": "Mandelic Brightening Serum Vernon CT",
-  "mint-refining-toner": "Mint Refining Toner Manchester CT",
-  "pomegranate-antioxidant-cleanser": "Pomegranate Antioxidant Cleanser Vernon CT",
-  "retinol-2-scrub": "Retinol 2% Scrub Manchester CT",
-  "revitalizing-cucumber-treatment": "Revitalizing Cucumber Treatment Vernon CT",
-  "vita-c-green-tea-serum": "Vita C Green Tea Serum Manchester CT"
+  "barrier-balancing-moisturizer": "Barrier Balancing Moisturizer for professional skincare clients in Manchester and Vernon CT",
+  "blemish-spot-treatment": "Blemish Spot Treatment for acne skincare routines in Vernon and Manchester CT",
+  "charcoal-clay-cleanser": "Charcoal Clay Cleanser for oily skincare routines in Manchester and Vernon CT",
+  "clarifying-toner-pads": "Clarifying Toner Pads for acne-prone skin care in Vernon and Manchester CT",
+  "cucumber-hydrating-toner": "Cucumber Hydrating Toner for dry skin care in Manchester and Vernon CT",
+  "glycolic-and-retinol-pads": "Glycolic and Retinol Pads for texture-focused skincare in Vernon and Manchester CT",
+  "green-tea-citrus-cleanser": "Green Tea Citrus Cleanser for esthetician-selected skincare in Manchester and Vernon CT",
+  "honey-brightening-cleanser": "Honey Brightening Cleanser for radiant skincare routines in Vernon and Manchester CT",
+  "hydrating-moisturizer": "Hydrating Moisturizer for dry skin care clients in Manchester and Vernon CT",
+  "mandelic-brightening-serum": "Mandelic Brightening Serum for uneven tone skincare in Vernon and Manchester CT",
+  "mint-refining-toner": "Mint Refining Toner for oily skin care routines in Manchester and Vernon CT",
+  "pomegranate-antioxidant-cleanser": "Pomegranate Antioxidant Cleanser for bright-looking skincare in Vernon and Manchester CT",
+  "retinol-2-scrub": "Retinol 2 percent Scrub for smoothing skincare routines in Manchester and Vernon CT",
+  "revitalizing-cucumber-treatment": "Revitalizing Cucumber Treatment for sensitive skincare in Vernon and Manchester CT",
+  "vita-c-green-tea-serum": "Vita C Green Tea Serum for brightening skincare in Manchester and Vernon CT"
 };
 
 function getAltText(id) {
   return ALT_TEXT[id] || null;
 }
+
+window.getAltText = getAltText;
 
 function minPrice(product) {
   const prices = product.variants.map((v) => v.price).filter((p) => typeof p === "number");
@@ -821,10 +831,50 @@ function renderProductsPage() {
       tags.appendChild(pill);
     });
 
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    let selectedVariantIndex = 0;
+
+    if (p.variants.length > 1) {
+      const variantSelect = document.createElement("select");
+      variantSelect.className = "card-variant";
+      variantSelect.setAttribute("aria-label", `Choose a size for ${p.name}`);
+
+      p.variants.forEach((variant, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = `${variant.name} — ${money(variant.price)}`;
+        variantSelect.appendChild(option);
+      });
+
+      variantSelect.addEventListener("click", (event) => event.stopPropagation());
+      variantSelect.addEventListener("keydown", (event) => event.stopPropagation());
+      variantSelect.addEventListener("change", (event) => {
+        event.stopPropagation();
+        selectedVariantIndex = Number(variantSelect.value);
+        price.textContent = money(p.variants[selectedVariantIndex].price);
+      });
+      actions.appendChild(variantSelect);
+    }
+
+    const addButton = document.createElement("button");
+    addButton.className = "card-add-button";
+    addButton.type = "button";
+    addButton.textContent = "Add to Routine";
+    addButton.setAttribute("aria-label", `Add ${p.name} to your routine`);
+    addButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      addToCart(p, p.variants[selectedVariantIndex]);
+    });
+    addButton.addEventListener("keydown", (event) => event.stopPropagation());
+    actions.appendChild(addButton);
+
     body.appendChild(title);
     body.appendChild(price);
     body.appendChild(best);
     body.appendChild(tags);
+    body.appendChild(actions);
 
     card.appendChild(imgArea);
     card.appendChild(body);

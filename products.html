@@ -72,7 +72,7 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
   position: relative;
   min-height: 64px;
@@ -127,11 +127,10 @@
 }
 
 .nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;
+  margin-left: auto;
   display: flex;
-  gap: 24px;
+  gap: 28px;
   align-items: center;
 }
 
@@ -142,6 +141,7 @@
   font-size: 0.9rem;
   color: #2f2f2f;
   padding-bottom: 4px;
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -310,25 +310,32 @@
 }
 
 .btn-primary {
-  background: #EBBBA8;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(180deg,#f7d7ca 0%,#EBBBA8 48%,#dfa58f 100%);
   color: #2f2f2f;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  border:1px solid rgba(151,91,68,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(121,71,54,.12),0 10px 24px rgba(143,91,72,.2);
+  text-shadow:0 1px 0 rgba(255,255,255,.4);
 }
 
 .btn-primary:hover {
-  background: #DFAE9A;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  background:linear-gradient(180deg,#fbe4da 0%,#efc2b0 48%,#dda088 100%);
+  transform: translateY(-2px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 14px 30px rgba(143,91,72,.26);
 }
 
 .btn-secondary {
-  background: #C8E1CF;
+  background:linear-gradient(180deg,#e4f1e8 0%,#C8E1CF 52%,#b7d2bf 100%);
   color: #2f2f2f;
+  border:1px solid rgba(76,120,89,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 8px 20px rgba(75,108,86,.14);
 }
 
 .btn-secondary:hover {
-  background: #BDC6D7;
-  transform: translateY(-1px);
+  background:linear-gradient(180deg,#edf7f0 0%,#d0e8d6 52%,#b9d5c1 100%);
+  transform: translateY(-2px);
+  box-shadow:inset 0 1px 0 #fff,0 12px 26px rgba(75,108,86,.2);
 }
 
 .wrap{
@@ -403,25 +410,37 @@
       transition:transform .18s ease, box-shadow .18s ease;
       display:flex;
       flex-direction:column;
-      min-height:230px;
+      min-height:430px;
     }
     .card:hover{
       transform:translateY(-3px);
       box-shadow:0 22px 54px rgba(0,0,0,0.10);
     }
     .img-area{
-      height:138px;
+      height:290px;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:16px;
-      background:linear-gradient(135deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
+      padding:18px 20px 14px;
+      overflow:hidden;
+      border-bottom:1px solid rgba(0,0,0,.05);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,.98) 0 32%, rgba(255,255,255,.45) 68%),
+        linear-gradient(135deg, rgba(188,192,214,.18), rgba(235,187,168,.15));
     }
     .img-area img{
-      max-height:110px;
-      max-width:100%;
+      display:block;
+      width:100%;
+      height:100%;
       object-fit:contain;
-      filter:drop-shadow(0 16px 24px rgba(0,0,0,0.12));
+      object-position:center;
+      filter:drop-shadow(0 14px 18px rgba(0,0,0,.16));
+      transition:transform .25s ease, filter .25s ease;
+    }
+    .card:hover .img-area img,
+    .card:focus-visible .img-area img{
+      transform:scale(1.035);
+      filter:drop-shadow(0 18px 22px rgba(0,0,0,.2));
     }
     .img-ph{
       width:100%;
@@ -435,10 +454,16 @@
     }
 
     .card-body{
-      padding:16px 16px 18px;
+      padding:18px 18px 20px;
       display:flex;
       flex-direction:column;
       gap:8px;
+      flex:1;
+    }
+
+    @media (max-width: 640px){
+      .card{min-height:460px}
+      .img-area{height:330px; padding:18px 22px 14px}
     }
     .title{
       font-weight:600;
@@ -470,6 +495,40 @@
       background:rgba(255,255,255,.6);
       color:rgba(38,38,38,.78);
     }
+    .card-actions{
+      display:grid;
+      gap:9px;
+      margin-top:auto;
+      padding-top:12px;
+    }
+    .card-variant{
+      width:100%;
+      min-height:42px;
+      padding:9px 12px;
+      border:1px solid rgba(0,0,0,.12);
+      border-radius:12px;
+      background:rgba(255,255,255,.9);
+      color:var(--ink);
+      font:500 13px Inter, sans-serif;
+      cursor:pointer;
+    }
+    .card-add-button{
+      width:100%;
+      min-height:44px;
+      border-radius:999px;
+      border:1px solid rgba(151,91,68,.18);
+      background:linear-gradient(180deg,#f9e1d7 0%,#EBBBA8 48%,#dca087 100%);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(121,71,54,.14),0 9px 20px rgba(143,91,72,.2);
+      color:#2f2f2f;
+      font:600 13px Inter, sans-serif;
+      cursor:pointer;
+      transition:transform .2s ease,box-shadow .2s ease;
+    }
+    .card-add-button:hover{
+      transform:translateY(-2px);
+      box-shadow:inset 0 1px 0 #fff,0 13px 26px rgba(120,76,60,.26);
+    }
+    .card-add-button:active{transform:translateY(1px)}
 
     /* Filter drawer (RIGHT) */
     .drawer{
@@ -676,8 +735,9 @@
 <!-- ══ MOBILE MENU ══ -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
-  <a href="Packages.html">Packages</a>
+  <a href="about.html">About</a>
   <a href="products.html">Products</a>
+  <a href="Packages.html">Packages</a>
   <a href="newsletter.html">Newsletter</a>
   <a href="intake-consent.html">Intake Form</a>
   <a href="https://book.squareup.com/appointments/akl2v1sa6lvvyg/location/LPYHQ6EDHX53D/services" class="mobile-book">Book Now</a>
@@ -692,6 +752,7 @@
     </a>
 
     <div class="nav-center">
+      <a href="about.html" class="nav-link">About</a>
       <a href="products.html" class="nav-link">Products</a>
       <a href="Packages.html" class="nav-link">Packages</a>
       <a href="newsletter.html" class="nav-link">Newsletter</a>
@@ -845,6 +906,8 @@
       <h4>Explore</h4>
       <a href="Packages.html">Packages &amp; Bundles</a>
       <a href="products.html">Shop Products</a>
+      <a href="about.html">About Shaniqua</a>
+      <a href="policies.html">Policies</a>
       <a href="/skincare-manchester-ct.html">Skincare Manchester CT</a>
       <a href="/facials-manchester-vernon-ct.html">Facials Manchester &amp; Vernon</a>
       <a href="newsletter.html">Newsletter</a>
@@ -868,6 +931,7 @@
 
    
   </div>
+  <div class="footer-legal" style="max-width:1100px;margin:22px auto 0;padding-top:18px;border-top:1px solid rgba(0,0,0,.1);display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookie-policy.html">Cookie Policy</a><a href="accessibility.html">Accessibility</a></div>
 </footer>
 
 </body>

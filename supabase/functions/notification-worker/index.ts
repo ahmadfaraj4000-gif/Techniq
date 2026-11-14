@@ -1,4 +1,4 @@
-import { consultationConfirmation, sendTransactionalEmail } from '../_shared/brevo.ts';
+import { consultationConfirmation, newClientIntake, sendTransactionalEmail } from '../_shared/brevo.ts';
 // Server-to-server worker. Called only by an authorized scheduler; never expose its key.
 const env=(name:string)=>{const value=Deno.env.get(name);if(!value)throw new Error('Missing '+name);return value};
 async function db(path:string, method='GET', body?:unknown){const key=env('SUPABASE_SERVICE_ROLE_KEY');const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:key,Authorization:'Bearer '+key,'Content-Type':'application/json',Prefer:'return=representation'},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw new Error('Database request failed');return await r.json()}
@@ -13,11 +13,16 @@ Deno.serve(async(req:Request)=>{
   for(const job of jobs){
    let state='failed', reason='Unsupported or unconfigured notification';
    try{
-    if(job.kind==='consultation_email') {
+    if(job.kind==='consultation_intake_email') {
+     const rows=await db('consultation_orders?id=eq.'+encodeURIComponent(job.order_ref)+'&select=name,email,status,client_type');
+     const order=rows[0];if(!order||order.status!=='paid'||order.client_type!=='new')throw new Error('Paid new-client consultation not available');
+     const message=newClientIntake({name:order.name,email:order.email,senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeauty@gmail.com'});message.headers={'IdempotencyKey':job.job_key};
+     await sendTransactionalEmail(env('BREVO_API_KEY'),message);state='sent';reason='';
+    } else if(job.kind==='consultation_email') {
      const rows=await db('consultation_orders?id=eq.'+encodeURIComponent(job.order_ref)+'&select=id,name,email,starts_at,status,portal_consultations(status,meeting_url)');
      const order=rows[0], appointment=order?.portal_consultations;
      if(!order || order.status!=='paid' || !appointment || appointment.status!=='scheduled') throw new Error('Paid scheduled consultation not available');
-     const message=consultationConfirmation({name:order.name,email:order.email,startsAt:order.starts_at,meetingUrl:appointment.meeting_url,senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeautyllc@gmail.com'});
+     const message=consultationConfirmation({name:order.name,email:order.email,startsAt:order.starts_at,meetingUrl:appointment.meeting_url,senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeauty@gmail.com'});
      message.headers={'IdempotencyKey':job.job_key};
      await sendTransactionalEmail(env('BREVO_API_KEY'),message);state='sent';reason='';
     } else {

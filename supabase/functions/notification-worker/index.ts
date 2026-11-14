@@ -2,7 +2,7 @@ import { syncGoogleCalendar } from '../_shared/google-calendar.ts';
 import { consultationConfirmation, consultationReceipt, newClientIntake, sendTransactionalEmail } from '../_shared/brevo.ts';
 // Server-to-server worker. Called only by an authorized scheduler; never expose its key.
 const env=(name:string)=>{const value=Deno.env.get(name);if(!value)throw new Error('Missing '+name);return value};
-async function db(path:string, method='GET', body?:unknown){const key=env('SUPABASE_SERVICE_ROLE_KEY');const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:key,Authorization:'Bearer '+key,'Content-Type':'application/json',Prefer:'return=representation'},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw new Error('Database request failed');return await r.json()}
+async function db(path:string, method='GET', body?:unknown){const key=env('SUPABASE_SERVICE_ROLE_KEY');const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:key,Authorization:'Bearer '+key,'Content-Type':'application/json',Prefer:'return=representation'},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw new Error('Database request failed');const text=await r.text();return text?JSON.parse(text):null}
 Deno.serve(async(req:Request)=>{
  if(req.method!=='POST')return new Response('Method not allowed',{status:405});
  const expected=Deno.env.get('NOTIFICATION_WORKER_SECRET');const given=req.headers.get('x-worker-secret');

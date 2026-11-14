@@ -5,12 +5,12 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const safeUrl = s => { try { const u=new URL(s); return ['https:','http:'].includes(u.protocol) ? u.href : ''; } catch { return ''; } };
 const localDateTime = s => { if(!s) return ''; const d=new Date(s); return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16); };
 const fmt = s => s ? new Date(s).toLocaleString() : '—';
-let customers=[], visits=[], consults=[], availability=[], orders=[], events=[], notificationJobs=[], promotions=[], settings=null, intakes=[], tab='dashboard', selected=null, editingPromotion=null, editingConsultation=null, formsUnavailable=false;
+let customers=[], visits=[], consults=[], availability=[], orders=[], events=[], notificationJobs=[], productPayments=[], promotions=[], settings=null, intakes=[], tab='dashboard', selected=null, editingPromotion=null, editingConsultation=null, formsUnavailable=false;
 const status = (s, bad=false) => { $('#status').textContent=s; $('#status').className=bad?'danger':''; };
 async function query(table, order='created_at') { const {data,error}=await db.from(table).select('*').order(order,{ascending:false}); if(error) throw new Error(`${table}: ${error.message}`); return data || []; }
 async function refresh() {
   try {
-    [customers,visits,consults,availability,orders,events,notificationJobs,promotions] = await Promise.all([query('portal_customers'),query('portal_visits'),query('portal_consultations','starts_at'),query('portal_availability','starts_at'),query('consultation_orders'),query('integration_events'),query('notification_jobs'),query('portal_promotions')]);
+    [customers,visits,consults,availability,orders,events,notificationJobs,productPayments,promotions] = await Promise.all([query('portal_customers'),query('portal_visits'),query('portal_consultations','starts_at'),query('portal_availability','starts_at'),query('consultation_orders'),query('integration_events'),query('notification_jobs'),query('storefront_payments','paid_at'),query('portal_promotions')]);
     const set=await db.from('portal_settings').select('*').eq('id',true).maybeSingle(); if(set.error) throw set.error; settings=set.data;
     const forms=await db.from('client_intake_forms').select('email,reviewed_at,created_at').order('created_at',{ascending:false}); intakes=forms.data||[]; formsUnavailable=!!forms.error;
     status(forms.error?'Portal loaded. Intake forms could not be loaded; check the existing intake table permissions.':''); render();
@@ -44,7 +44,10 @@ function render(){
   $('#availability-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target), start=new Date(f.get('starts_at')), end=new Date(f.get('ends_at'));if(!(end>start)||start<=new Date())return status('Choose a future start time and an end after the start.',true);await save('portal_availability',{starts_at:start.toISOString(),ends_at:end.toISOString()})};
   document.querySelectorAll('[data-availability]').forEach(b=>b.onclick=()=>save('portal_availability',{enabled:b.dataset.enabled!=='true'},b.dataset.availability));
  } else if(tab==='products'){
-  content.innerHTML='<div class="card"><h2>Products &amp; sales</h2><p>The current storefront catalog and Square checkout are still in use. Product editing and sales analytics need a shared catalog and verified Square order data before they can be enabled.</p><a class="link" href="../products.html">View current storefront ↗</a></div>';
+  const now=new Date(), monthStart=new Date(now.getFullYear(),now.getMonth(),1), previousStart=new Date(now.getFullYear(),now.getMonth()-1,1);
+  const sum=rows=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(rows.reduce((total,p)=>total+Number(p.amount_cents||0),0)/100);
+  const thisMonth=productPayments.filter(p=>new Date(p.paid_at)>=monthStart), lastMonth=productPayments.filter(p=>new Date(p.paid_at)>=previousStart&&new Date(p.paid_at)<monthStart);
+  content.innerHTML=`<div class="card"><h2>Products &amp; sales</h2><p class="notice">Sales shown are paid online checkouts recorded since this integration was enabled, up to the most recent 1,000 payments. Totals include shipping and tax; earlier sales are not included.</p><div class="grid"><div><strong>This month</strong><p>${esc(sum(thisMonth))} · ${thisMonth.length} payment(s)</p></div><div><strong>Last month</strong><p>${esc(sum(lastMonth))} · ${lastMonth.length} payment(s)</p></div><div><strong>Recorded total</strong><p>${esc(sum(productPayments))} · ${productPayments.length} payment(s)</p></div></div><h3>Recent payments</h3>${productPayments.slice(0,10).map(p=>`<p>${esc(fmt(p.paid_at))} · ${esc(sum([p]))}</p>`).join('')||'<p>No recorded online payments yet.</p>'}<p>Product editing is being set up. <a href="../products.html">View the storefront ↗</a></p></div>`;
  } else if(tab==='promotions'){
   const draft=promotions.find(p=>p.id===editingPromotion);
   const themes=['Seasonal','Product spotlight','Holiday sale','New arrival','Client appreciation'];

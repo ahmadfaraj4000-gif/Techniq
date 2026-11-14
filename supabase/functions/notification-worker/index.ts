@@ -20,9 +20,9 @@ Deno.serve(async(req:Request)=>{
      const message=consultationReceipt({name:order.name,email:order.email,startsAt:order.starts_at,senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeautyllc@gmail.com'});message.headers={'IdempotencyKey':job.job_key};
      await sendTransactionalEmail(env('BREVO_API_KEY'),message);state='sent';reason='';
     } else if(job.kind==='consultation_intake_email') {
-     const rows=await db('consultation_orders?id=eq.'+encodeURIComponent(job.order_ref)+'&select=name,email,status,client_type');
+     const rows=await db('consultation_orders?id=eq.'+encodeURIComponent(job.order_ref)+'&select=name,email,status,client_type,intake_token');
      const order=rows[0];if(!order||order.status!=='paid'||order.client_type!=='new')throw new Error('Paid new-client consultation not available');
-     const message=newClientIntake({name:order.name,email:order.email,senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeautyllc@gmail.com'});message.headers={'IdempotencyKey':job.job_key};
+     const message=newClientIntake({name:order.name,email:order.email,intakeToken:order.intake_token,senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeautyllc@gmail.com'});message.headers={'IdempotencyKey':job.job_key};
      await sendTransactionalEmail(env('BREVO_API_KEY'),message);state='sent';reason='';
     } else if(job.kind==='consultation_email') {
      const rows=await db('consultation_orders?id=eq.'+encodeURIComponent(job.order_ref)+'&select=id,name,email,starts_at,status,portal_consultations(status,meeting_url)');

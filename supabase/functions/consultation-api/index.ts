@@ -9,12 +9,16 @@ async function db(path:string,method='GET',body?:unknown) {
 Deno.serve(async (req:Request)=>{
  if(req.method==='OPTIONS') return new Response('ok',{headers:cors});
  try {
+  const token=new URL(req.url).searchParams.get('intake_token');
+  if(req.method==='GET'&&token){if(!/^[0-9a-f-]{36}$/i.test(token))return json({error:'Invalid intake link'},400);const found=await db('consultation_orders?intake_token=eq.'+encodeURIComponent(token)+'&status=eq.paid&client_type=eq.new&paid_at=gte.'+encodeURIComponent(new Date(Date.now()-30*86400000).toISOString())+'&select=name,email,phone,dob');if(found.length!==1)return json({error:'This intake link has expired. Please enter your details below.'},404);return json({client:found[0]});}
   if(Deno.env.get('BOOKING_ENABLED')!=='true') return json({error:'Online booking is not yet available.'},503);
   if(req.method==='GET') return json({slots:await db('rpc/list_consultation_slots','POST',{})});
   if(req.method!=='POST') return json({error:'Method not allowed'},405);
   const input=await req.json();
   if(!['new','returning'].includes(input.client_type)||typeof input.slot_id!=='string'||!/^[0-9a-f-]{36}$/i.test(input.slot_id)||typeof input.name!=='string'||typeof input.email!=='string'||!/^\S+@\S+\.\S+$/.test(input.email)||typeof input.phone!=='string') return json({error:'Enter a valid name, email, phone and time.'},400);
+  if(typeof input.dob!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(input.dob)||!Number.isFinite(Date.parse(input.dob))||new Date(input.dob).toISOString().slice(0,10)!==input.dob||input.dob>new Date().toISOString().slice(0,10))return json({error:'Enter a valid date of birth.'},400);
   let order; try {const rows=await db('rpc/reserve_consultation_v2','POST',{p_slot:input.slot_id,p_name:input.name,p_email:input.email,p_phone:input.phone,p_client_type:input.client_type}); order=Array.isArray(rows)?rows[0]:rows;} catch {return json({error:'This time is no longer available or booking is not configured. Please refresh.'},409)}
+  await db('consultation_orders?id=eq.'+order.id,'PATCH',{dob:input.dob});
   const base=env('SQUARE_ENVIRONMENT')==='sandbox'?'https://connect.squareupsandbox.com':'https://connect.squareup.com';
   try {
    const result=await fetch(base+'/v2/online-checkout/payment-links',{method:'POST',headers:{Authorization:'Bearer '+env('SQUARE_ACCESS_TOKEN'),'Content-Type':'application/json','Square-Version':'2025-08-20'},body:JSON.stringify({idempotency_key:order.id,order:{location_id:env('SQUARE_LOCATION_ID'),reference_id:order.id,line_items:[{name:'Online skin consultation',quantity:'1',base_price_money:{amount:order.amount_cents,currency:'USD'}}]},pre_populated_data:{buyer_email:order.email},checkout_options:{redirect_url:'https://techniqskinandbeauty.com/consultation.html?payment=returned'}})});

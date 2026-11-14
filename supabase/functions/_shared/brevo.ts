@@ -28,8 +28,8 @@ export function consultationConfirmation(input:{name:string;email:string;startsA
  return {sender:{name:'Techniq Skin & Beauty',email:input.senderEmail},to:[{email:input.email,name:input.name}],replyTo:{email:input.replyTo},subject:'Your Techniq consultation is confirmed',textContent:text,htmlContent:`<!doctype html><html><body style="font-family:Arial,sans-serif;color:#302c2a;line-height:1.6"><h1>Your consultation is confirmed</h1><p>Hi ${escapeHtml(input.name)},</p><p>We look forward to seeing you on <strong>${escapeHtml(time)}</strong>.</p><p><a href="${escapeHtml(meeting.href)}">Join your Google Meet consultation</a></p><p>If you have questions, reply to this email.</p><p>Techniq Skin &amp; Beauty</p></body></html>`};
 }
 
-export function newClientIntake(input:{name:string;email:string;senderEmail:string;replyTo:string}):TransactionalEmail {
- const link='https://techniqskinandbeauty.com/intake-consent.html';
+export function newClientIntake(input:{name:string;email:string;senderEmail:string;replyTo:string;intakeToken?:string}):TransactionalEmail {
+ const link='https://techniqskinandbeauty.com/intake-consent.html'+(input.intakeToken?'#intake_token='+encodeURIComponent(input.intakeToken):'');
  return {sender:{name:'Techniq Skin & Beauty',email:input.senderEmail},to:[{email:input.email,name:input.name}],replyTo:{email:input.replyTo},subject:'Your Techniq intake form',textContent:`Hi ${input.name},\n\nThank you for booking with Techniq Skin & Beauty. Please complete your new-client intake form before your consultation: ${link}\n\nIf you have questions, reply to this email.\n\nTechniq Skin & Beauty`,htmlContent:`<!doctype html><html><body style="font-family:Arial,sans-serif;color:#302c2a;line-height:1.6"><h1>Welcome to Techniq</h1><p>Hi ${escapeHtml(input.name)},</p><p>Thank you for booking. Please complete your new-client intake form before your consultation.</p><p><a href="${link}">Complete your intake form</a></p><p>If you have questions, reply to this email.</p><p>Techniq Skin &amp; Beauty</p></body></html>`};
 }
 

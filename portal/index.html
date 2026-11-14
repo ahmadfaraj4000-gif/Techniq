@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
   <title>Admin portal | Techniq Skin &amp; Beauty</title>
-  <link rel="stylesheet" href="portal.css?v=20261114-6">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="portal.js?v=20261114-6"></script>
+  <link rel="stylesheet" href="portal.css?v=20261114-7">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="portal.js?v=20261114-7"></script>
 </head>
 <body>
   <section id="login" class="login-shell">
-    <div class="login-card card"><a class="login-brand" href="../index.html"><img src="../images/techniq-of.png" alt="Techniq Skin & Beauty"></a><p class="eyebrow">TECHNIQ ADMIN</p><h1>Welcome back.</h1><p>Sign in to care for clients and manage your business.</p><form id="login-form"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button>Sign in</button></form><p id="login-status" role="status"></p><a href="../index.html">← Back to website</a></div>
+    <div class="login-card card"><a class="login-brand" href="../index.html"><span class="login-wordmark">Techniq<small>SKIN &amp; BEAUTY</small></span></a><p class="eyebrow">TECHNIQ ADMIN</p><h1>Welcome back.</h1><p>Sign in to care for clients and manage your business.</p><form id="login-form"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button>Sign in</button></form><p id="login-status" role="status"></p><a href="../index.html">Back to website</a></div>
   </section>
   <div id="app" class="app-shell" hidden>
     <div id="nav-backdrop" class="nav-backdrop" hidden></div>
     <aside id="sidebar" class="sidebar" aria-label="Admin navigation">
-      <div class="sidebar-brand"><a href="../index.html" class="brand"><img src="../images/techniq-of.png" alt=""><span class="brand-copy">Techniq <small>SKIN &amp; BEAUTY</small></span></a><button type="button" id="sidebar-close" class="sidebar-close" aria-label="Close navigation">×</button></div>
+      <div class="sidebar-brand"><a href="../index.html" class="brand"><span class="brand-wordmark">Techniq<small>SKIN &amp; BEAUTY</small></span><span class="brand-monogram" aria-hidden="true">T</span></a><button type="button" id="sidebar-close" class="sidebar-close" aria-label="Close navigation">×</button></div>
       <button type="button" id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-label="Collapse navigation"><span class="toggle-icon" aria-hidden="true">☰</span><span class="nav-label">Collapse sidebar</span></button>
       <p class="sidebar-caption nav-label">WORKSPACE</p>
       <nav aria-label="Portal sections">
@@ -24,9 +24,9 @@
         <button type="button" data-tab="promotions" title="Promotions"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/></svg></span><span class="nav-label">Promotions</span></button>
         <button type="button" data-tab="settings" title="Settings"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l1.6-1.3-1.6-2.8-2 .7a7 7 0 0 0-1.7-1l-.4-2.1h-3.2l-.4 2.1a7 7 0 0 0-1.7 1l-2-.7-1.6 2.8L5.5 11a7 7 0 0 0 0 2l-1.6 1.3 1.6 2.8 2-.7a7 7 0 0 0 1.7 1l.4 2.1h3.2l.4-2.1a7 7 0 0 0 1.7-1l2 .7 1.6-2.8L18.9 13a7 7 0 0 0 .1-1Z"/></svg></span><span class="nav-label">Settings</span></button>
       </nav>
-      <div class="sidebar-footer"><a href="../index.html" class="sidebar-link" title="View website"><span class="nav-icon" aria-hidden="true">↗</span><span class="nav-label">View website</span></a><button id="logout" type="button" class="sidebar-link" title="Sign out"><span class="nav-icon" aria-hidden="true">↪</span><span class="nav-label">Sign out</span></button></div>
+      <div class="sidebar-footer"><a href="../index.html" class="sidebar-link" title="View website"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9Z"/></svg></span><span class="nav-label">View website</span></a><button id="logout" type="button" class="sidebar-link" title="Sign out"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5M13 8l4 4-4 4M8 12h9"/></svg></span><span class="nav-label">Sign out</span></button></div>
     </aside>
-    <div class="workspace"><header class="topbar"><div class="topbar-heading"><button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">☰</button><div><p class="eyebrow">TECHNIQ SKIN &amp; BEAUTY</p><h1 id="page-title">Dashboard</h1></div></div><a class="topbar-link" href="../admin-intake.html">Intake forms <span aria-hidden="true">↗</span></a></header>
+    <div class="workspace"><header class="topbar"><div class="topbar-heading"><button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">☰</button><div><p class="eyebrow">TECHNIQ SKIN &amp; BEAUTY</p><h1 id="page-title">Dashboard</h1></div></div><a class="topbar-link" href="../admin-intake.html">Intake forms</a></header>
       <main class="workspace-content"><p id="page-description" class="page-description">Your business at a glance.</p><p id="status" role="status" aria-live="polite"></p><section id="content" aria-label="Dashboard"></section></main>
     </div>
   </div>

@@ -1,0 +1,13 @@
+import {syncGoogleCalendar} from './google-calendar.ts';
+const config={clientId:'test',clientSecret:'test',refreshToken:'test',calendarId:'primary'};
+const job={id:'12345678-1234-1234-1234-123456789abc',version:1,attempts:1,starts_at:'2030-01-01T15:00:00Z',status:'scheduled',meeting_url:null as string|null,name:'Test',duration_minutes:30};
+const link='https://meet.google.com/abc-defg-hij';
+function assert(v:unknown){if(!v)throw Error('Assertion failed')}
+async function run(j:typeof job,responses:any[]){const calls:any[]=[],saved:any[]=[];const db=async(p:string,_m?:string,b?:unknown)=>p.includes('claim')?[j]:saved.push(b);const mock=(async(u:RequestInfo|URL,o?:RequestInit)=>{calls.push({url:String(u),method:o?.method||'GET',body:o?.body});const r=responses.shift();return new Response(JSON.stringify(r?.data||{}),{status:r?.status||200})}) as typeof fetch;await syncGoogleCalendar(db,config,mock);return{calls,saved}}
+Deno.test('creates one deterministic event and stores generated Meet link',async()=>{const r=await run(job,[{data:{access_token:'x'}},{status:404},{data:{hangoutLink:link}}]);assert(r.calls[2].method==='POST');assert(JSON.parse(r.calls[2].body).id==='techniq12345678123412341234123456789abc');assert(r.saved[0].p_url===link)});
+Deno.test('retry reuses existing event rather than creating another',async()=>{const r=await run(job,[{data:{access_token:'x'}},{data:{id:'exists'}},{data:{hangoutLink:link}}]);assert(r.calls[2].method==='PATCH');assert(r.saved[0].p_url===link)});
+Deno.test('cancel updates only its deterministic event',async()=>{const r=await run({...job,status:'cancelled'},[{data:{access_token:'x'}},{data:{status:'confirmed'}},{data:{status:'cancelled'}}]);assert(JSON.parse(r.calls[2].body).status==='cancelled');assert(!r.saved[0].p_error)});
+Deno.test('manual links preserved without creating another event',async()=>{const r=await run({...job,meeting_url:link} as typeof job,[{data:{access_token:'x'}},{status:404}]);assert(r.calls.length===2);assert(!r.saved[0].p_url)});
+Deno.test('pending conference retries visibly',async()=>{const r=await run(job,[{data:{access_token:'x'}},{status:404},{data:{conferenceData:{createRequest:{status:{statusCode:'pending'}}}}}]);assert(r.saved[0].p_error.includes('preparing'))});
+Deno.test('revoked credentials produce actionable status',async()=>{const r=await run(job,[{status:400}]);assert(r.saved[0].p_error.includes('reconnect'));assert(r.calls.length===1)});
+Deno.test('insert conflict recovers same Meet event',async()=>{const r=await run(job,[{data:{access_token:'x'}},{status:404},{status:409},{data:{hangoutLink:link}}]);assert(r.saved[0].p_url===link)});

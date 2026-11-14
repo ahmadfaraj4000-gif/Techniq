@@ -1,3 +1,4 @@
+import { syncGoogleCalendar } from '../_shared/google-calendar.ts';
 import { consultationConfirmation, consultationReceipt, newClientIntake, sendTransactionalEmail } from '../_shared/brevo.ts';
 // Server-to-server worker. Called only by an authorized scheduler; never expose its key.
 const env=(name:string)=>{const value=Deno.env.get(name);if(!value)throw new Error('Missing '+name);return value};
@@ -8,6 +9,7 @@ Deno.serve(async(req:Request)=>{
  if(!expected||!given)return new Response('Unauthorized',{status:401});
  const encoder=new TextEncoder();const a=new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(expected))),b=new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(given)));let diff=0;for(let i=0;i<a.length;i++)diff|=a[i]^b[i];if(diff!==0)return new Response('Unauthorized',{status:401});
  try{
+  if(Deno.env.get('GOOGLE_REFRESH_TOKEN')){try{await syncGoogleCalendar(db,{clientId:env('GOOGLE_CLIENT_ID'),clientSecret:env('GOOGLE_CLIENT_SECRET'),refreshToken:env('GOOGLE_REFRESH_TOKEN'),calendarId:Deno.env.get('GOOGLE_CALENDAR_ID')||'primary'});}catch{console.error('Calendar sync unavailable; notifications will continue.')}}
   await db('rpc/flag_stale_notification_jobs','POST',{});
   await db('rpc/enqueue_consultation_reminders','POST',{});
   const jobs=await db('rpc/claim_notification_jobs','POST',{p_limit:10});

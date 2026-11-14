@@ -14,7 +14,7 @@ select cron.schedule('techniq-notification-worker','* * * * *', $$
    'Authorization','Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name='techniq_public_anon_jwt'),
    'x-worker-secret',(select decrypted_secret from vault.decrypted_secrets where name='techniq_notification_worker_secret')
   ),
-  body := '{}'::jsonb, timeout_milliseconds := 10000
+  body := '{}'::jsonb, timeout_milliseconds := 60000
  );
 $$);
 -- pg_net briefly stores request headers in its queue. Restrict database access.

@@ -283,7 +283,7 @@ async function checkoutCart() {
   const cart = getCart();
 
   if (!cart.length) {
-    alert("Your cart is empty.");
+    TechniqUI.alert("Your cart is empty.");
     return;
   }
 
@@ -306,14 +306,14 @@ async function checkoutCart() {
 
     if (!response.ok || !data.checkoutUrl) {
       console.error("Square checkout error:", data);
-      alert("Checkout could not be started. Check Supabase function logs.");
+      TechniqUI.alert("Checkout could not be started. Your cart is saved. Please try again or contact us for help.");
       return;
     }
 
     window.location.href = data.checkoutUrl;
   } catch (error) {
     console.error(error);
-    alert("Checkout could not be started. Please try again.");
+    TechniqUI.alert("Checkout could not be started. Please try again.");
   } finally {
     if (btn) {
       btn.disabled = false;

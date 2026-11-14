@@ -6,3 +6,5 @@
 @media print{body>*{display:none!important}body>dialog[open]{display:block!important;position:static;width:100%;max-width:none;max-height:none;border:0;box-shadow:none}dialog .dialog-close,dialog .dialog-actions,dialog #intake-notes,dialog label{display:none!important}}
 
 .login-card{text-align:center}.login-brand{display:inline-flex;justify-content:center;align-items:center;margin:0 auto 16px}.login-brand img{display:block;width:138px;height:138px;object-fit:contain}.login-card form{text-align:left}.login-card>a:last-child{display:inline-block;text-align:center}.progress-entry{border-top:1px solid #eee;padding:12px 0}.progress-entry p{margin:5px 0}.intake-link-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #eee}
+
+.week-slot.blocked{background:#fee2e2;color:#991b1b;border-color:#fca5a5}.week-slot.available{background:#dcfce7;color:#166534;border-color:#86efac}.week-slot{user-select:none;touch-action:none}.week-slot:disabled{opacity:.5}

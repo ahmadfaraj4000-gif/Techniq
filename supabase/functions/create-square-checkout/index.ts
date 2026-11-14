@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
  try {
   const body=await req.json(); const cart=body.cart;
   if(!Array.isArray(cart)||!cart.length||cart.length>50) return response({error:'Invalid cart.'},400);
-  const lineItems=[]; let subtotal=0;
+  const lineItems=[]; const orderItems=[]; let subtotal=0;
   for(const item of cart){
    const product=Object.hasOwn(catalog,item?.id)?catalog[item.id]:null;
    const amount=product && Object.hasOwn(product[1],item.variant)?product[1][item.variant]:null;
@@ -31,6 +31,7 @@ Deno.serve(async (req) => {
    if(!product || typeof amount !== 'number' || !Number.isInteger(amount) || !Number.isSafeInteger(quantity) || quantity<1 || quantity>50) return response({error:'Invalid product, variant, or quantity. Please refresh your cart.'},400);
    subtotal+=amount*quantity;
    lineItems.push({name:product[0]+' - '+item.variant,quantity:String(quantity),base_price_money:{amount,currency:'USD'}});
+   orderItems.push({product_name:product[0],variant:item.variant,quantity,unit_amount_cents:amount});
   }
   if(subtotal<4900) lineItems.push({name:'Shipping',quantity:'1',base_price_money:{amount:1200,currency:'USD'}});
   const token=Deno.env.get('SQUARE_ACCESS_TOKEN'), location=Deno.env.get('SQUARE_LOCATION_ID');
@@ -47,6 +48,8 @@ Deno.serve(async (req) => {
   if(!serviceKey || !dbUrl) return response({error:'Checkout is not configured.'},500);
   const recorded=await fetch(dbUrl+'/rest/v1/storefront_checkout_orders',{method:'POST',headers:{apikey:serviceKey,Authorization:'Bearer '+serviceKey,'Content-Type':'application/json',Prefer:'resolution=ignore-duplicates'},body:JSON.stringify({square_order_id:data.payment_link.order_id})});
   if(!recorded.ok){console.error('Could not register Square checkout',recorded.status);return response({error:'Unable to start checkout.'},502)}
+  const itemsRecorded=await fetch(dbUrl+'/rest/v1/storefront_order_items',{method:'POST',headers:{apikey:serviceKey,Authorization:'Bearer '+serviceKey,'Content-Type':'application/json'},body:JSON.stringify(orderItems.map(item=>({...item,square_order_id:data.payment_link.order_id})))});
+  if(!itemsRecorded.ok){console.error('Could not register order items',itemsRecorded.status);return response({error:'Unable to start checkout.'},502)}
   return response({checkoutUrl:data.payment_link.url});
  } catch(error) {console.error('Checkout error',error);return response({error:'Unable to start checkout.'},400)}
 });

@@ -1,5 +1,33 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Admin portal | Techniq Skin &amp; Beauty</title><link rel="stylesheet" href="portal.css?v=20261114-5"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="portal.js?v=20261114-5"></script></head>
-<body><header><a class="brand" href="../index.html"><img src="../images/techniq-of.png" alt=""><span>Techniq <small>Skin &amp; Beauty</small></span></a><span>Admin portal</span><button id="logout" class="secondary" hidden>Sign out</button></header>
-<main><section id="login" class="card login"><p class="eyebrow">WELCOME BACK</p><h1>Your business, in one place.</h1><p>Sign in with your authorized administrator account.</p><form id="login-form"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button>Sign in</button></form><p id="login-status" role="status"></p></section>
-<div id="app" hidden><div class="intro"><div><p class="eyebrow">TECHNIQ SKIN &amp; BEAUTY</p><h1>Admin portal</h1><p>Care for clients and keep your business moving.</p></div><a class="secondary link" href="../admin-intake.html">Open intake dashboard ↗</a></div><nav aria-label="Portal sections"><button data-tab="dashboard">Dashboard</button><button data-tab="customers">Customers</button><button data-tab="consultations">Consultations</button><button data-tab="products">Products</button><button data-tab="promotions">Promotions</button><button data-tab="settings">Settings</button></nav><p id="status" role="status" aria-live="polite"></p><section id="content"></section></div></main></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+  <title>Admin portal | Techniq Skin &amp; Beauty</title>
+  <link rel="stylesheet" href="portal.css?v=20261114-6">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer src="portal.js?v=20261114-6"></script>
+</head>
+<body>
+  <section id="login" class="login-shell">
+    <div class="login-card card"><a class="login-brand" href="../index.html"><img src="../images/techniq-of.png" alt="Techniq Skin & Beauty"></a><p class="eyebrow">TECHNIQ ADMIN</p><h1>Welcome back.</h1><p>Sign in to care for clients and manage your business.</p><form id="login-form"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button>Sign in</button></form><p id="login-status" role="status"></p><a href="../index.html">← Back to website</a></div>
+  </section>
+  <div id="app" class="app-shell" hidden>
+    <div id="nav-backdrop" class="nav-backdrop" hidden></div>
+    <aside id="sidebar" class="sidebar" aria-label="Admin navigation">
+      <div class="sidebar-brand"><a href="../index.html" class="brand"><img src="../images/techniq-of.png" alt=""><span class="brand-copy">Techniq <small>SKIN &amp; BEAUTY</small></span></a><button type="button" id="sidebar-close" class="sidebar-close" aria-label="Close navigation">×</button></div>
+      <button type="button" id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-label="Collapse navigation"><span class="toggle-icon" aria-hidden="true">☰</span><span class="nav-label">Collapse sidebar</span></button>
+      <p class="sidebar-caption nav-label">WORKSPACE</p>
+      <nav aria-label="Portal sections">
+        <button type="button" data-tab="dashboard" title="Dashboard"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="nav-label">Dashboard</span></button>
+        <button type="button" data-tab="customers" title="Customers"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg></span><span class="nav-label">Customers</span></button>
+        <button type="button" data-tab="consultations" title="Consultations"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h2m4 0h2"/></svg></span><span class="nav-label">Consultations</span></button>
+        <button type="button" data-tab="products" title="Products"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1 14H5L4 7Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span><span class="nav-label">Products &amp; sales</span></button>
+        <button type="button" data-tab="promotions" title="Promotions"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/></svg></span><span class="nav-label">Promotions</span></button>
+        <button type="button" data-tab="settings" title="Settings"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l1.6-1.3-1.6-2.8-2 .7a7 7 0 0 0-1.7-1l-.4-2.1h-3.2l-.4 2.1a7 7 0 0 0-1.7 1l-2-.7-1.6 2.8L5.5 11a7 7 0 0 0 0 2l-1.6 1.3 1.6 2.8 2-.7a7 7 0 0 0 1.7 1l.4 2.1h3.2l.4-2.1a7 7 0 0 0 1.7-1l2 .7 1.6-2.8L18.9 13a7 7 0 0 0 .1-1Z"/></svg></span><span class="nav-label">Settings</span></button>
+      </nav>
+      <div class="sidebar-footer"><a href="../index.html" class="sidebar-link" title="View website"><span class="nav-icon" aria-hidden="true">↗</span><span class="nav-label">View website</span></a><button id="logout" type="button" class="sidebar-link" title="Sign out"><span class="nav-icon" aria-hidden="true">↪</span><span class="nav-label">Sign out</span></button></div>
+    </aside>
+    <div class="workspace"><header class="topbar"><div class="topbar-heading"><button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">☰</button><div><p class="eyebrow">TECHNIQ SKIN &amp; BEAUTY</p><h1 id="page-title">Dashboard</h1></div></div><a class="topbar-link" href="../admin-intake.html">Intake forms <span aria-hidden="true">↗</span></a></header>
+      <main class="workspace-content"><p id="page-description" class="page-description">Your business at a glance.</p><p id="status" role="status" aria-live="polite"></p><section id="content" aria-label="Dashboard"></section></main>
+    </div>
+  </div>
+</body></html>

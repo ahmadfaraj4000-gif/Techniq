@@ -1,0 +1,7 @@
+import {consultationConfirmation,consultationReceipt,newClientIntake} from './brevo.ts';
+import {brandEmail} from './email-layout.ts';
+const input={name:'Ahmad <test>',email:'ahmad.faraj4000@gmail.com',startsAt:'2026-11-14T22:08:39Z',meetingUrl:'https://meet.google.com/bbu-phjn-oze',senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeautyllc@gmail.com',intakeToken:'test-token'};
+function assert(x:unknown){if(!x)throw Error('Assertion failed')}
+Deno.test('all consultation emails share logo, palette and mobile layout',()=>{for(const m of [consultationConfirmation(input),consultationReceipt(input),newClientIntake(input)]){assert(m.htmlContent.includes('images/techniq-of.png'));assert(m.htmlContent.includes('max-width:600px'));assert(m.htmlContent.includes('#EBBBA8'));assert(m.htmlContent.includes('Georgia'));assert(m.htmlContent.includes('Ahmad &lt;test&gt;'));assert(!m.htmlContent.includes('Ahmad <test>'));assert(m.textContent.length>0);assert(m.replyTo?.email===input.replyTo)}});
+Deno.test('action links preserve Meet and intake destinations',()=>{assert(consultationConfirmation(input).htmlContent.includes('href="https://meet.google.com/bbu-phjn-oze"'));assert(newClientIntake(input).htmlContent.includes('#intake_token=test-token'))});
+Deno.test('promotions include unsubscribe, transactional templates do not',()=>{assert(brandEmail({eyebrow:'News',title:'Offer',preheader:'Preview',body:'<p>Offer</p>',marketing:true}).includes('{{ unsubscribe }}'));assert(!consultationReceipt(input).htmlContent.includes('{{ unsubscribe }}'))});

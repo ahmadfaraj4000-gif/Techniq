@@ -55,7 +55,11 @@ declare o public.consultation_orders; customer uuid;
 begin
  select * into o from public.consultation_orders where square_order_id=p_order for update;
  if not found then return 'unknown_order'; end if;
- if o.status='paid' then return 'already_paid'; end if;
+ if o.status='paid' then
+  if o.square_payment_id=p_payment then return 'already_paid'; end if;
+  insert into public.integration_events(event_key,event_type,order_id,state,last_error) values ('payment-review:'||p_payment,'payment_review',o.id,'failed','Additional payment requires manual review') on conflict do nothing;
+  return 'needs_attention';
+ end if;
  if o.status not in ('awaiting_payment','creating_checkout') or o.amount_cents<>p_amount or p_currency<>'USD' then
  update public.consultation_orders set status='needs_attention' where id=o.id;
  insert into public.integration_events(event_key,event_type,order_id,state,last_error) values ('payment-review:'||p_payment,'payment_review',o.id,'failed','Payment requires manual review') on conflict do nothing;

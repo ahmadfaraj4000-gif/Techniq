@@ -19,3 +19,4 @@ select{appearance:none;-webkit-appearance:none;display:block;min-height:48px;lin
 
 /* The topbar owns the page title; content starts with its actions. */
 .section-actions{justify-content:flex-end}.calendar-toolbar>div>.muted{margin:0}.page-description{display:none}.section-actions:empty{display:none}
+.sidebar-brand{position:relative;justify-content:center}.sidebar-brand .brand{text-align:center;margin-inline:auto}.brand-wordmark{text-align:center}.sidebar-brand .sidebar-close{position:absolute;right:0;top:50%;transform:translateY(-50%)}

@@ -12,10 +12,15 @@ Deno.serve(async(req:Request)=>{
   for(const job of jobs){
    let state='failed', reason='Unsupported or unconfigured notification';
    try{
-    if(job.kind!=='consultation_push')throw new Error(reason);
+    const messages:Record<string,{title:string,message:string}>={
+     consultation_push:{title:'New consultation payment',message:'A consultation payment was completed. Open the admin portal for details.'},
+     product_push:{title:'New product order',message:'A product order was paid. Open the admin portal for details.'},
+     product_push_delayed:{title:'Product order reminder',message:'A product order was paid three hours ago. Open the admin portal to follow up.'}
+    };
+    const content=messages[job.kind]; if(!content)throw new Error(reason);
     const token=env('PUSHOVER_APP_TOKEN'), user=env('PUSHOVER_USER_KEY');
     // Keep client names and intake information out of push notifications.
-    const result=await fetch('https://api.pushover.net/1/messages.json',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token,user,title:'New consultation payment',message:'A consultation payment was completed. Open the admin portal for details.',url:'https://techniqskinandbeauty.com/portal/',url_title:'Open admin portal'})});
+    const result=await fetch('https://api.pushover.net/1/messages.json',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token,user,title:content.title,message:content.message,url:'https://techniqskinandbeauty.com/portal/',url_title:'Open admin portal'})});
     const response=await result.json(); if(!result.ok || response.status!==1){state='failed';reason='Pushover rejected the notification';} else {state='sent';reason='';}
    }catch(e){state='unknown';reason='Delivery outcome unknown or provider not configured';console.error('Notification worker:',String(e))}
    await db('notification_jobs?id=eq.'+encodeURIComponent(job.id)+'&state=eq.processing','PATCH',{state,last_error:reason||null,sent_at:state==='sent'?new Date().toISOString():null});

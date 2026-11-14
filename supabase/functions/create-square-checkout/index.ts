@@ -1,9 +1,9 @@
 Deno.serve(async (req) => {
  const cors = {'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'authorization, x-client-info, apikey, content-type','Access-Control-Allow-Methods':'POST, OPTIONS'};
- const response = (body, status=200) => new Response(JSON.stringify(body), {status,headers:{...cors,'Content-Type':'application/json'}});
+ const response = (body:unknown, status=200) => new Response(JSON.stringify(body), {status,headers:{...cors,'Content-Type':'application/json'}});
  if(req.method==='OPTIONS') return new Response('ok',{headers:cors});
  if(req.method!=='POST') return response({error:'Method not allowed'},405);
- const catalog = {
+ const catalog:Record<string,[string,Record<string,number>]> = {
  'barrier-balancing-moisturizer':['Barrier Balancing Moisturizer',{'1.8 oz':3600}],
  'blemish-spot-treatment':['Blemish Spot Treatment',{'Regular':2800}],
  'charcoal-clay-cleanser':['Charcoal Clay Cleanser',{'2 oz':1400,'6.4 oz':3600}],
@@ -28,7 +28,7 @@ Deno.serve(async (req) => {
    const product=Object.hasOwn(catalog,item?.id)?catalog[item.id]:null;
    const amount=product && Object.hasOwn(product[1],item.variant)?product[1][item.variant]:null;
    const quantity=Number(item?.quantity);
-   if(!product || !Number.isInteger(amount) || !Number.isSafeInteger(quantity) || quantity<1 || quantity>50) return response({error:'Invalid product, variant, or quantity. Please refresh your cart.'},400);
+   if(!product || typeof amount !== 'number' || !Number.isInteger(amount) || !Number.isSafeInteger(quantity) || quantity<1 || quantity>50) return response({error:'Invalid product, variant, or quantity. Please refresh your cart.'},400);
    subtotal+=amount*quantity;
    lineItems.push({name:product[0]+' - '+item.variant,quantity:String(quantity),base_price_money:{amount,currency:'USD'}});
   }
@@ -40,7 +40,13 @@ Deno.serve(async (req) => {
   const result=await fetch(base+'/v2/online-checkout/payment-links',{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json','Square-Version':'2025-08-20'},body:JSON.stringify({idempotency_key:crypto.randomUUID(),order:{location_id:location,line_items:lineItems,taxes:[{name:'CT Sales Tax',percentage:'6.35',scope:'ORDER'}]},checkout_options:{redirect_url:site+'/products.html?checkout=success',ask_for_shipping_address:true}})});
   const data=await result.json();
   if(!result.ok) {console.error('Square checkout failed',result.status);return response({error:'Unable to start checkout.'},502)}
-  if(!data.payment_link?.url) return response({error:'Unable to start checkout.'},502);
+  if(!data.payment_link?.url || !data.payment_link?.order_id) return response({error:'Unable to start checkout.'},502);
+  // Persist the Square order before handing the payment link to the shopper.
+  // This allows verified webhooks to distinguish storefront sales from unrelated payments.
+  const serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'), dbUrl=Deno.env.get('SUPABASE_URL');
+  if(!serviceKey || !dbUrl) return response({error:'Checkout is not configured.'},500);
+  const recorded=await fetch(dbUrl+'/rest/v1/storefront_checkout_orders',{method:'POST',headers:{apikey:serviceKey,Authorization:'Bearer '+serviceKey,'Content-Type':'application/json',Prefer:'resolution=ignore-duplicates'},body:JSON.stringify({square_order_id:data.payment_link.order_id})});
+  if(!recorded.ok){console.error('Could not register Square checkout',recorded.status);return response({error:'Unable to start checkout.'},502)}
   return response({checkoutUrl:data.payment_link.url});
  } catch(error) {console.error('Checkout error',error);return response({error:'Unable to start checkout.'},400)}
 });

@@ -19,7 +19,12 @@ Deno.serve(async(req:Request)=>{
   if(!secretKey||!base) return new Response('Not configured',{status:503});
   const result=await fetch(base+'/rest/v1/rpc/finalize_consultation_payment',{method:'POST',headers:{apikey:secretKey,Authorization:'Bearer '+secretKey,'Content-Type':'application/json'},body:JSON.stringify({p_order:p.order_id,p_payment:p.id,p_amount:p.amount_money.amount,p_currency:p.amount_money.currency})});
   if(!result.ok) return new Response('Retry',{status:503});
-  await result.json(); // Orders from the product storefront are handled separately.
+  const disposition=await result.json();
+  if(disposition==='unknown_order') {
+   const product=await fetch(base+'/rest/v1/rpc/record_storefront_payment',{method:'POST',headers:{apikey:secretKey,Authorization:'Bearer '+secretKey,'Content-Type':'application/json'},body:JSON.stringify({p_order:p.order_id,p_payment:p.id,p_amount:p.amount_money.amount,p_currency:p.amount_money.currency})});
+   if(!product.ok) return new Response('Retry',{status:503});
+   await product.json(); // Unknown orders belong to another Square flow; acknowledge them.
+  }
   return new Response('OK',{status:200});
  }catch(e){console.error('Webhook error',String(e));return new Response('Retry',{status:503})}
 });

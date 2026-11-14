@@ -9,6 +9,7 @@ Deno.serve(async(req:Request)=>{
  const encoder=new TextEncoder();const a=new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(expected))),b=new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(given)));let diff=0;for(let i=0;i<a.length;i++)diff|=a[i]^b[i];if(diff!==0)return new Response('Unauthorized',{status:401});
  try{
   await db('rpc/flag_stale_notification_jobs','POST',{});
+  await db('rpc/enqueue_consultation_reminders','POST',{});
   const jobs=await db('rpc/claim_notification_jobs','POST',{p_limit:10});
   for(const job of jobs){
    let state='failed', reason='Unsupported or unconfigured notification';
@@ -30,6 +31,21 @@ Deno.serve(async(req:Request)=>{
      const message=consultationConfirmation({name:order.name,email:order.email,startsAt:order.starts_at,meetingUrl:appointment.meeting_url,senderEmail:'no-reply@techniqskinandbeauty.com',replyTo:'techniqskinandbeautyllc@gmail.com'});
      message.headers={'IdempotencyKey':job.job_key};
      await sendTransactionalEmail(env('BREVO_API_KEY'),message);state='sent';reason='';
+    } else if(job.kind==='consultation_reminder_push'||job.kind==='consultation_daily_push') {
+     const token=env('PUSHOVER_APP_TOKEN'),user=env('PUSHOVER_USER_KEY');
+     const send=async(title:string,message:string)=>{const r=await fetch('https://api.pushover.net/1/messages.json',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token,user,title,message,url:'https://techniqskinandbeauty.com/portal/',url_title:'Open admin portal'})});const d=await r.json();if(!r.ok||d.status!==1)throw new Error('Pushover rejected notification')};
+     const time=(v:string)=>new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).format(new Date(v));
+     if(job.kind==='consultation_reminder_push') {
+      const rows=await db('portal_consultations?id=eq.'+encodeURIComponent(job.order_ref)+'&select=id,starts_at,status,portal_customers(name)');const c=rows[0],expected=Number(job.job_key.split(':').at(-1)),start=c?new Date(c.starts_at).getTime():0;
+      if(!c||c.status!=='scheduled'||Math.floor(start/1000)!==expected||start<=Date.now()||start>Date.now()+15*60*1000){state='sent';reason='Skipped: appointment changed or is no longer upcoming'}
+      else {await send('Consultation in 15 minutes',`${time(c.starts_at)} · ${c.portal_customers?.name||'Client'} (Eastern time)`);state='sent';reason=''}
+     } else {
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(job.order_ref))throw new Error('Invalid summary date');
+      const rows=await db('rpc/list_daily_consultations','POST',{p_day:job.order_ref});const lines=rows.map((c:{starts_at:string,customer_name:string})=>`${time(c.starts_at)} · ${c.customer_name}`);
+      if(!lines.length)await send('Today’s consultations','No consultations scheduled today.');
+      else {let chunk='';for(const line of lines){const next=chunk?chunk+'\n'+line:line;if(next.length>900&&chunk){await send('Today’s consultations',chunk);chunk=line.slice(0,900)}else chunk=next}if(chunk)await send('Today’s consultations',chunk)}
+      state='sent';reason='';
+     }
     } else {
     const messages:Record<string,{title:string,message:string}>={
      intake_push:{title:'New intake form',message:'A client submitted an intake form. Open the admin portal to review it.'},
